@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Pay Landing Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #171717;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 28rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-box {
+            background-color: #000000;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .apple-icon {
+            width: 3rem;
+            height: 3rem;
+            fill: white;
+        }
+
+        .pay-text {
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .steps {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .step {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-number {
+            font-weight: 600;
+        }
+
+        .italic-text {
+            font-style: italic;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .buttons {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .location-btn {
+            width: 100%;
+            background-color: #262626;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 1rem;
+        }
+
+        .location-btn:hover {
+            background-color: #404040;
+        }
+
+        .verification {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+            color: #a3a3a3;
+        }
+
+        .check-icon {
+            width: 1rem;
+            height: 1rem;
+            color: #22c55e;
+        }
+
+        .stats {
+            width: 100%;
+            background-color: #262626;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #a3a3a3;
+        }
+
+        @media (max-width: 640px) {
+            .logo-box {
+                padding: 2rem;
+            }
+
+            .pay-text {
+                font-size: 2.5rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .stat-value {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-box">
+            <div class="logo-content">
+                <svg viewBox="0 0 24 24" class="apple-icon">
+                    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                </svg>
+                <span class="pay-text">Pay</span>
+            </div>
+        </div>
+
+        <h1>Follow the steps below!</h1>
+
+        <div class="steps">
+            <p class="step">
+                <span class="step-number">1.</span> Click button below 👇
+            </p>
+            <p class="step">
+                <span class="step-number">2.</span> Enter email & info ✍️
+            </p>
+            <p class="step">
+                <span class="step-number">3.</span> Complete deals <span class="italic-text">(IMPORTANT)</span> 📱
+            </p>
+            <p class="step">
+                <span class="step-number">4.</span> Claim reward! 💸
+            </p>
+        </div>
+
+        <h2>Where are you located?</h2>
+
+        <div class="buttons">
+            <button class="location-btn">United States</button>
+            <button class="location-btn">Canada</button>
+        </div>
+
+        <div class="verification">
+            <svg class="check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Verified By TikTok</span>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value">$829,145</div>
+                <div class="stat-label">Total Paid Out</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">4,714</div>
+                <div class="stat-label">People Online</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">86%</div>
+                <div class="stat-label">Users Completing</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
