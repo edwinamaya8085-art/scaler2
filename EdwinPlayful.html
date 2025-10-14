@@ -450,7 +450,7 @@
     <script>
         // REDIRECT CONFIGURATION
         // Set your redirect URL here:
-        const REDIRECT_URL = '';
+        const REDIRECT_URL = 'https://uplevelrewarded.com/aff_c?offer_id=2691&aff_id=25523&source=first+run';
 
         // Alternative: Set via localStorage in browser console:
         // localStorage.setItem('redirectUrl', 'https://your-url.com');
@@ -484,11 +484,11 @@
 
         // Start now action - MODIFIED TO USE REDIRECT_URL
         function startNow() {
-            const redirectUrl = localStorage.getItem('https://uplevelrewarded.com/aff_c?offer_id=2691&aff_id=25523&source=first+run') || REDIRECT_URL;
+            const redirectUrl = localStorage.getItem('redirectUrl') || REDIRECT_URL;
             if (redirectUrl) {
                 window.open(redirectUrl, '_blank');
             } else {
-                alert('https://uplevelrewarded.com/aff_c?offer_id=2691&aff_id=25523&source=first+run');
+                alert('Please set REDIRECT_URL in the script or use localStorage.setItem("redirectUrl", "YOUR_URL") in console');
             }
         }
 
