@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" data-geo="US"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0b0f0d">
+<meta name="robots" content="noindex, nofollow">
+<title>Gravy Pass | Quick Match Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0b0f0d;color:#f2f5f3;overflow-x:clip;overscroll-behavior-y:none;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+:root{--mint:#6de6a9;--mint2:#3fbf83;--ink:#04231a;--card:#141a18;--line:#232b28;--mut:#8b9a93;--accent-glow:rgba(109,230,169,0.4)}
+
+.bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 70% 45% at 50% -5%,rgba(109,230,169,.14),transparent 65%),radial-gradient(ellipse 45% 35% at 100% 100%,rgba(63,191,131,.07),transparent 60%),#0b0f0d;animation:drift 16s ease-in-out infinite}
+@keyframes drift{0%,100%{transform:scale(1)}50%{transform:scale(1.06) translateY(-8px)}}
+.sparks{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.sparks i{position:absolute;bottom:-10px;width:3px;height:3px;border-radius:50%;background:var(--mint);opacity:0;animation:up linear infinite}
+@keyframes up{0%{opacity:0;transform:translateY(0) scale(.6)}12%{opacity:.45}70%{opacity:.28}100%{opacity:0;transform:translateY(-104vh) scale(1.1)}}
+
+/* ---- PRE SCREEN ---- */
+#pre{position:relative;z-index:1;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:28px 24px calc(28px + env(safe-area-inset-bottom))}
+.pre-inner{max-width:400px;width:100%;text-align:center;animation:fadeUp .5s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.icon-wrap{width:88px;height:88px;margin:0 auto 28px;border-radius:22px;border:1px solid rgba(109,230,169,0.25);background:rgba(109,230,169,0.15);display:grid;place-items:center;animation:iconGlow 3s ease-in-out infinite}
+@keyframes iconGlow{0%,100%{box-shadow:0 0 30px rgba(109,230,169,0.2)}50%{box-shadow:0 0 60px rgba(109,230,169,0.4)}}
+.icon-wrap svg{width:36px;height:36px;color:var(--mint);stroke-width:2.5}
+.pre-h1{font-size:44px;font-weight:900;line-height:1.04;letter-spacing:-1.5px;margin-bottom:12px;color:#f2f5f3}
+.pre-h1 .hl{color:var(--mint)}
+.pre-sub{font-size:14px;font-weight:700;color:#8b9a93;line-height:1.55;margin-bottom:36px}
+.pre-cta{display:block;width:100%;min-height:60px;background:var(--mint);color:#04231a;font-family:'Inter',sans-serif;font-size:18px;font-weight:900;letter-spacing:0.3px;text-transform:uppercase;padding:18px 24px;border-radius:14px;border:none;cursor:pointer;margin-bottom:18px;transition:transform .1s ease;animation:ctaPulse 2.5s ease-in-out infinite}
+.pre-cta:active{transform:scale(0.97)}
+@keyframes ctaPulse{0%,100%{box-shadow:0 0 40px var(--accent-glow),0 4px 20px rgba(0,0,0,0.4)}50%{box-shadow:0 0 70px var(--accent-glow),0 4px 20px rgba(0,0,0,0.4)}}
+.pre-fallback{font-size:12px;font-weight:600;color:#6f7a75;letter-spacing:0.2px}
+.pre-fallback a{color:#8b9a93;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.sub{display:none;font-size:13px;font-weight:600;color:var(--mut);line-height:1.5;margin-top:14px;text-align:center}
+.sub:not(:empty){display:block}
+.sub b{color:#f2f5f3;font-weight:700}
+@media(max-height:640px){.icon-wrap{width:70px;height:70px;margin-bottom:20px}.icon-wrap svg{width:28px;height:28px}.pre-h1{font-size:36px}.pre-sub{margin-bottom:24px}}
+@media(max-width:374px){.pre-h1{font-size:38px}.pre-cta{font-size:16px;padding:16px 18px}}
+
+/* ---- MAIN CONTENT ---- */
+#main{display:none}
+.wrap{position:relative;z-index:1;max-width:440px;margin:0 auto;padding:22px 18px calc(30px + env(safe-area-inset-bottom))}
+.anim{opacity:0;animation:fade .5s ease forwards}
+@keyframes fade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+.brand{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px}
+.brand img{width:46px;height:46px;border-radius:13px;box-shadow:0 0 22px rgba(109,230,169,.3);animation:glow 3.2s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 18px rgba(109,230,169,.22)}50%{box-shadow:0 0 34px rgba(109,230,169,.46)}}
+.brand .x{color:rgba(255,255,255,.4);font-size:18px}
+.brand .nm{font-size:19px;font-weight:800;letter-spacing:-.02em}
+
+h1{font-size:31px;line-height:1.12;font-weight:900;letter-spacing:-.9px;text-align:center;margin-bottom:12px}
+h1 .hl{color:var(--mint)}
+.sub{font-size:14px;line-height:1.55;color:var(--mut);text-align:center;margin-bottom:20px}
+
+.stats{display:flex;gap:9px;margin-bottom:20px}
+.stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 6px;text-align:center}
+.stat b{display:block;font-size:16px;font-weight:900;color:var(--mint)}
+.stat span{font-size:10.5px;color:var(--mut);letter-spacing:.02em}
+
+.cta{display:block;width:100%;min-height:58px;padding:18px;border:none;border-radius:15px;background:linear-gradient(180deg,var(--mint),var(--mint2));color:var(--ink);font-family:inherit;font-size:16.5px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:transform .15s ease;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 28px rgba(109,230,169,.42),0 4px 16px rgba(0,0,0,.35)}50%{box-shadow:0 0 46px rgba(109,230,169,.7),0 4px 16px rgba(0,0,0,.35)}}
+.cta:active{transform:scale(.98)}
+.cta-wrap{width:100%}
+
+.sec-h{font-size:11px;font-weight:800;letter-spacing:.2em;color:rgba(255,255,255,.45);margin:26px 0 13px;text-align:center}
+.steps{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px 16px}
+.stp{display:flex;gap:13px;padding-bottom:16px;position:relative}
+.stp:not(:last-child)::after{content:"";position:absolute;left:13px;top:29px;bottom:0;width:2px;background:var(--line)}
+.stp:last-child{padding-bottom:0}
+.stp .n{width:27px;height:27px;border-radius:50%;background:var(--mint);color:var(--ink);font-size:12.5px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1}
+.stp h4{font-size:14px;font-weight:700;margin-bottom:3px}
+.stp p{font-size:12px;color:var(--mut);line-height:1.45}
+.stp p b{color:var(--mint);font-weight:600}
+
+.act{position:relative;background:rgba(255,193,7,.06);border:1px solid rgba(255,193,7,.4);border-radius:15px;padding:17px 15px;margin-top:18px}
+.act .flag{position:absolute;top:-10px;left:14px;background:#ffc107;color:#241c00;font-size:9.5px;font-weight:900;letter-spacing:.08em;padding:4px 9px;border-radius:6px}
+.act h4{font-size:14.5px;font-weight:800;margin:4px 0 6px}
+.act p{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.5}
+.act p b{color:var(--mint);font-weight:700}
+.trust{font-size:11.5px;color:rgba(255,255,255,.32);text-align:center;margin-top:16px;line-height:1.45}
+
+/* QUIZ */
+#quiz{display:none}
+.qhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.qstep{font-size:10.5px;font-weight:800;letter-spacing:.16em;color:var(--mut)}
+.qtally{font-size:17px;font-weight:900;color:var(--mint);font-variant-numeric:tabular-nums}
+.qbar{height:5px;border-radius:999px;background:#1c2321;overflow:hidden;margin-bottom:22px}
+.qbar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--mint),var(--mint2));width:0;transition:width .45s cubic-bezier(.22,1,.36,1)}
+.q h2{font-size:22px;font-weight:900;letter-spacing:-.5px;line-height:1.2;margin-bottom:16px;text-align:center}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{width:100%;min-height:56px;padding:16px;border-radius:13px;border:1.5px solid var(--line);background:var(--card);color:#f2f5f3;font-family:inherit;font-size:14.5px;font-weight:700;text-align:left;cursor:pointer;transition:border-color .15s,background .15s,transform .12s}
+.opt:active{transform:scale(.985)}
+.opt.sel{border-color:var(--mint);background:rgba(109,230,169,.1)}
+
+/* RESULT */
+#result{display:none}
+.badge{display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(109,230,169,.1);border:1px solid rgba(109,230,169,.34);border-radius:999px;padding:8px 15px;font-size:12px;font-weight:800;color:var(--mint);width:fit-content;margin:0 auto 16px}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px var(--mint);animation:bl 1.7s ease-in-out infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
+.est{background:var(--card);border:1px solid rgba(109,230,169,.3);border-radius:17px;padding:22px 18px;text-align:center;margin-bottom:16px}
+.est .lbl{font-size:10.5px;font-weight:800;letter-spacing:.16em;color:var(--mut);margin-bottom:8px}
+.est .big{font-size:39px;font-weight:900;letter-spacing:-1.6px;color:var(--mint);line-height:1;font-variant-numeric:tabular-nums}
+.est .cap{font-size:11.5px;color:var(--mut);margin-top:9px}
+.timer{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12.5px;font-weight:700;color:#ff9e6b;margin-bottom:16px}
+.timer b{font-variant-numeric:tabular-nums}
+.live{font-size:12px;color:var(--mut);text-align:center;margin-top:13px}
+.live b{color:var(--mint);font-weight:700}
+.fine{font-size:11px;color:rgba(255,255,255,.3);text-align:center;margin-top:11px}
+
+@media(max-width:374px){
+  .wrap{padding:18px 14px calc(24px + env(safe-area-inset-bottom))}
+  h1{font-size:27px}.q h2{font-size:20px}.est .big{font-size:34px}
+  .stat b{font-size:14.5px}.stat span{font-size:9.5px}
+  .cta{font-size:15px;padding:16px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.anim{opacity:1}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="sparks" aria-hidden="true">
+  <i style="left:10%;animation-duration:16s;animation-delay:0s"></i>
+  <i style="left:28%;animation-duration:20s;animation-delay:3.5s"></i>
+  <i style="left:46%;animation-duration:14s;animation-delay:7s"></i>
+  <i style="left:64%;animation-duration:21s;animation-delay:1.5s"></i>
+  <i style="left:81%;animation-duration:17s;animation-delay:9s"></i>
+  <i style="left:93%;animation-duration:15s;animation-delay:5s"></i>
+</div>
+
+<!-- ============ PRE SCREEN ============ -->
+<section id="pre">
+  <div class="pre-inner">
+    <div class="icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14"></path>
+        <path d="M13 6l6 6-6 6"></path>
+      </svg>
+    </div>
+    <h1 class="pre-h1">Let's <span class="hl">Get Started</span></h1>
+    <p class="pre-sub">Tap continue to load your rewards page.</p>
+    <button class="pre-cta" id="ctaBtn">Continue</button>
+    <p class="sub" id="subLine"></p>
+  </div>
+</section>
+
+<!-- ============ MAIN CONTENT ============ -->
+<div id="main">
+<div class="wrap">
+
+  <!-- SPLASH -->
+  <section id="splash">
+    <div class="brand anim">
+      <img src="data:image/webp;base64,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" alt="TikTok" width="46" height="46">
+      <span class="x">×</span>
+      <img src="data:image/webp;base64,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" alt="Gravy Pass" width="46" height="46">
+    </div>
+    <h1 class="anim" style="animation-delay:.06s">Get Paid to Play Games &amp; <span class="hl">Complete Tasks</span>.</h1>
+    <p class="sub anim" style="animation-delay:.1s">Download the <b>Gravy Pass</b> app, play games and finish quick tasks — then cash out real rewards straight to you.</p>
+    <div class="stats anim" style="animation-delay:.14s">
+      <div class="stat"><b>$1</b><span>signup bonus</span></div>
+      <div class="stat"><b>$10</b><span>min cashout</span></div>
+      <div class="stat"><b>4.5★</b><span>rated</span></div>
+    </div>
+    <div class="cta-wrap anim" style="animation-delay:.18s">
+      <button class="cta" id="startBtn">GET STARTED</button>
+    </div>
+    <div class="sec-h anim" style="animation-delay:.24s">HOW IT WORKS</div>
+    <div class="steps anim" style="animation-delay:.26s">
+      <div class="stp"><div class="n">1</div><div><h4>Download the Gravy Pass app</h4><p>Available on <b>iPhone and Android</b>. Download the app in seconds and start earning right away.</p></div></div>
+      <div class="stp"><div class="n">2</div><div><h4>Play games &amp; finish tasks</h4><p>Open your pass, pick an offer, and hit milestones for <b>real credit</b>.</p></div></div>
+      <div class="stp"><div class="n">3</div><div><h4>Cash out your rewards</h4><p>Withdraw from <b>$10</b> — PayPal, gift cards or crypto.</p></div></div>
+    </div>
+    <div class="act anim" style="animation-delay:.3s">
+      <span class="flag">ACTIVATION REQUIRED</span>
+      <h4>One quick step to unlock full rewards</h4>
+      <p>Complete <b>2 qualifying tasks</b> after downloading the app to unlock the full earning experience and your <b>$1 bonus</b>.</p>
+    </div>
+    <p class="trust anim" style="animation-delay:.34s">Trusted by players cashing out rewards every day.</p>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz">
+    <div class="brand" style="margin-bottom:16px">
+      <img src="data:image/webp;base64,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" alt="Gravy Pass" width="46" height="46">
+      <span class="nm">Gravy Pass</span>
+    </div>
+    <div class="qhead">
+      <span class="qstep" id="qstep">STEP 1 OF 3</span>
+      <span class="qtally" id="qtally">+$0.00</span>
+    </div>
+    <div class="qbar"><i id="qbar"></i></div>
+    <div class="q">
+      <h2 id="qtitle"></h2>
+      <div class="opts" id="qopts"></div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result">
+    <div class="brand" style="margin-bottom:16px">
+      <img src="data:image/webp;base64,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" alt="Gravy Pass" width="46" height="46">
+      <span class="nm">Gravy Pass</span>
+    </div>
+    <div class="badge"><span class="dot"></span>YOU'RE PRE-QUALIFIED</div>
+    <h1 style="font-size:26px;margin-bottom:16px">Your Earnings <span class="hl">Estimate</span> Is Ready</h1>
+    <div class="est">
+      <div class="lbl">ESTIMATED WEEKLY EARNINGS</div>
+      <div class="big" id="estVal">$0</div>
+      <div class="cap">Based on your answers · results vary by activity</div>
+    </div>
+    <div class="timer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="2"></circle><path d="M12 9v4l2.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+      Offer held for <b id="clock">10:00</b>
+    </div>
+    <div class="act" style="margin-bottom:18px">
+      <span class="flag">HOW TO UNLOCK IT</span>
+      <h4>Finish 2 tasks to switch it on</h4>
+      <p>Download Gravy Pass, then complete <b>2 qualifying tasks</b> inside the app. That activates your account, releases your <b>$1 bonus</b>, and unlocks the higher-paying offers.</p>
+    </div>
+    <div class="cta-wrap">
+      <button class="cta" id="claimBtn">CLAIM MY SPOT</button>
+    </div>
+    <p class="live"><b id="liveN">1,240</b> people started earning this week</p>
+    <p class="fine">Free to join · No credit card · Takes 60 seconds</p>
+  </section>
+
+</div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var QP = new URLSearchParams(location.search);
+  function subid(){
+    return QP.get('sub1')||QP.get('campid')||QP.get('s1')||QP.get('s2')||QP.get('cid')||QP.get('c')||'';
+  }
+
+  /* ---- decide which screen to show ---- */
+  var showMain = QP.get('gp') === '1';
+  if(showMain){
+    document.getElementById('pre').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+  }
+
+  /* ---- tracking ---- */
+  var TRACK = 'https://px.trendhavenn.com/t';
+  var PAGE_PRE = 'gp-quiz-pre', PAGE_MAIN = 'gp-quiz';
+  var sent = {};
+  function trackUrl(ev, page){ return TRACK+'?e='+ev+'&id='+encodeURIComponent(subid())+'&p='+page; }
+  function hit(ev, page){
+    if(sent[ev]) return; sent[ev]=1;
+    try{ new Image().src = trackUrl(ev,page)+'&_='+Date.now(); }catch(e){}
+  }
+  function hitBeacon(ev, page){
+    if(sent[ev]) return; sent[ev]=1;
+    try{
+      if(navigator.sendBeacon){ navigator.sendBeacon(trackUrl(ev,page)); }
+      else{ new Image().src = trackUrl(ev,page)+'&_='+Date.now(); }
+    }catch(e){}
+  }
+
+  if(!showMain){
+    /* PRE SCREEN logic */
+    hit('load', PAGE_PRE);
+    ['scroll','touchstart','pointerdown','mousemove','keydown'].forEach(function(e){
+      window.addEventListener(e, function(){ hit('human', PAGE_PRE); }, {once:true, passive:true});
+    });
+
+    function buildDest(){
+      var base = location.href.split('?')[0];
+      var p = new URLSearchParams(location.search);
+      p.set('gp','1');
+      return base + '?' + p.toString();
+    }
+
+    var btn = document.getElementById('ctaBtn');
+
+    /* Part B — tap breakout (kicker guide, verbatim mechanism).
+       window.open in a new tab forces out of the TikTok in-app browser into
+       Safari/Chrome; the same-tab fallback guarantees no visitor is stranded. */
+    btn.addEventListener('click', function(){
+      hitBeacon('continue', PAGE_PRE);
+      var dest = buildDest();
+      var w = window.open(dest, '_blank', 'noopener,noreferrer');
+      if(!w || w.closed || typeof w.closed === 'undefined'){
+        window.location.href = dest;
+      }
+    });
+
+  } else {
+    /* MAIN CONTENT logic */
+    hit('load', PAGE_MAIN);
+    ['scroll','touchstart','pointerdown','mousemove','keydown'].forEach(function(e){
+      window.addEventListener(e, function(){ hit('human', PAGE_MAIN); }, {once:true, passive:true});
+    });
+
+    var QUESTIONS = [
+      { t:'How much do you want to earn each week?',
+        o:[['$50 – $100',40],['$100 – $250',90],['$250+',150]] },
+      { t:'How much time can you give it a day?',
+        o:[['About 15 minutes',35],['Around 30 minutes',80],['An hour or more',140]] },
+      { t:'What sounds most fun to you?',
+        o:[['Puzzle &amp; casual games',60],['Action &amp; strategy games',75],['Quick tasks &amp; surveys',55]] }
+    ];
+    var idx=0, tally=0, answered=false;
+    var elStep=document.getElementById('qstep'), elTally=document.getElementById('qtally'),
+        elBar=document.getElementById('qbar'), elTitle=document.getElementById('qtitle'),
+        elOpts=document.getElementById('qopts');
+
+    function render(){
+      answered=false;
+      var q=QUESTIONS[idx];
+      elStep.textContent='STEP '+(idx+1)+' OF '+QUESTIONS.length;
+      elTitle.innerHTML=q.t;
+      elBar.style.width=((idx)/QUESTIONS.length*100)+'%';
+      elOpts.innerHTML='';
+      q.o.forEach(function(pair){
+        var b=document.createElement('button');
+        b.className='opt'; b.type='button'; b.innerHTML=pair[0];
+        b.addEventListener('click', function(){
+          if(answered) return;
+          answered=true;
+          b.classList.add('sel');
+          tally+=pair[1];
+          elTally.textContent='+$'+tally.toFixed(2);
+          elBar.style.width=((idx+1)/QUESTIONS.length*100)+'%';
+          hit('q'+(idx+1), PAGE_MAIN);
+          setTimeout(next,260);
+        });
+        elOpts.appendChild(b);
+      });
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    function next(){ idx++; if(idx<QUESTIONS.length){ render(); return; } showResult(); }
+
+    function showResult(){
+      document.getElementById('quiz').style.display='none';
+      var r=document.getElementById('result'); r.style.display='block';
+      hit('result', PAGE_MAIN);
+      var lo=Math.round(tally*0.9/5)*5, hi=Math.round(tally*2.1/5)*5;
+      var el=document.getElementById('estVal'), cur=0, step=Math.max(1,Math.round(lo/28));
+      (function tick(){ cur+=step; if(cur>=lo){ el.textContent='$'+lo+'–$'+hi; return; } el.textContent='$'+cur; requestAnimationFrame(tick); })();
+      var s=600, clk=document.getElementById('clock');
+      setInterval(function(){ if(s<=0)return; s--; clk.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); },1000);
+      var liveEl=document.getElementById('liveN'), n=1240;
+      setInterval(function(){ n+=Math.floor(Math.random()*3); liveEl.textContent=n.toLocaleString('en-US'); },4200);
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    document.getElementById('startBtn').addEventListener('click', function(){
+      hit('start', PAGE_MAIN);
+      document.getElementById('splash').style.display='none';
+      document.getElementById('quiz').style.display='block';
+      render();
+      window.scrollTo({top:0,behavior:'instant'});
+    });
+
+    document.getElementById('claimBtn').addEventListener('click', function(){
+      hitBeacon('claim', PAGE_MAIN);
+      var href='https://www.pcbdfv7trk.com/213T8QJ/32BB7QT/?sub1='+encodeURIComponent(subid());
+      setTimeout(function(){ location.href=href; },180);
+    });
+  }
+
+})();
+</script>
+
+<!-- TikTok In-App Browser Breakout (pre-lander level) — Part A (kicker guide, verbatim) -->
+<script>
+(function(){
+  var ua = navigator.userAgent || navigator.vendor || window.opera;
+  var isTikTok = /tiktok|musical_ly|bytedance/i.test(ua);
+  if(!isTikTok) return;                              // HARD GATE — never redirect non-TikTok
+  try{
+    if(sessionStorage.getItem('ttBreakout')==='1') return;   // once-guard: no redirect loop
+    sessionStorage.setItem('ttBreakout','1');
+  }catch(e){}                                        // storage can throw — never let it break the page
+  var currentUrl = window.location.href;             // FULL url, query string intact
+  var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  var isAndroid = /android/i.test(ua);
+  if(isIOS){
+    window.location.href = 'x-safari-' + currentUrl;
+    setTimeout(function(){ window.location.href = currentUrl; }, 25);   // fallback
+  } else if(isAndroid){
+    var intent = 'intent://' + currentUrl.replace(/https?:\/\//, '') + '#Intent;scheme=https;action=android.intent.action.VIEW;end';
+    window.location.href = intent;
+    setTimeout(function(){ window.location.href = currentUrl; }, 25);   // fallback
+  }
+})();
+</script>
+
+</body></html>
