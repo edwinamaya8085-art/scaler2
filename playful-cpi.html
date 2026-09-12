@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en" data-geo="US"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#08060f">
+<meta name="robots" content="noindex, nofollow">
+<title>Get Started</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;}
+
+:root{
+  --bg:#08060f;
+  --card:#131022;
+  --footer:#0b0817;
+  --border:rgba(255,255,255,.06);
+  --purple:#a855f7;
+  --purple-deep:#6802eb;
+  --purple-mid:#8b3cf7;
+  --purple-dim:rgba(168,85,247,.16);
+  --purple-line:rgba(168,85,247,.28);
+  --accent-glow:rgba(168,85,247,.4);
+  --text:#f4f2f8;
+  --muted:#8f8aa0;
+  --muted-2:#6f6a80;
+}
+
+body{
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.4;
+  position:relative;
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%,rgba(168,85,247,.14) 0%,transparent 65%),
+    radial-gradient(ellipse 40% 30% at 100% 100%,rgba(104,2,235,.10) 0%,transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ============ PRE SCREEN ============ */
+#pre{
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px 24px calc(28px + env(safe-area-inset-bottom));
+  overflow:hidden;
+}
+.pre-inner{
+  max-width:400px;
+  width:100%;
+  text-align:center;
+  animation:fadeUp .5s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.icon-wrap{
+  width:88px;height:88px;margin:0 auto 28px;border-radius:22px;
+  border:1px solid rgba(168,85,247,.25);background:var(--purple-dim);
+  display:grid;place-items:center;animation:iconGlow 3s ease-in-out infinite;
+}
+@keyframes iconGlow{
+  0%,100%{box-shadow:0 0 30px rgba(168,85,247,.2)}
+  50%{box-shadow:0 0 60px rgba(168,85,247,.4)}
+}
+.icon-wrap svg{width:36px;height:36px;color:var(--purple);stroke-width:2.5}
+
+.pre-h1{font-size:48px;font-weight:900;line-height:1;letter-spacing:-1.5px;margin-bottom:12px;color:var(--text)}
+.pre-h1 .hl{color:var(--purple)}
+.pre-sub{font-size:14px;font-weight:700;color:var(--muted);line-height:1.55;margin-bottom:36px}
+
+.pre-cta{
+  display:block;width:100%;
+  background:linear-gradient(135deg,var(--purple) 0%,var(--purple-deep) 100%);
+  color:#fff;font-family:"Inter",sans-serif;font-size:18px;font-weight:900;
+  letter-spacing:.3px;text-transform:uppercase;padding:18px 24px;border-radius:14px;
+  border:none;cursor:pointer;margin-bottom:20px;transition:transform .1s ease;
+  animation:ctaPulse 2.5s ease-in-out infinite;
+}
+.pre-cta:active{transform:scale(0.97)}
+.pre-cta:disabled{animation:none;opacity:.7;cursor:default;box-shadow:0 6px 18px rgba(104,2,235,.24)}
+@keyframes ctaPulse{
+  0%,100%{box-shadow:0 0 40px var(--accent-glow),0 4px 20px rgba(0,0,0,.4)}
+  50%{box-shadow:0 0 70px var(--accent-glow),0 4px 20px rgba(0,0,0,.4)}
+}
+
+.sub-line{display:none;font-size:13px;font-weight:600;color:var(--muted);line-height:1.5;margin-top:14px}
+.sub-line:not(:empty){display:block}
+.sub-line b{color:var(--text);font-weight:700}
+
+@media(max-height:640px){
+  .icon-wrap{width:70px;height:70px;margin-bottom:20px}
+  .icon-wrap svg{width:28px;height:28px}
+  .pre-h1{font-size:38px}
+  .pre-sub{margin-bottom:24px}
+}
+
+/* ============ MAIN LANDER ============ */
+#main{display:none;position:relative;z-index:1;padding-bottom:104px;}
+
+.wrap{max-width:410px;margin:0 auto;padding:0 16px;}
+
+.ticker{text-align:center;font-size:12.5px;font-weight:500;color:var(--text);padding:9px 18px 11px;letter-spacing:-.1px;}
+.ticker .amt{color:var(--purple);font-weight:700}
+.ticker .name{font-weight:700}
+.ticker-fade{transition:opacity .4s ease}
+
+.card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;}
+
+.hero{padding:22px 20px 18px;text-align:center}
+.hero .glow{position:absolute;top:-42%;left:50%;transform:translateX(-50%);width:300px;height:300px;
+  background:radial-gradient(circle,rgba(168,85,247,.30) 0%,rgba(104,2,235,.08) 42%,transparent 66%);pointer-events:none}
+
+.app-icon{position:relative;width:62px;height:62px;margin:0 auto 12px;border-radius:15px;overflow:hidden;
+  background:linear-gradient(160deg,#8b3cf7 0%,#6802eb 100%);
+  box-shadow:0 12px 28px rgba(104,2,235,.45),inset 0 2px 3px rgba(255,255,255,.28)}
+.app-icon img{display:block;width:100%;height:100%;object-fit:cover}
+
+.rating-pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--purple-line);border-radius:999px;
+  padding:5px 12px;font-size:11.5px;font-weight:500;background:rgba(168,85,247,.05);margin-bottom:13px}
+.rating-pill .stars{color:var(--purple);letter-spacing:.5px;font-size:11px}
+.rating-pill .val{color:var(--purple);font-weight:700}
+.rating-pill .store{color:var(--text)}
+.rating-pill .rev{color:var(--muted);font-weight:500}
+
+h1.headline{font-size:33px;line-height:1.02;font-weight:700;letter-spacing:-1.1px;margin-bottom:11px}
+h1.headline .g{color:var(--purple);display:block}
+
+.ldr-sub{font-size:14px;line-height:1.4;color:var(--muted);font-weight:400;max-width:300px;margin:0 auto 14px;letter-spacing:-.2px}
+
+.live-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--purple-line);border-radius:999px;
+  padding:8px 15px;font-size:13px;font-weight:700;color:var(--purple);background:rgba(168,85,247,.06)}
+.live-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--purple);box-shadow:0 0 0 0 rgba(168,85,247,.6);animation:pulse 2s infinite}
+.live-pill .n{font-variant-numeric:tabular-nums}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(168,85,247,.55)}70%{box-shadow:0 0 0 8px rgba(168,85,247,0)}100%{box-shadow:0 0 0 0 rgba(168,85,247,0)}}
+
+.section-gap{margin-top:11px}
+.offer{padding:16px 18px}
+.offer-title{font-size:19px;font-weight:700;letter-spacing:-.5px;margin-bottom:6px}
+
+.divider{height:1px;background:var(--border);margin:13px 0 11px}
+
+.hiw-label{font-size:11px;font-weight:700;letter-spacing:1.3px;color:var(--muted-2);margin-bottom:10px}
+.steps{list-style:none;display:flex;flex-direction:column;gap:9px}
+.step{display:flex;align-items:center;gap:12px}
+.step .num{flex:none;width:32px;height:32px;border-radius:9px;border:1px solid var(--purple-line);background:var(--purple-dim);
+  display:flex;align-items:center;justify-content:center;color:var(--purple);font-weight:700;font-size:14px}
+.step .txt{font-size:14.5px;font-weight:500;letter-spacing:-.3px}
+
+.stats{margin-top:11px;padding:16px 8px}
+.stats-row{display:flex}
+.stat{flex:1;text-align:center;position:relative;padding:0 4px}
+.stat+.stat::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:1px;background:var(--border)}
+.stat .big{font-size:20px;font-weight:700;letter-spacing:-.5px}
+.stat .big .star{color:var(--text)}
+.stat .lbl{font-size:10.5px;font-weight:500;letter-spacing:1px;color:var(--muted-2);margin-top:4px}
+
+.disclaimer{text-align:center;font-size:11px;line-height:1.45;color:var(--muted-2);padding:15px 8px 10px;font-weight:400}
+.links{text-align:center;font-size:12.5px;font-weight:500;color:var(--muted);padding-bottom:16px}
+.links a{color:var(--muted);text-decoration:none}
+.links .sep{color:var(--purple);margin:0 10px}
+
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;
+  background:var(--footer);border-top:1px solid var(--border);
+  box-shadow:0 -10px 30px rgba(0,0,0,.55);
+  padding:10px 0 max(12px,env(safe-area-inset-bottom))}
+.sticky .wrap{padding:0 16px}
+.avail{text-align:center;font-size:12.5px;font-weight:700;color:var(--text);margin-bottom:9px;
+  display:flex;align-items:center;justify-content:center;gap:7px}
+.avail .dot{width:6px;height:6px;border-radius:50%;background:var(--purple)}
+.store-combo{display:flex;gap:10px;text-decoration:none}
+.btn{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;border-radius:12px;padding:9px 10px;text-decoration:none;font-weight:700;letter-spacing:-.3px}
+.btn small{display:block;font-size:9px;font-weight:500;letter-spacing:0;line-height:1.1}
+.btn .lbl{display:flex;flex-direction:column;line-height:1.05;font-size:14.5px}
+.btn-apple{background:#1b1725;color:#fff;border:1px solid rgba(255,255,255,.08)}
+.btn-apple small{color:#c9c3d6}
+.btn-play{background:linear-gradient(135deg,#8b3cf7 0%,#6802eb 100%);color:#fff;box-shadow:0 8px 24px rgba(104,2,235,.45)}
+.btn-play small{color:#e2d3ff}
+.btn svg{flex:none;width:20px;height:22px}
+
+.tip-overlay{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:26px;
+  background:rgba(5,4,10,.8);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);animation:tipFade .2s ease}
+.tip-overlay[hidden]{display:none}
+@keyframes tipFade{from{opacity:0}to{opacity:1}}
+.tip-card{position:relative;width:100%;max-width:288px;background:#120f20;border:1px solid var(--border);
+  border-radius:20px;padding:20px 18px 18px;text-align:center;box-shadow:0 22px 70px rgba(0,0,0,.65);
+  animation:tipPop .24s cubic-bezier(.2,.8,.2,1)}
+@keyframes tipPop{from{transform:translateY(14px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+.tip-close{position:absolute;top:11px;right:11px;width:26px;height:26px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(255,255,255,.08);color:var(--muted);font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center}
+.tip-label{font-size:10px;font-weight:800;letter-spacing:1.8px;color:var(--purple);margin-bottom:9px}
+.tip-head{font-size:19px;line-height:1.18;font-weight:800;letter-spacing:-.4px;color:var(--text);margin-bottom:9px}
+.tip-head .g{color:var(--purple)}
+.tip-sub{font-size:12.5px;line-height:1.4;color:var(--muted);font-weight:400;max-width:240px;margin:0 auto 15px}
+.tip-btn{display:block;background:linear-gradient(135deg,#a855f7 0%,#6802eb 100%);color:#fff;font-size:14px;font-weight:800;
+  letter-spacing:-.3px;text-decoration:none;padding:12px 18px;border-radius:999px;box-shadow:0 0 30px rgba(168,85,247,.45)}
+
+@media(max-width:390px){
+  h1.headline{font-size:29px}
+  .offer-title{font-size:18px}
+  .step .txt{font-size:14px}
+  .stat .big{font-size:19px}
+  .app-icon{width:56px;height:56px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .pre-inner{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ PRE SCREEN ============ -->
+<section id="pre">
+  <div class="pre-inner">
+    <div class="icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 17L17 7"></path>
+        <path d="M7 7h10v10"></path>
+      </svg>
+    </div>
+    <h1 class="pre-h1">Click here to <span class="hl">Get Started</span></h1>
+    <p class="pre-sub">Your spot is ready. Tap below to continue.</p>
+    <button class="pre-cta" id="ctaBtn" type="button">Continue</button>
+    <p class="sub-line" id="subLine"></p>
+  </div>
+</section>
+
+<!-- ============ MAIN LANDER ============ -->
+<div id="main">
+
+  <div class="ticker">
+    <span class="ticker-fade" id="ticker">🇺🇸 <span class="name">Ava R.</span> just earned <span class="amt">$5.26</span> — paid instantly</span>
+  </div>
+
+  <div class="wrap">
+
+    <section class="hero card">
+      <div class="glow"></div>
+      <div class="app-icon">
+        <img src="data:image/webp;base64,UklGRi4MAABXRUJQVlA4ICIMAAAQPACdASqAAIAAPj0ai0OiIaKSiZ70KAPEtgBllRf/Rvxg76brfUPxf/aP/dfOPWv5994v3I/sXXrHm9TfeD8F+Wf+J+A3qG+3f3AP0s/tH9Z/cP+59xfzB/yb+b/63+2+7L/hv8Z7FvQA/kv9V6yj0Bf5T/qfTE/73/A+DL9of/T/lvgF/lX9a/4X5/9wBwNPVu5bhQa+OfY/8l/XeMvgBfjX8q/w/5g/lVyRYAPyD+of7LwmtV/BT/Pf9vx0FAP84f9j07v+L/O+e781/wv/k/x3wD/zL+r/8n+/9r30X/17P7QG3VlE7e0MgGMfDGIYRNFtfeFp3RCZEYt81co/6P3p+tKaU/+lsmf3yqASWz/WNEuP2+QaW8KEtAWU0YyDW6KmYRGKE8y9LMSqtqK32NrqKOLzmp08yvaWEXCvqog4DgXamHFPme+QlveaKyJY7w5H8ZcGpohdDuVzkXsr/G8wJWi5oaI+eOAdl8D7m1xPMs4s4V+7uRNVC9yTyxr+NQ1JFEfRXtOQNMq84yEqYv/JjLPRjO5iPHNZrv0Ai4joifURq3V6Z57b7tOSlVH8VseBqzOESCNiB55Grw+HAI7p8xX9qCuj3zkV7mi6hR3v21/tVB25aAUfkHB4oBFbIrzn0hOSIAAA/vt7EX2nHKMlzsVfeIBUnsDPnHLhNNrbuc4UDKM+rrz/L+AklW3/O2gwkkPBKV2aa1/at7og2+dimj7YC+fuOelKxCWrMqzCmNuA9V25yoEif1P62KZ3SFtk1nC9p58A2YiC/RmpfjbxEXWToaxh5HL/cVyEGFh0EA/mU0mKrfIq/7WV6+zeK5RdZ4Pni1oXm4/Sfo/mQAZ5RWRP8fiMafXNISlpIMHdWpL/kSQhePHtXdfAiDyPMaKfe0fV/HTV6xx8kxR7+LkgrHR5RuDMLAJgxFb6BfuCy5baY87ne22mUnQV513hW1D9GX4az8aHg2n1xm2TWKWq8Oe1HyHEklKGu2NNpcDN96VlGQvPo5G9gKIbmZ6Pnqs7QIPrSl1Lf8IlUbutIwPPMzxN/OurcuNllDxd8iCifin/srW3PwWeupsEA1cxr6BcKVPY1LShQkZ7Q6SE4Ff6VL3DqNdvn6U2YTH9eqOTpBAMmYQ3hgcjNu5rSezJPhrC2GXu84Tuwe4ESn/Jlw0MGCyj1E/00uYzjwIGJRi+8DU46wNxYKV3rRdYxVRuni5UqwAVzujUJCzQr80ecUWSgfVXA0p7YCbTHeh2i2vckf3WwRc7CLkR3sdl31IILBTOTGz8PWPJ1BOO0Vpx29Mv1SAQycFLryyg/zfN53w3rBY1zh6QJ59CCQJ2qMjfwazcHkXUYUhWL6rYGFJuwteBiM/FN0mQxC7M0jKGwKkD6g69kPJvq6gMI7u9Wmd53n3UVXwP7IhezOM/LJFjAdH7z6r09GegAtouRWUe4492Q/JGAKJnXmAsDxNljqE2jARVEqV9sOoSB6ICrVsmgkaVJNSXwxEGBT/WEIEsHT/YOt3ut4KzHBUYCOiMVOLlJkh0WXYY/x98XNRDthxyaK8XGnUpN63eakbGpFW1mJByleBvXJurRRMcJtSKA82g4+zsfRnJkL+kYdIku6Fesn13nuR0e//ROfWW/ibVzRG/uW4+L0e5aDrXftbvfdnpvnFO0EbVqOxvyRaS0/RfBVrTI9Emyha6oQPr3xBxAGXhM3DY9Wdmbh+ahECJQNPinNBxyy+8RHf4YslCbDDuqtOrb60Pd0dRR91xGG5Mlc3Eabd7ayTnCmSH9cbVw7me6LnjuAf8toB8pa+cflXTwh+usk6BfTxgV9mhPlRdE1sLBfimJxp9wgXqV6wQ7TXJk42iWp+Ll82ODhPDgR3ehHbk/sj1y1581qK/F/3jAjQ10mwanqrXG+02GESLKLFYzXoaJAOlusWyTfzesOs+7B7+C2W3yQ0OtmLfkuiCwIPLcA+hC1D2trN++2iF9+cqTQSR7lK0NfCH0HJbmNHS72SLVzOVoqmrAeaoRMgzc4gAMxFy70PJsQKpEdClCOghMKj3owxu5cReHCHBp6ZLmJkvOSFK1cQ0vSJEO2qP+7oZMzSfVfO9L8STVAV2vuQBgOcyIlsfZK6AS9CYNbTH4kiu2bY3baGg2b//8aveeScs1PfqBkXwTZWKmkfKRd82YVtM9HgoxQkoYg3cNInP6hqLGkKhnFtbowHoTEkZaCWO6pePNzGzJQPr3goy7PQC4xoPqhdwQf96+6YlmXmeMkCWSh/cpS17Iy7j4EHkCcZXbf95/3n+sH9q8N1saetPFhoY8r8H0VAfKVumJwCgJRxMUbD19nUnfHvq8nSt2UWjwwMw3hjn++qwVZGxGD4AVDVid8l0GzBlbb9kMGDyr6smYKc+vcnRmnHf7JekunyJtnKc6YdSDeJKk/xWc+kMLnvKSUp9UZLs6Zn6MFkmWz9uORBNfXRS84iDDwjzEn5OU6tOlOJKdtL87/VmFoUksFnq32Eqp5Ncf1qy3Mx9U4o1IlucL4qqx+Hzik2Rig5WQ/SxovWfdjaOQMxSkVr0KDDLol7V7cUgHkfyvX+2EEzm5jVxIOJGrLv33XfVPg2N20g6ACV+BEJAsu0e/BS3CyUZTGzsh15Zk7E1GaWSHteBAvTeKg0X+GUaM7hb/WLIPzfj42y+wgesiXHNZAgeQnBV9JDFLQ/xMen+wp97/bSAr9PvV73igKQQ1IKDYxtb40L0lanYXmwGryULcOClQiYaEnk9u+Q8KanC5jPqDWfVhZpMSbBsu4Avq8kN1mdjwbo6zkbXsCMjehxxtEW+PNIdBUlCfVcVtvmTM5iBk0DEl0vgKO6aWQkPdp+NoJEzfUtJ//8gs/OKnbu9UmIp9LZbQ7l/mDGJJyjvNHAbA/85cuB5XpOBa8nG6B4JJ2WbACLIfs/7aU8vXtJxAodU/2RYAU/bRviEB8aGZD9oT+vSIxhwzzG8L8qHv8RBjMtf426HDmjKNeOg6d+wF103BnZ3EJomcErFp8U5BwK0LWyrN6HAwBI7on2NNunltjE4TOjZYTcfT0ZnI4a+prefl3PtqjjlZXiKunz/Jh2m45i4fxfTVpRpg8qrLX6bNfDmwdwJ0Gq4upNOOUGYlVxUxzpnpz1RdeYzojxkZRSW4sVtrrDMHWh3GwOZiWN+iRiHMtF+RNfSyq9e1w6Wz4CN/sI3ojnfNy2Laa7y5AlfDSdp8LGWcSaupKe/Qlv5esBs0is36Tt9cPAkEQA8qcZffUMWyY/80GR1RqOmWLWfntwTMqHR8IZZhiPkNQ0rMxPmL1ArM1VgttK9C/ZDt29wFKcG/JbT8/LWaIegD88ibQi13+OKWLrCLcZLV/rJTYtrfuPEJirzIXUYSUz78o1v5BlCExG5vhMFm8BpFN+HaPDQ+qGfXh3e5h57oG1J5f2PQI5j+HxMH0VfEvf4EyLPZxpEx+9+lD0b/c+nxnQfhVahTjEUQtrhUe5vH+uIYz/L04GDRtRvEoeLMdQbxK/ZGhrQXB+zk1khGfwQQUo5+QcCWNjoqkBMPVulH3pPUdXIkxF/gKjuea+jSJo+87hvppKYOuZjdx0MvMAkoWZB7xp8tlyZ5/12yyJdsb1DCEZstbkGgyiQu+FSBVRgifka5aJmCWzdAqPnfXJhpPVpRiZuRvtgloQCIwaXLiQvHYaBPkVLoG3xnXDd7LC0JvG5QOjiXQDRStAXyHsfwhF/3WxXz3JhzLVluLC6xDir1kbwoT1y9JGLCKkRHg5vMhfd5XhBk54NXQ7blyPj7YLS/lE8xKhYb9dutw/swpniq3l0o+WA9GeN0rNDWIVng3oj13FFv+BKBfqSlGo2logtPjc29+uLiGmiv/6VYoK0dO0f/9PALiPLwPmdD0EUKE+0teM8PNmKGEG/ME9GStU44q71rmJzy3drm+nvHsV6m91I6RbS+FQHCWlHJsR1Q2t3NRvCHbQxpJqb8FijG80FQ/paeKqcCK20PlY+mAsd0R7r/ymeeYqcTsMEUlUW2UyX7B1S0BQKo1kobkyGywdMutJStnN1biWE7HuMrCptVidRy54GHXaO4Lqd/+c3vGNdQt42325arKZLmf/yEg1A/nm5/GN64rHZrOvIyZFgAAAA" alt="Playful Rewards" onerror="this.style.display='none'">
+      </div>
+      <div class="rating-pill">
+        <span class="stars">★★★★★</span>
+        <span class="val">4.6</span>
+        <span class="rev">·</span>
+        <span class="store">App Store</span>
+        <span class="rev">(100K+ reviews)</span>
+      </div>
+      <h1 class="headline">Get Paid To<span class="g">Play Games</span></h1>
+      <p class="ldr-sub">Earn real cash and gift cards playing games, testing apps, and answering quick surveys. Cash out from $1.</p>
+      <div class="live-pill">
+        <span class="dot"></span>
+        <span class="n" id="liveCount">1,852</span>&nbsp;people earning right now
+      </div>
+    </section>
+
+    <section class="offer card section-gap">
+      <div class="offer-head" style="display:block">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1.2px;color:var(--purple);margin-bottom:9px">PLAYFUL REWARDS</div>
+        <div class="offer-title">10 games paying over thousands!</div>
+        <div style="font-size:13px;line-height:1.4;color:var(--muted);font-weight:400;letter-spacing:-.2px;margin-bottom:14px">The highest-paying games on Playful right now.</div>
+        <div style="border-top:1px solid var(--border);padding-top:12px">
+          <div style="font-size:27px;font-weight:800;color:var(--purple);letter-spacing:-.8px;line-height:1">$1,250 – $1,500</div>
+          <div style="font-size:10.5px;font-weight:700;letter-spacing:1px;color:var(--muted-2);margin-top:6px">TOP OFFER · TOTAL PAYOUT</div>
+        </div>
+        <div style="font-size:11.5px;line-height:1.5;color:var(--muted-2);margin-top:12px">Paid out over about a month of daily play (~4&nbsp;hrs/day). It's the highest offer — most people earn less, and results vary.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="hiw-label">HOW IT WORKS</div>
+      <ul class="steps">
+        <li class="step"><span class="num">1</span><span class="txt">Download Playful Rewards and sign up free (select 21+)</span></li>
+        <li class="step"><span class="num">2</span><span class="txt">Play the featured games to stack coins — Block Blast, Bingo, Solitaire &amp; More!</span></li>
+        <li class="step"><span class="num">3</span><span class="txt">Cash out to PayPal, Amazon, or Visa — from just $1</span></li>
+      </ul>
+    </section>
+
+    <section class="stats card">
+      <div class="stats-row">
+        <div class="stat"><div class="big">1M+</div><div class="lbl">DOWNLOADS</div></div>
+        <div class="stat"><div class="big">4.6<span class="star">★</span></div><div class="lbl">APP RATING</div></div>
+        <div class="stat"><div class="big">$1</div><div class="lbl">MIN CASHOUT</div></div>
+      </div>
+    </section>
+
+    <p class="disclaimer">Availability, rewards, and eligibility may vary by user, location, and completed activity. Results are not guaranteed and are based on individual participation. Earnings vary by offer.</p>
+    <div class="links"><a href="#">Privacy Policy</a><span class="sep">·</span><a href="#">Terms of Service</a></div>
+
+  </div>
+
+  <footer class="sticky">
+    <div class="wrap">
+      <div class="avail"><span class="dot"></span>Available now on iOS and Android</div>
+      <a class="store-combo offer-link" href="#">
+        <span class="btn btn-play">
+          <svg width="22" height="24" viewBox="0 0 24 26" fill="none"><path d="M2 2.2C1.6 2.5 1.4 3 1.4 3.7v18.6c0 .7.2 1.2.6 1.5L12.6 13 2 2.2z" fill="#fff"></path><path d="M16.3 9.3 4.1 2.3 3.6 2 12.6 13l3.7-3.7z" fill="#fff"></path><path d="M16.3 16.7 12.6 13l3.7 3.7 4-2.3c.7-.4.7-1.4 0-1.8l-4-2.3-3.7 3.7 3.7 3.7z" fill="#fff"></path></svg>
+          <span class="lbl"><small>Get it on</small>Google Play</span>
+        </span>
+        <span class="btn btn-apple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M16.365 1.43c0 1.14-.42 2.2-1.13 2.99-.86.96-2.27 1.7-3.44 1.61-.14-1.11.42-2.28 1.09-3.02.79-.87 2.15-1.53 3.31-1.58.01.05.17.5.17 1zM20.5 17.06c-.55 1.27-.82 1.84-1.53 2.97-.99 1.57-2.39 3.53-4.12 3.55-1.54.02-1.94-1.01-4.03-1-2.09.01-2.53 1.02-4.07 1-1.73-.02-3.05-1.79-4.04-3.36C-.13 17.8-.42 12.3 1.35 9.4 2.6 7.33 4.6 6.11 6.48 6.11c1.91 0 3.11 1.05 4.69 1.05 1.53 0 2.46-1.05 4.67-1.05 1.67 0 3.44.91 4.7 2.48-4.13 2.26-3.46 8.15.96 8.47z"></path></svg>
+          <span class="lbl"><small>Download on the</small>App Store</span>
+        </span>
+      </a>
+    </div>
+  </footer>
+
+  <div class="tip-overlay" id="tipOverlay" hidden="">
+    <div class="tip-card">
+      <button class="tip-close" id="tipClose" aria-label="Close">×</button>
+      <div class="tip-label">QUICK TIP</div>
+      <h2 class="tip-head">Select <span class="g">21+</span> when you sign&nbsp;up</h2>
+      <p class="tip-sub">This unlocks the highest-paying game offers on Playful. Don't skip this step.</p>
+      <a class="tip-btn" id="tipGo" href="#">Got it →</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var QP = new URLSearchParams(location.search);
+  function subid(){
+    return QP.get('sub1')||QP.get('campid')||QP.get('s1')||QP.get('s2')||QP.get('cid')||QP.get('c')||'';
+  }
+
+  var showMain = QP.get('gp') === '1';
+  if(showMain){
+    document.getElementById('pre').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+  }
+
+  var TRACK = 'https://px.trendhavenn.com/t';
+  var PAGE_PRE = 'playful-cpi-pre', PAGE_MAIN = 'playful-cpi-main';
+  var sent = {};
+  function trackUrl(ev,page){ return TRACK+'?e='+ev+'&id='+encodeURIComponent(subid())+'&p='+page; }
+  function px(ev,page){
+    if(sent[ev]) return; sent[ev]=1;
+    try{
+      var u = trackUrl(ev,page);
+      if(navigator.sendBeacon) navigator.sendBeacon(u); else new Image().src = u+'&_='+Date.now();
+    }catch(e){}
+  }
+
+  if(!showMain){
+    px('load', PAGE_PRE);
+    ['scroll','touchstart','mousemove'].forEach(function(t){
+      window.addEventListener(t, function(){ px('human', PAGE_PRE); },{once:true,passive:true});
+    });
+
+    function buildDest(){
+      var base = location.href.split('?')[0];
+      var p = new URLSearchParams(location.search);
+      p.set('gp','1');
+      return base + '?' + p.toString();
+    }
+
+    var btn = document.getElementById('ctaBtn');
+    var subEl = document.getElementById('subLine');
+    var tried = false;
+
+    function go(){
+      px('continue', PAGE_PRE);
+      var d = buildDest();
+      // Part B — window.open new tab forces out of the TikTok in-app browser; same-tab fallback if blocked/noopener
+      var w = window.open(d, '_blank', 'noopener,noreferrer');
+      if(!w || w.closed || typeof w.closed === 'undefined'){
+        window.location.href = d;
+      }
+    }
+
+    function watchdog(){
+      btn.disabled = false;
+      btn.textContent = 'Continue anyway';
+      subEl.innerHTML = 'Still here? <b>Tap continue anyway</b> to keep going.';
+      btn.onclick = function(){
+        px('fallback', PAGE_PRE);
+        window.location.href = buildDest();
+      };
+    }
+
+    btn.addEventListener('click', function(){
+      if(tried) return;
+      tried = true;
+      btn.disabled = true;
+      go();
+      setTimeout(watchdog, 1600);
+    });
+
+  } else {
+    px('load', PAGE_MAIN);
+    ['scroll','touchstart','mousemove'].forEach(function(t){
+      window.addEventListener(t, function(){ px('human', PAGE_MAIN); },{once:true,passive:true});
+    });
+
+    var OFFER = 'https://www.stw4c9hx.com/GNW68X/L1B1F8/?sub1=' + encodeURIComponent(subid());
+    var sub2 = QP.get('sub2') || '';
+    if(sub2) OFFER += '&sub2=' + encodeURIComponent(sub2);
+
+    var overlay = document.getElementById('tipOverlay');
+    document.getElementById('tipGo').href = OFFER;
+
+    function openTip(e){ if(e){ e.preventDefault(); } overlay.hidden = false; document.body.style.overflow = 'hidden'; }
+    function closeTip(){ overlay.hidden = true; document.body.style.overflow = ''; }
+
+    document.querySelectorAll('a.offer-link, a.store-combo').forEach(function(a){
+      a.setAttribute('href', OFFER);
+      a.addEventListener('click', openTip);
+    });
+    document.getElementById('tipGo').addEventListener('click', function(e){
+      e.preventDefault();
+      px('claim', PAGE_MAIN);
+      window.location.href = OFFER;
+    });
+    document.getElementById('tipClose').addEventListener('click', closeTip);
+    overlay.addEventListener('click', function(e){ if(e.target === overlay) closeTip(); });
+
+    var liveEl = document.getElementById('liveCount');
+    var n = 1849;
+    setInterval(function(){
+      n += Math.random() < 0.5 ? -1 : 1;
+      if(n < 1840) n = 1841;
+      if(n > 1875) n = 1874;
+      liveEl.textContent = n.toLocaleString('en-US');
+    }, 2600);
+
+    var tickerEl = document.getElementById('ticker');
+    var names = ['Devon L.','Marcus T.','Ava R.','Jordan P.','Chloe M.','Ethan W.','Sofia D.','Liam K.'];
+    setInterval(function(){
+      tickerEl.style.opacity = 0;
+      setTimeout(function(){
+        var nm = names[Math.floor(Math.random()*names.length)];
+        var amt = (Math.random()*22+4).toFixed(2);
+        tickerEl.innerHTML = '🇺🇸 <span class="name">'+nm+'</span> just earned <span class="amt">$'+amt+'</span> — paid instantly';
+        tickerEl.style.opacity = 1;
+      }, 400);
+    }, 3800);
+  }
+
+})();
+</script>
+
+<!-- TikTok In-App Browser Breakout (pre-lander level) -->
+<script>
+(function(){
+  var ua = navigator.userAgent || navigator.vendor || window.opera;
+  var isTikTok = /tiktok|musical_ly|bytedance/i.test(ua);
+  if(!isTikTok) return;
+  try{
+    if(sessionStorage.getItem('ttBreakout')==='1') return;
+    sessionStorage.setItem('ttBreakout','1');
+  }catch(e){}
+  var currentUrl = window.location.href;
+  var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  var isAndroid = /android/i.test(ua);
+  if(isIOS){
+    window.location.href = 'x-safari-' + currentUrl;
+    setTimeout(function(){ window.location.href = currentUrl; }, 25);
+  } else if(isAndroid){
+    var intent = 'intent://' + currentUrl.replace(/https?:\/\//, '') + '#Intent;scheme=https;action=android.intent.action.VIEW;end';
+    window.location.href = intent;
+    setTimeout(function(){ window.location.href = currentUrl; }, 25);
+  }
+})();
+</script>
+
+</body></html>
