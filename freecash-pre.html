@@ -37,6 +37,9 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 @keyframes ctaPulse{0%,100%{box-shadow:0 0 40px var(--accent-glow),0 4px 20px rgba(0,0,0,0.4)}50%{box-shadow:0 0 70px var(--accent-glow),0 4px 20px rgba(0,0,0,0.4)}}
 .pre-fallback{font-size:12px;font-weight:600;color:#6f7a75;letter-spacing:0.2px}
 .pre-fallback a{color:#8b9a93;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.sub{display:none;font-size:13px;font-weight:600;color:var(--mut);line-height:1.5;margin-top:14px;text-align:center}
+.sub:not(:empty){display:block}
+.sub b{color:#f2f5f3;font-weight:700}
 @media(max-height:640px){.icon-wrap{width:70px;height:70px;margin-bottom:20px}.icon-wrap svg{width:28px;height:28px}.pre-h1{font-size:36px}.pre-sub{margin-bottom:24px}}
 @media(max-width:374px){.pre-h1{font-size:38px}.pre-cta{font-size:16px;padding:16px 18px}}
 
@@ -143,7 +146,7 @@ h1 .hl{color:var(--mint)}
     <h1 class="pre-h1">Click here to <span class="hl">Get Started</span></h1>
     <p class="pre-sub">Your spot is ready. Tap below to continue.</p>
     <button class="pre-cta" id="ctaBtn" type="button">Continue</button>
-    <p class="pre-fallback">Nothing happened? <a id="fallbackLink">Tap here</a></p>
+    <p class="sub" id="subLine"></p>
   </div>
 </section>
 
@@ -279,19 +282,36 @@ h1 .hl{color:var(--mint)}
       return base + '?' + p.toString();
     }
 
-    document.getElementById('ctaBtn').addEventListener('click', function(){
-      hitBeacon('continue', PAGE_PRE);
-      var dest = buildDest();
-      var w = window.open(dest, '_blank', 'noopener,noreferrer');
-      if(!w || w.closed || typeof w.closed === 'undefined'){
-        window.location.href = dest;
-      }
-    });
+    var btn = document.getElementById('ctaBtn');
+    var subEl = document.getElementById('subLine');
+    var tried = false;
 
-    document.getElementById('fallbackLink').addEventListener('click', function(e){
-      e.preventDefault();
-      hitBeacon('fallback', PAGE_PRE);
-      window.location.href = buildDest();
+    function go(){
+      hitBeacon('continue', PAGE_PRE);
+      var d = buildDest();
+      // Part B — window.open new tab forces out of the TikTok in-app browser; same-tab fallback if blocked/noopener
+      var w = window.open(d, '_blank', 'noopener,noreferrer');
+      if(!w || w.closed || typeof w.closed === 'undefined'){
+        window.location.href = d;
+      }
+    }
+
+    function watchdog(){
+      btn.disabled = false;
+      btn.textContent = 'Continue anyway';
+      subEl.innerHTML = 'Still here? <b>Tap continue anyway</b> to keep going.';
+      btn.onclick = function(){
+        hitBeacon('fallback', PAGE_PRE);
+        window.location.href = buildDest();
+      };
+    }
+
+    btn.addEventListener('click', function(){
+      if(tried) return;
+      tried = true;
+      btn.disabled = true;
+      go();
+      setTimeout(watchdog, 1600);
     });
 
   } else {
@@ -364,7 +384,7 @@ h1 .hl{color:var(--mint)}
 
     document.getElementById('claimBtn').addEventListener('click', function(){
       hitBeacon('claim', PAGE_MAIN);
-      var href='https://www.stw4c9hx.com/GNW68X/25LQ98H/?sub1='+encodeURIComponent(subid());
+      var href='https://www.pcbdfv7trk.com/213T8QJ/2W49578/?sub1='+encodeURIComponent(subid());
       setTimeout(function(){ location.href=href; },180);
     });
   }
@@ -372,17 +392,17 @@ h1 .hl{color:var(--mint)}
 })();
 </script>
 
-<!-- TikTok In-App Browser Breakout (pre-lander level) — Part A -->
+<!-- TikTok In-App Browser Breakout (pre-lander level) -->
 <script>
 (function(){
   var ua = navigator.userAgent || navigator.vendor || window.opera;
   var isTikTok = /tiktok|musical_ly|bytedance/i.test(ua);
-  if(!isTikTok) return;                              // HARD GATE — never redirect non-TikTok
+  if(!isTikTok) return;
   try{
-    if(sessionStorage.getItem('ttBreakout')==='1') return;  // once-guard: no redirect loop
+    if(sessionStorage.getItem('ttBreakout')==='1') return;
     sessionStorage.setItem('ttBreakout','1');
   }catch(e){}
-  var currentUrl = window.location.href;             // full URL, query string intact
+  var currentUrl = window.location.href;
   var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
   var isAndroid = /android/i.test(ua);
   if(isIOS){
