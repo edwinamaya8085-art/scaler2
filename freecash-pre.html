@@ -274,7 +274,6 @@ h1 .hl{color:var(--mint)}
       window.addEventListener(e, function(){ hit('human', PAGE_PRE); },{once:true,passive:true});
     });
 
-    /* Part B — CTA opens same page with ?gp=1 in new tab (window.open per guide) */
     function buildDest(){
       var base = location.href.split('?')[0];
       var p = new URLSearchParams(location.search);
@@ -288,12 +287,14 @@ h1 .hl{color:var(--mint)}
 
     function go(){
       hitBeacon('continue', PAGE_PRE);
-      var d = buildDest();
-      // Part B — window.open new tab forces out of the TikTok in-app browser; same-tab fallback if blocked/noopener
-      var w = window.open(d, '_blank', 'noopener,noreferrer');
-      if(!w || w.closed || typeof w.closed === 'undefined'){
-        window.location.href = d;
+      var d = buildDest(), url;
+      if(/Android/i.test(navigator.userAgent)){
+        url = 'intent://' + d.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end';
+      } else {
+        url = d.replace(/^https:\/\//, 'x-safari-https://');
       }
+      try{ (window.top || window).location.href = url; }
+      catch(err){ window.location.href = url; }
     }
 
     function watchdog(){
@@ -392,28 +393,5 @@ h1 .hl{color:var(--mint)}
 })();
 </script>
 
-<!-- TikTok In-App Browser Breakout (pre-lander level) -->
-<script>
-(function(){
-  var ua = navigator.userAgent || navigator.vendor || window.opera;
-  var isTikTok = /tiktok|musical_ly|bytedance/i.test(ua);
-  if(!isTikTok) return;
-  try{
-    if(sessionStorage.getItem('ttBreakout')==='1') return;
-    sessionStorage.setItem('ttBreakout','1');
-  }catch(e){}
-  var currentUrl = window.location.href;
-  var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
-  var isAndroid = /android/i.test(ua);
-  if(isIOS){
-    window.location.href = 'x-safari-' + currentUrl;
-    setTimeout(function(){ window.location.href = currentUrl; }, 25);
-  } else if(isAndroid){
-    var intent = 'intent://' + currentUrl.replace(/https?:\/\//, '') + '#Intent;scheme=https;action=android.intent.action.VIEW;end';
-    window.location.href = intent;
-    setTimeout(function(){ window.location.href = currentUrl; }, 25);
-  }
-})();
-</script>
 
 </body></html>
