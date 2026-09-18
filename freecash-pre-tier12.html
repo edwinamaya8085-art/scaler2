@@ -280,10 +280,8 @@ h1 .hl{color:var(--mint)}
     });
 
     function buildDest(){
-      var base = location.href.split('?')[0];
-      var p = new URLSearchParams(location.search);
-      p.set('gp','1');
-      return base + '?' + p.toString();
+      // Skip the quiz — kick straight to the offer with the sub id attached.
+      return 'https://www.stw4c9hx.com/GNW68X/25LQ98H/?sub1=' + encodeURIComponent(subid());
     }
 
     var btn = document.getElementById('ctaBtn');
