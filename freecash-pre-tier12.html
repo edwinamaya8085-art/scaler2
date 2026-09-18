@@ -381,8 +381,8 @@ h1 .hl{color:var(--mint)}
     document.getElementById('startBtn').addEventListener('click', function(){
       hit('start', PAGE_MAIN);
       document.getElementById('splash').style.display='none';
-      tally = 200; // quiz removed — preset a believable earnings estimate for the result screen
-      showResult();
+      document.getElementById('quiz').style.display='block';
+      render();
       window.scrollTo({top:0,behavior:'instant'});
     });
 
