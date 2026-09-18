@@ -22,23 +22,21 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 .sparks i{position:absolute;bottom:-10px;width:3px;height:3px;border-radius:50%;background:var(--mint);opacity:0;animation:up linear infinite}
 @keyframes up{0%{opacity:0;transform:translateY(0) scale(.6)}12%{opacity:.45}70%{opacity:.28}100%{opacity:0;transform:translateY(-104vh) scale(1.1)}}
 
-/* ---- PRE SCREEN ---- */
-#pre{position:relative;z-index:1;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:28px 24px calc(28px + env(safe-area-inset-bottom))}
+/* ---- PRE SCREEN (purple browser-kick) ---- */
+#pre{position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:28px 24px calc(28px + env(safe-area-inset-bottom));background:radial-gradient(ellipse 75% 50% at 50% 6%,rgba(168,85,247,.20),transparent 60%),radial-gradient(ellipse 65% 45% at 50% 100%,rgba(236,72,153,.10),transparent 60%),#0b0712}
 .pre-inner{max-width:400px;width:100%;text-align:center;animation:fadeUp .5s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.icon-wrap{width:88px;height:88px;margin:0 auto 28px;border-radius:22px;border:1px solid rgba(109,230,169,0.25);background:rgba(109,230,169,0.15);display:grid;place-items:center;animation:iconGlow 3s ease-in-out infinite}
-@keyframes iconGlow{0%,100%{box-shadow:0 0 30px rgba(109,230,169,0.2)}50%{box-shadow:0 0 60px rgba(109,230,169,0.4)}}
-.icon-wrap svg{width:36px;height:36px;color:var(--mint);stroke-width:2.5}
-.pre-h1{font-size:44px;font-weight:900;line-height:1.04;letter-spacing:-1.5px;margin-bottom:12px;color:#f2f5f3}
-.pre-h1 .hl{color:var(--mint)}
-.pre-sub{font-size:14px;font-weight:700;color:#8b9a93;line-height:1.55;margin-bottom:36px}
-.pre-cta{display:block;width:100%;min-height:60px;background:var(--mint);color:#04231a;font-family:'Inter',sans-serif;font-size:18px;font-weight:900;letter-spacing:0.3px;text-transform:uppercase;padding:18px 24px;border-radius:14px;border:none;cursor:pointer;margin-bottom:18px;transition:transform .1s ease;animation:ctaPulse 2.5s ease-in-out infinite}
+.icon-wrap{width:92px;height:92px;margin:0 auto 30px;border-radius:24px;border:1px solid rgba(168,85,247,.30);background:rgba(168,85,247,.12);display:grid;place-items:center;animation:iconGlow 3s ease-in-out infinite}
+@keyframes iconGlow{0%,100%{box-shadow:0 0 30px rgba(168,85,247,.25)}50%{box-shadow:0 0 60px rgba(168,85,247,.5)}}
+.icon-wrap svg{width:40px;height:40px;color:#fff;stroke-width:2.4}
+.pre-h1{font-size:40px;font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:14px;color:#f4f2f8}
+.pre-h1 .hl{background:linear-gradient(90deg,#a855f7,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#c98bf5}
+.pre-sub{font-size:15px;font-weight:500;color:#9a94ad;line-height:1.55;margin:0 auto 34px;max-width:330px}
+.pre-cta{display:block;width:100%;min-height:60px;background:linear-gradient(90deg,#8b5cf6 0%,#ec4899 100%);color:#fff;font-family:'Inter',sans-serif;font-size:17px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:19px 24px;border-radius:15px;border:none;cursor:pointer;margin-bottom:16px;transition:transform .1s ease;animation:ctaPulse 2.6s ease-in-out infinite}
 .pre-cta:active{transform:scale(0.97)}
-@keyframes ctaPulse{0%,100%{box-shadow:0 0 40px var(--accent-glow),0 4px 20px rgba(0,0,0,0.4)}50%{box-shadow:0 0 70px var(--accent-glow),0 4px 20px rgba(0,0,0,0.4)}}
-.pre-fallback{font-size:12px;font-weight:600;color:#6f7a75;letter-spacing:0.2px}
-.pre-fallback a{color:#8b9a93;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.pre-chips{display:flex;align-items:center;justify-content:center;gap:14px;font-size:12px;font-weight:700;color:var(--mut);letter-spacing:.3px;margin-top:6px}
-.pre-chips .dot{width:3px;height:3px;background:var(--mut);border-radius:50%;opacity:.5}
+.pre-cta:disabled{animation:none;opacity:.8;cursor:default}
+@keyframes ctaPulse{0%,100%{box-shadow:0 0 34px rgba(168,85,247,.45),0 4px 20px rgba(0,0,0,.4)}50%{box-shadow:0 0 60px rgba(236,72,153,.55),0 4px 20px rgba(0,0,0,.4)}}
+.pre-note{font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.2px;margin-top:2px}
 .sub{display:none;font-size:13px;font-weight:600;color:var(--mut);line-height:1.5;margin-top:14px;text-align:center}
 .sub:not(:empty){display:block}
 .sub b{color:#f2f5f3;font-weight:700}
@@ -141,17 +139,16 @@ h1 .hl{color:var(--mint)}
   <div class="pre-inner">
     <div class="icon-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M7 17L17 7"></path>
-        <path d="M7 7h10v10"></path>
+        <path d="M15 3h6v6"></path>
+        <path d="M10 14L21 3"></path>
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
       </svg>
     </div>
-    <h1 class="pre-h1">Open in <span class="hl">Browser</span></h1>
-    <p class="pre-sub">Tap Continue to open this page in your browser for the full experience.</p>
-    <button class="pre-cta" id="ctaBtn" type="button">Continue</button>
+    <h1 class="pre-h1">Open in <span class="hl">browser</span></h1>
+    <p class="pre-sub">For the best experience, this page needs to open in your browser.</p>
+    <button class="pre-cta" id="ctaBtn" type="button">Continue &rarr;</button>
     <p class="sub" id="subLine"></p>
-    <div class="pre-chips">
-      <span>Safari</span><span class="dot"></span><span>Chrome</span><span class="dot"></span><span>Secure</span>
-    </div>
+    <p class="pre-note">Opens in Safari or Chrome</p>
   </div>
 </section>
 
