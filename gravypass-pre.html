@@ -4,393 +4,518 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0b0f0d">
+<meta name="theme-color" content="#0b0810">
 <meta name="robots" content="noindex, nofollow">
-<title>Gravy Pass | Quick Match Quiz</title>
+<title>Open in Browser</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{overflow-x:hidden;-webkit-text-size-adjust:100%}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0b0f0d;color:#f2f5f3;overflow-x:clip;overscroll-behavior-y:none;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
-:root{--mint:#6de6a9;--mint2:#3fbf83;--ink:#04231a;--card:#141a18;--line:#232b28;--mut:#8b9a93;--accent-glow:rgba(109,230,169,0.4)}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0b0810;color:#ffffff;overflow-x:clip;overscroll-behavior-y:none;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;line-height:1.5}
+:root{
+  --bg:#0b0810;--card:#110f1c;--card2:#16132a;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.06);
+  --text:#ffffff;--mut:#a8a2c0;--mut2:#6b6680;
+  --red:#8b5cf6;--red2:#6b2dd9;--red-lite:#b99cff;--red-glow:rgba(139,92,246,.42);
+  --grad:linear-gradient(90deg,#e874c2 0%,#6b2dd9 55%,#7dd3f5 100%);
+  --gold:#fbbf24;--ok:#4ade80;
+}
 
-.bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 70% 45% at 50% -5%,rgba(109,230,169,.14),transparent 65%),radial-gradient(ellipse 45% 35% at 100% 100%,rgba(63,191,131,.07),transparent 60%),#0b0f0d;animation:drift 16s ease-in-out infinite}
-@keyframes drift{0%,100%{transform:scale(1)}50%{transform:scale(1.06) translateY(-8px)}}
-.sparks{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.sparks i{position:absolute;bottom:-10px;width:3px;height:3px;border-radius:50%;background:var(--mint);opacity:0;animation:up linear infinite}
-@keyframes up{0%{opacity:0;transform:translateY(0) scale(.6)}12%{opacity:.45}70%{opacity:.28}100%{opacity:0;transform:translateY(-104vh) scale(1.1)}}
-
-/* ---- PRE SCREEN ---- */
-#pre{position:relative;z-index:1;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:28px 24px calc(28px + env(safe-area-inset-bottom))}
-.pre-inner{max-width:400px;width:100%;text-align:center;animation:fadeUp .5s ease both}
+@keyframes sweep{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.icon-wrap{width:88px;height:88px;margin:0 auto 28px;border-radius:22px;border:1px solid rgba(109,230,169,0.25);background:rgba(109,230,169,0.15);display:grid;place-items:center;animation:iconGlow 3s ease-in-out infinite}
-@keyframes iconGlow{0%,100%{box-shadow:0 0 30px rgba(109,230,169,0.2)}50%{box-shadow:0 0 60px rgba(109,230,169,0.4)}}
-.icon-wrap svg{width:36px;height:36px;color:var(--mint);stroke-width:2.5}
-.pre-h1{font-size:44px;font-weight:900;line-height:1.04;letter-spacing:-1.5px;margin-bottom:12px;color:#f2f5f3}
-.pre-h1 .hl{color:var(--mint)}
-.pre-sub{font-size:14px;font-weight:700;color:#8b9a93;line-height:1.55;margin-bottom:36px}
-.pre-cta{display:block;width:100%;min-height:60px;background:var(--mint);color:#04231a;font-family:'Inter',sans-serif;font-size:18px;font-weight:900;letter-spacing:0.3px;text-transform:uppercase;padding:18px 24px;border-radius:14px;border:none;cursor:pointer;margin-bottom:18px;transition:transform .1s ease;animation:ctaPulse 2.5s ease-in-out infinite}
+
+/* ---- PRE SCREEN (red/black browser-kick) ---- */
+#pre{position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:28px 24px calc(28px + env(safe-area-inset-bottom));background:radial-gradient(ellipse 75% 50% at 50% 6%,rgba(139,92,246,.18),transparent 60%),radial-gradient(ellipse 65% 45% at 50% 100%,rgba(107,45,217,.10),transparent 60%),#0b0810}
+.pre-inner{max-width:400px;width:100%;text-align:center;animation:fadeUp .5s ease both}
+.icon-wrap{width:92px;height:92px;margin:0 auto 30px;border-radius:24px;border:1px solid rgba(139,92,246,.30);background:rgba(139,92,246,.10);display:grid;place-items:center;animation:iconGlow 3s ease-in-out infinite}
+@keyframes iconGlow{0%,100%{box-shadow:0 0 30px rgba(139,92,246,.22)}50%{box-shadow:0 0 60px rgba(139,92,246,.45)}}
+.icon-wrap svg{width:40px;height:40px;color:#fff;stroke-width:2.4}
+.pre-h1{font-size:40px;font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:14px;color:#ffffff}
+.pre-h1 .hl{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#c98bf5}
+.pre-sub{font-size:15px;font-weight:500;color:#a8a2c0;line-height:1.55;margin:0 auto 34px;max-width:330px}
+.pre-cta{display:block;width:100%;min-height:60px;background:linear-gradient(270deg,#f0449a,#8b5cf6,#3da9fc,#f0449a);background-size:400% 400%;color:#fff;font-family:'Inter',sans-serif;font-size:17px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:19px 24px;border-radius:15px;border:none;cursor:pointer;margin-bottom:16px;transition:transform .1s ease;animation:sweep 4s ease infinite,ctaPulse 2.6s ease-in-out infinite}
 .pre-cta:active{transform:scale(0.97)}
-.pre-cta:disabled{animation:none;opacity:.7;cursor:default;box-shadow:0 6px 18px rgba(109,230,169,0.24)}
-@keyframes ctaPulse{0%,100%{box-shadow:0 0 40px var(--accent-glow),0 4px 20px rgba(0,0,0,0.4)}50%{box-shadow:0 0 70px var(--accent-glow),0 4px 20px rgba(0,0,0,0.4)}}
-.pre-fallback{font-size:12px;font-weight:600;color:#6f7a75;letter-spacing:0.2px}
-.pre-fallback a{color:#8b9a93;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.sub{display:none;font-size:13px;font-weight:600;color:var(--mut);line-height:1.5;margin-top:14px;text-align:center}
-.sub:not(:empty){display:block}
-.sub b{color:#f2f5f3;font-weight:700}
-@media(max-height:640px){.icon-wrap{width:70px;height:70px;margin-bottom:20px}.icon-wrap svg{width:28px;height:28px}.pre-h1{font-size:36px}.pre-sub{margin-bottom:24px}}
-@media(max-width:374px){.pre-h1{font-size:38px}.pre-cta{font-size:16px;padding:16px 18px}}
+.pre-cta:disabled{animation:none;opacity:.8;cursor:default}
+@keyframes ctaPulse{0%,100%{box-shadow:0 0 34px rgba(139,92,246,.42),0 4px 20px rgba(0,0,0,.45)}50%{box-shadow:0 0 60px rgba(139,92,246,.6),0 4px 20px rgba(0,0,0,.45)}}
+.pre-note{font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.2px;margin-top:2px}
+.pre-sm{display:none;font-size:13px;font-weight:600;color:var(--mut);line-height:1.5;margin-top:14px;text-align:center}
+.pre-sm:not(:empty){display:block}
+.pre-sm b{color:#ffffff;font-weight:700}
+@media(max-height:640px){.icon-wrap{width:74px;height:74px;margin-bottom:22px}.icon-wrap svg{width:32px;height:32px}.pre-h1{font-size:34px}.pre-sub{margin-bottom:26px}}
+@media(max-width:374px){.pre-h1{font-size:34px}.pre-cta{font-size:15px;padding:17px 18px}}
 
-/* ---- MAIN CONTENT ---- */
-#main{display:none}
-.wrap{position:relative;z-index:1;max-width:440px;margin:0 auto;padding:22px 18px calc(30px + env(safe-area-inset-bottom))}
-.anim{opacity:0;animation:fade .5s ease forwards}
-@keyframes fade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+/* ---- MAIN ---- */
+#main{display:none;position:relative;z-index:1;padding-bottom:96px}
+.bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 50% -5%,rgba(139,92,246,.16),transparent 42%),radial-gradient(circle at 15% 90%,rgba(107,45,217,.12),transparent 40%),#0b0810}
+.wrap{position:relative;z-index:1;max-width:440px;margin:0 auto;padding:26px 16px 20px}
+.anim{opacity:0;animation:fadeUp .5s ease forwards}
 
-.brand{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px}
-.brand img{width:46px;height:46px;border-radius:13px;box-shadow:0 0 22px rgba(109,230,169,.3);animation:glow 3.2s ease-in-out infinite}
-@keyframes glow{0%,100%{box-shadow:0 0 18px rgba(109,230,169,.22)}50%{box-shadow:0 0 34px rgba(109,230,169,.46)}}
-.brand .x{color:rgba(255,255,255,.4);font-size:18px}
-.brand .nm{font-size:19px;font-weight:800;letter-spacing:-.02em}
+/* brand */
+.brand{display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.brand img{width:76px;height:76px;border-radius:19px;box-shadow:0 12px 30px rgba(0,0,0,.4),0 0 26px rgba(139,92,246,.28);animation:glow 3.2s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 12px 30px rgba(0,0,0,.4),0 0 20px rgba(139,92,246,.22)}50%{box-shadow:0 12px 30px rgba(0,0,0,.4),0 0 40px rgba(139,92,246,.5)}}
 
-h1{font-size:31px;line-height:1.12;font-weight:900;letter-spacing:-.9px;text-align:center;margin-bottom:12px}
-h1 .hl{color:var(--mint)}
-.sub{font-size:14px;line-height:1.55;color:var(--mut);text-align:center;margin-bottom:20px}
+/* hero */
+.hero{text-align:center}
+.hero h1{font-size:42px;font-weight:900;line-height:1.04;letter-spacing:-1.6px;margin-bottom:14px}
+.hero h1 .grad{display:block;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#c98bf5}
+.hero .sub{font-size:15px;line-height:1.55;color:var(--mut);max-width:380px;margin:0 auto 20px}
 
-.stats{display:flex;gap:9px;margin-bottom:20px}
-.stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 6px;text-align:center}
-.stat b{display:block;font-size:16px;font-weight:900;color:var(--mint)}
-.stat span{font-size:10.5px;color:var(--mut);letter-spacing:.02em}
+/* proof strip */
+.proof{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto 20px;padding:14px 12px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.proof .it{flex:1;text-align:center}
+.proof .it b{display:block;font-size:17px;font-weight:900;color:var(--red);letter-spacing:-.3px}
+.proof .it span{display:block;font-size:9.5px;font-weight:700;color:var(--mut);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+.proof .dv{width:1px;height:30px;background:var(--line)}
 
-.cta{display:block;width:100%;min-height:58px;padding:18px;border:none;border-radius:15px;background:linear-gradient(180deg,var(--mint),var(--mint2));color:var(--ink);font-family:inherit;font-size:16.5px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:transform .15s ease;animation:pulse 2.4s ease-in-out infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 28px rgba(109,230,169,.42),0 4px 16px rgba(0,0,0,.35)}50%{box-shadow:0 0 46px rgba(109,230,169,.7),0 4px 16px rgba(0,0,0,.35)}}
-.cta:active{transform:scale(.98)}
-.cta-wrap{width:100%}
+/* buttons */
+.cta{opacity:1;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:58px;padding:16px 22px;border:none;border-radius:14px;background:linear-gradient(270deg,#f0449a,#8b5cf6,#3da9fc,#f0449a);background-size:400% 400%;animation:sweep 4s ease infinite;color:#fff;font-family:inherit;font-size:17px;font-weight:900;letter-spacing:.03em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 18px rgba(139,92,246,.34);transition:transform .15s ease,box-shadow .2s ease}
+.cta:active{transform:translateY(1px) scale(.99)}
 
-.sec-h{font-size:11px;font-weight:800;letter-spacing:.2em;color:rgba(255,255,255,.45);margin:26px 0 13px;text-align:center}
-.steps{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px 16px}
-.stp{display:flex;gap:13px;padding-bottom:16px;position:relative}
-.stp:not(:last-child)::after{content:"";position:absolute;left:13px;top:29px;bottom:0;width:2px;background:var(--line)}
-.stp:last-child{padding-bottom:0}
-.stp .n{width:27px;height:27px;border-radius:50%;background:var(--mint);color:var(--ink);font-size:12.5px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1}
-.stp h4{font-size:14px;font-weight:700;margin-bottom:3px}
-.stp p{font-size:12px;color:var(--mut);line-height:1.45}
-.stp p b{color:var(--mint);font-weight:600}
+/* section head */
+.sec-h{font-size:11px;font-weight:800;letter-spacing:.2em;color:var(--mut2);margin:26px 0 12px;text-align:center;text-transform:uppercase}
 
-.act{position:relative;background:rgba(255,193,7,.06);border:1px solid rgba(255,193,7,.4);border-radius:15px;padding:17px 15px;margin-top:18px}
-.act .flag{position:absolute;top:-10px;left:14px;background:#ffc107;color:#241c00;font-size:9.5px;font-weight:900;letter-spacing:.08em;padding:4px 9px;border-radius:6px}
-.act h4{font-size:14.5px;font-weight:800;margin:4px 0 6px}
-.act p{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.5}
-.act p b{color:var(--mint);font-weight:700}
-.trust{font-size:11.5px;color:rgba(255,255,255,.32);text-align:center;margin-top:16px;line-height:1.45}
+/* how it works */
+.steps{border:1px solid var(--line);border-radius:15px;overflow:hidden;background:rgba(255,255,255,.02);text-align:left}
+.step{display:grid;grid-template-columns:30px 1fr;gap:13px;align-items:flex-start;padding:16px}
+.step+.step{border-top:1px solid var(--line2)}
+.step .n{width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.step h4{font-size:15px;font-weight:800;margin-bottom:4px}
+.step p{font-size:13px;color:var(--mut);line-height:1.5}
+.step p b{color:var(--red-lite);font-weight:700}
 
-/* QUIZ */
-#quiz{display:none}
-.qhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.qstep{font-size:10.5px;font-weight:800;letter-spacing:.16em;color:var(--mut)}
-.qtally{font-size:17px;font-weight:900;color:var(--mint);font-variant-numeric:tabular-nums}
-.qbar{height:5px;border-radius:999px;background:#1c2321;overflow:hidden;margin-bottom:22px}
-.qbar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--mint),var(--mint2));width:0;transition:width .45s cubic-bezier(.22,1,.36,1)}
-.q h2{font-size:22px;font-weight:900;letter-spacing:-.5px;line-height:1.2;margin-bottom:16px;text-align:center}
-.opts{display:flex;flex-direction:column;gap:10px}
-.opt{width:100%;min-height:56px;padding:16px;border-radius:13px;border:1.5px solid var(--line);background:var(--card);color:#f2f5f3;font-family:inherit;font-size:14.5px;font-weight:700;text-align:left;cursor:pointer;transition:border-color .15s,background .15s,transform .12s}
-.opt:active{transform:scale(.985)}
-.opt.sel{border-color:var(--mint);background:rgba(109,230,169,.1)}
+/* notice */
+.notice{margin-top:16px;border:1px solid rgba(139,92,246,.3);border-radius:14px;background:linear-gradient(180deg,rgba(139,92,246,.08),rgba(255,255,255,.02));overflow:hidden;text-align:left}
+.notice .flag{display:inline-flex;align-items:center;min-height:24px;padding:0 11px;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;background:var(--red);color:#fff;border-bottom-right-radius:10px}
+.notice .bd{padding:14px 16px 16px}
+.notice h4{font-size:15px;font-weight:800;margin-bottom:6px}
+.notice p{font-size:13px;color:var(--mut);line-height:1.55}
+.notice p b{color:var(--text);font-weight:800}
 
-/* RESULT */
-#result{display:none}
-.badge{display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(109,230,169,.1);border:1px solid rgba(109,230,169,.34);border-radius:999px;padding:8px 15px;font-size:12px;font-weight:800;color:var(--mint);width:fit-content;margin:0 auto 16px}
-.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px var(--mint);animation:bl 1.7s ease-in-out infinite}
-@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
-.est{background:var(--card);border:1px solid rgba(109,230,169,.3);border-radius:17px;padding:22px 18px;text-align:center;margin-bottom:16px}
-.est .lbl{font-size:10.5px;font-weight:800;letter-spacing:.16em;color:var(--mut);margin-bottom:8px}
-.est .big{font-size:39px;font-weight:900;letter-spacing:-1.6px;color:var(--mint);line-height:1;font-variant-numeric:tabular-nums}
-.est .cap{font-size:11.5px;color:var(--mut);margin-top:9px}
-.timer{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12.5px;font-weight:700;color:#ff9e6b;margin-bottom:16px}
-.timer b{font-variant-numeric:tabular-nums}
-.live{font-size:12px;color:var(--mut);text-align:center;margin-top:13px}
-.live b{color:var(--mint);font-weight:700}
-.fine{font-size:11px;color:rgba(255,255,255,.3);text-align:center;margin-top:11px}
+/* social proof */
+.social{margin-top:16px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);padding:16px;text-align:left}
+.social .hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.social .lbl{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mut2)}
+.social .dis{font-size:10px;color:var(--mut2)}
+.rv{padding:14px 0;border-top:1px solid var(--line2)}
+.rv:first-of-type{border-top:none;padding-top:2px}
+.rv-top{display:flex;align-items:center;gap:9px;margin-bottom:9px;flex-wrap:wrap}
+.rv-av{width:36px;height:36px;border-radius:50%;background:rgba(139,92,246,.16);border:1px solid rgba(139,92,246,.3);color:var(--red);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rv-nm{font-size:14px;font-weight:800}
+.rv-badge{font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--red);background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);border-radius:999px;padding:3px 8px}
+.rv-badge.pro{background:var(--red);color:#0b0810;border-color:var(--red)}
+.rv-tx{font-size:13px;line-height:1.55;color:#c9c4dc;margin:0 0 8px}
+.rv-st{color:var(--gold);font-size:11px;letter-spacing:1px}
 
-@media(max-width:374px){
-  .wrap{padding:18px 14px calc(24px + env(safe-area-inset-bottom))}
-  h1{font-size:27px}.q h2{font-size:20px}.est .big{font-size:34px}
-  .stat b{font-size:14.5px}.stat span{font-size:9.5px}
-  .cta{font-size:15px;padding:16px}
+/* recent cashouts */
+.cashout{margin-top:22px;text-align:left}
+.cashout .t{margin:0 0 12px;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mut2)}
+.cashout .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cashout .shot{aspect-ratio:9/16;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.cashout .shot img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+
+/* rewards to unlock */
+.rewards{margin-top:22px;text-align:left}
+.rewards .t{margin:0 0 12px;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mut2)}
+.rw{padding:14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.02);margin-bottom:10px}
+.rw:last-child{margin-bottom:0}
+.rw-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.rw-app{display:flex;align-items:center;gap:12px;min-width:0}
+.rw-ic{width:44px;height:44px;flex:0 0 44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 12px rgba(0,0,0,.32)}
+.rw-ic.c1{background:linear-gradient(135deg,#ff7ab0,#e0245e)}
+.rw-ic.c2{background:linear-gradient(135deg,#ff8f5a,#e0451f)}
+.rw-ic.c3{background:linear-gradient(135deg,#ff5252,#6b2dd9)}
+.rw-nm{font-size:15px;font-weight:900;line-height:1.15}
+.rw-tg{margin-top:2px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--mut2)}
+.rw-rate{text-align:right;flex:0 0 auto}
+.rw-rate b{display:block;font-size:17px;font-weight:900;color:var(--red-lite)}
+.rw-rate span{display:block;font-size:10px;font-weight:700;text-transform:uppercase;color:var(--mut2)}
+.rw-pr{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--mut);margin-bottom:6px}
+.rw-pr b{color:var(--text);font-weight:800}
+.rw-bar{height:7px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden;margin-bottom:10px}
+.rw-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#6b2dd9,#ff5a3c)}
+.rw-lock{height:42px;border-radius:12px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;color:var(--mut2);font-size:12px;font-weight:900;letter-spacing:.4px}
+
+.foot{margin-top:16px;text-align:center;font-size:12px;color:var(--mut2);line-height:1.5}
+
+/* sticky cta */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:12px 14px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(to top,#0b0810 68%,transparent);transform:translateY(140%);opacity:0;transition:transform .36s cubic-bezier(.16,1,.3,1),opacity .36s ease;pointer-events:none}
+.sticky.on{transform:translateY(0);opacity:1;pointer-events:auto}
+.sticky .cta{max-width:440px;margin:0 auto}
+
+/* ===== QUIZ MODAL ===== */
+.qov{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.qov.open{display:flex}
+.qcard{width:min(460px,100%);max-height:92dvh;border-radius:18px;border:1px solid var(--line);background:#120f1e;box-shadow:0 26px 90px rgba(0,0,0,.72);overflow:hidden;position:relative;display:flex;flex-direction:column;transform:translateY(16px) scale(.98);opacity:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .24s ease}
+.qov.open .qcard{transform:none;opacity:1}
+.qglow{position:absolute;inset:0 0 auto 0;height:3px;background:var(--grad);z-index:2}
+.qhead{padding:20px 20px 14px;flex-shrink:0;border-bottom:1px solid var(--line2)}
+.qbrand{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:14px}
+.qbrand img{width:34px;height:34px;border-radius:9px}
+.qbrand span{font-size:16px;font-weight:900;letter-spacing:-.02em}
+.qrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.qstep{font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut2)}
+.qx{width:34px;height:34px;border-radius:11px;border:0;background:rgba(255,255,255,.08);color:#fff;cursor:pointer;display:grid;place-items:center}
+.qx svg{width:17px;height:17px;fill:currentColor}
+.qprog{position:relative}
+.qtrack{width:100%;height:4px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.qfill{height:100%;border-radius:3px;background:var(--grad);transition:width .4s cubic-bezier(.4,0,.2,1)}
+.qearn{position:absolute;top:-22px;left:0;font-size:.78rem;font-weight:900;color:var(--red-lite);opacity:0;pointer-events:none;white-space:nowrap}
+.qearn.pop{animation:qfloat .9s ease-out forwards}
+@keyframes qfloat{0%{opacity:0;transform:translateY(6px) scale(.8)}25%{opacity:1;transform:translateY(0) scale(1.05)}100%{opacity:0;transform:translateY(-18px) scale(1)}}
+.qbody{flex:1;overflow-y:auto;padding:22px 20px 24px;-webkit-overflow-scrolling:touch}
+.qq{font-size:1.24rem;font-weight:900;line-height:1.28;margin-bottom:6px;letter-spacing:-.01em}
+.qsub{font-size:.86rem;color:var(--mut);margin-bottom:18px;line-height:1.5}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.qopt{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-height:118px;padding:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:15px;color:var(--text);text-align:left;cursor:pointer;transition:transform .12s,border-color .14s,background .14s,opacity .2s}
+.qopt:active{transform:scale(.98)}
+.qopt.sel{border-color:rgba(196,181,253,.55);background:linear-gradient(180deg,rgba(139,92,246,.18),rgba(255,255,255,.03))}
+.qopt.dim{opacity:.45;pointer-events:none}
+.qopts.stack{grid-template-columns:1fr}
+.qopts.stack .qopt{flex-direction:row;align-items:center;min-height:74px}
+.qopts.stack .qopt .qradio{top:50%!important;transform:translateY(-50%)!important}
+.qopts:not(.stack) .qopt:last-child:nth-child(odd){grid-column:span 2;flex-direction:row;align-items:center;min-height:74px}
+.qopts:not(.stack) .qopt:last-child:nth-child(odd) .qradio{top:50%!important;transform:translateY(-50%)!important}
+.qic{width:36px;height:36px;border-radius:10px;background:rgba(139,92,246,.14);display:flex;align-items:center;justify-content:center;color:var(--red-lite);flex-shrink:0}
+.qic svg{width:18px;height:18px}
+.qopt.sel .qic{background:rgba(139,92,246,.32);color:#fff}
+.qtx{flex:1;display:flex;flex-direction:column;gap:2px}
+.qt{font-size:.9rem;font-weight:800;line-height:1.2}
+.qs{font-size:.72rem;font-weight:600;color:var(--mut2);line-height:1.35}
+.qradio{position:absolute;top:14px;right:14px;width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
+.qopt.sel .qradio{border-color:var(--red);background:var(--red)}
+.qopt.sel .qradio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff}
+.qenc{display:none;background:linear-gradient(135deg,rgba(232,116,194,.24),rgba(107,45,217,.4) 55%,rgba(125,211,245,.2));border:1px solid rgba(196,181,253,.5);border-radius:16px;padding:16px;gap:13px;align-items:center;margin:18px 0 4px}
+.qenc.show{display:flex;animation:qencin .35s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes qencin{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+.qenc svg{flex-shrink:0;width:36px;height:36px;color:#c4b5fd;animation:qspark 1.6s ease-in-out infinite}
+@keyframes qspark{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.12) rotate(8deg)}}
+.qenc p{font-size:1rem;font-weight:700;line-height:1.4;margin:0}
+.qenc p b{display:block;margin-top:5px;font-size:1.2rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.qnext{width:100%;margin-top:20px}
+.qnext:disabled{background:rgba(255,255,255,.06);color:var(--mut2);animation:none;box-shadow:none;cursor:not-allowed}
+
+/* calculating */
+.qcalc{display:none;text-align:center;padding:16px 0}
+.qcalc.on{display:block;animation:fadeUp .3s ease both}
+.qspin{width:66px;height:66px;border-radius:50%;border:3px solid rgba(255,255,255,.14);border-top-color:var(--red);animation:spin .9s linear infinite;margin:0 auto 24px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.qcalc .ct{font-size:.72rem;font-weight:800;letter-spacing:.16em;color:#c4b5fd;margin-bottom:22px}
+.qcs{display:grid;gap:10px;text-align:left}
+.qc{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.03);font-size:.9rem;font-weight:700;color:var(--mut2);opacity:.5;transition:opacity .35s,border-color .35s,background .35s,transform .35s}
+.qc.act{opacity:1;color:var(--text);border-color:rgba(196,181,253,.34);background:linear-gradient(180deg,rgba(139,92,246,.14),rgba(255,255,255,.03));transform:translateX(2px)}
+.qc.done{opacity:1;color:var(--text);border-color:rgba(74,222,128,.28);background:rgba(74,222,128,.06)}
+.qc .m{width:22px;height:22px;flex:0 0 22px;border-radius:50%;border:2px solid rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center}
+.qc.act .m{border-color:rgba(196,181,253,.6)}
+.qc.act .m::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--red-lite)}
+.qc.done .m{border-color:transparent;background:var(--ok)}
+.qc.done .m::after{content:'';width:6px;height:10px;border:solid #0b0810;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+
+/* result */
+.qres{display:none;text-align:center}
+.qres.on{display:block;animation:fadeUp .32s ease both}
+.qpill{display:inline-flex;align-items:center;gap:6px;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3);color:var(--ok);font-size:.68rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:14px}
+.qres h3{font-size:1.42rem;font-weight:900;line-height:1.22;margin-bottom:16px;letter-spacing:-.02em}
+.qbox{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:18px 16px;margin-bottom:14px}
+.qbox .l{font-size:.62rem;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--mut2);margin-bottom:8px}
+.qbox .amt{font-size:2.4rem;font-weight:900;line-height:1;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.qbox .pd{font-size:.9rem;color:var(--mut);margin-top:6px}
+.qclaim{width:100%;margin-bottom:12px}
+.qsoc{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.74rem;color:var(--mut);line-height:1.4}
+.qsoc b{color:var(--text)}
+.qlive{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px rgba(139,92,246,.2);flex-shrink:0;animation:qlp 2s ease-in-out infinite}
+@keyframes qlp{0%,100%{opacity:1}50%{opacity:.5}}
+
+@media(max-width:480px){
+  .hero h1{font-size:36px}
+  .qq{font-size:1.16rem}
+  .qopt{min-height:auto;padding:12px}
+  .qres h3{font-size:1.3rem}
+  .qbox .amt{font-size:2rem}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.anim{opacity:1}}
 </style>
 </head>
 <body>
-<div class="bg"></div>
-<div class="sparks" aria-hidden="true">
-  <i style="left:10%;animation-duration:16s;animation-delay:0s"></i>
-  <i style="left:28%;animation-duration:20s;animation-delay:3.5s"></i>
-  <i style="left:46%;animation-duration:14s;animation-delay:7s"></i>
-  <i style="left:64%;animation-duration:21s;animation-delay:1.5s"></i>
-  <i style="left:81%;animation-duration:17s;animation-delay:9s"></i>
-  <i style="left:93%;animation-duration:15s;animation-delay:5s"></i>
-</div>
 
 <!-- ============ PRE SCREEN ============ -->
 <section id="pre">
   <div class="pre-inner">
     <div class="icon-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14"></path>
-        <path d="M13 6l6 6-6 6"></path>
+        <path d="M15 3h6v6"></path>
+        <path d="M10 14L21 3"></path>
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
       </svg>
     </div>
-    <h1 class="pre-h1">Let's <span class="hl">Get Started</span></h1>
-    <p class="pre-sub">Tap continue to load your rewards page.</p>
-    <button class="pre-cta" id="ctaBtn">Continue</button>
-    <p class="sub" id="subLine"></p>
+    <h1 class="pre-h1">Open in <span class="hl">browser</span></h1>
+    <p class="pre-sub">For the best experience, this page needs to open in your browser.</p>
+    <button class="pre-cta" id="ctaBtn" type="button">Continue &rarr;</button>
+    <p class="pre-sm" id="subLine"></p>
+    <p class="pre-note">Opens in Safari or Chrome</p>
   </div>
 </section>
 
-<!-- ============ MAIN CONTENT ============ -->
+<!-- ============ MAIN ============ -->
 <div id="main">
+<div class="bgfx"></div>
 <div class="wrap">
 
-  <!-- SPLASH -->
-  <section id="splash">
-    <div class="brand anim">
-      <img src="data:image/webp;base64,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" alt="TikTok" width="46" height="46">
-      <span class="x">×</span>
-      <img src="data:image/webp;base64,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" alt="Gravy Pass" width="46" height="46">
+  <div class="brand anim"><img src="data:image/webp;base64,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" alt="Gravy Pass" width="76" height="76"></div>
+
+  <section class="hero">
+    <h1 class="anim" style="animation-delay:.04s">Get Paid for your <span class="grad">Screentime</span></h1>
+    <p class="sub anim" style="animation-delay:.08s">Download the <b style="color:#e8dede">Gravy Pass</b> app, play games and finish quick tasks &mdash; then cash out real rewards straight to you.</p>
+
+    <div class="proof anim" style="animation-delay:.12s">
+      <div class="it"><b>$5</b><span>signup bonus</span></div>
+      <div class="dv"></div>
+      <div class="it"><b>$10</b><span>min cashout</span></div>
+      <div class="dv"></div>
+      <div class="it"><b>4.5&#9733;</b><span>rated</span></div>
     </div>
-    <h1 class="anim" style="animation-delay:.06s">Get Paid to Play Games &amp; <span class="hl">Complete Tasks</span>.</h1>
-    <p class="sub anim" style="animation-delay:.1s">Add <b>Gravy Pass</b> to your wallet, play games and finish quick tasks — then cash out real rewards straight to you.</p>
-    <div class="stats anim" style="animation-delay:.14s">
-      <div class="stat"><b>$1</b><span>signup bonus</span></div>
-      <div class="stat"><b>$10</b><span>min cashout</span></div>
-      <div class="stat"><b>4.5★</b><span>rated</span></div>
-    </div>
-    <div class="cta-wrap anim" style="animation-delay:.18s">
-      <button class="cta" id="startBtn">GET STARTED</button>
-    </div>
-    <div class="sec-h anim" style="animation-delay:.24s">HOW IT WORKS</div>
-    <div class="steps anim" style="animation-delay:.26s">
-      <div class="stp"><div class="n">1</div><div><h4>Add Gravy Pass to your wallet</h4><p>Works on <b>iPhone and Android</b>. Add it to Apple Wallet or Google Wallet in seconds and start earning right away.</p></div></div>
-      <div class="stp"><div class="n">2</div><div><h4>Play games &amp; finish tasks</h4><p>Open your pass, pick an offer, and hit milestones for <b>real credit</b>.</p></div></div>
-      <div class="stp"><div class="n">3</div><div><h4>Cash out your rewards</h4><p>Withdraw from <b>$10</b> — PayPal, gift cards or crypto.</p></div></div>
-    </div>
-    <div class="act anim" style="animation-delay:.3s">
-      <span class="flag">ACTIVATION REQUIRED</span>
+
+    <button class="cta anim js-open-quiz" style="animation-delay:.16s" type="button">Get Started &rarr;</button>
+  </section>
+
+  <div class="sec-h anim" style="animation-delay:.2s">How it works</div>
+  <div class="steps anim" style="animation-delay:.22s">
+    <div class="step"><div class="n">1</div><div><h4>Download the Gravy Pass app</h4><p>Available on <b>iPhone and Android</b>. Install in seconds and open your dashboard.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h4>Play games &amp; finish tasks</h4><p>Open the app, pick an offer, and hit milestones for <b>real credit</b>.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h4>Cash out your rewards</h4><p>Withdraw from <b>$10</b> &mdash; PayPal, gift cards or crypto.</p></div></div>
+  </div>
+
+  <div class="notice anim" style="animation-delay:.26s">
+    <div class="flag">Activation required</div>
+    <div class="bd">
       <h4>One quick step to unlock full rewards</h4>
-      <p>Complete <b>2 qualifying tasks</b> after adding the pass to unlock the full earning experience and your <b>$1 bonus</b>.</p>
+      <p>Complete <b>2 qualifying tasks</b> after downloading the app to unlock the full earning experience and your <b>$10 bonus</b>.</p>
     </div>
-    <p class="trust anim" style="animation-delay:.34s">Trusted by players cashing out rewards every day.</p>
-  </section>
+  </div>
 
-  <!-- QUIZ -->
-  <section id="quiz">
-    <div class="brand" style="margin-bottom:16px">
-      <img src="data:image/webp;base64,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" alt="Gravy Pass" width="46" height="46">
-      <span class="nm">Gravy Pass</span>
+  <div class="social anim" style="animation-delay:.3s">
+    <div class="hd"><span class="lbl">Real players</span><span class="dis">Results vary</span></div>
+    <div class="rv">
+      <div class="rv-top"><span class="rv-av">MR</span><span class="rv-nm">Maya R.</span><span class="rv-badge">Plus tier</span></div>
+      <p class="rv-tx">&ldquo;Cashed out $527 in my first week just playing games. Took 5 minutes to set everything up.&rdquo;</p>
+      <div class="rv-st">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
     </div>
-    <div class="qhead">
-      <span class="qstep" id="qstep">STEP 1 OF 3</span>
-      <span class="qtally" id="qtally">+$0.00</span>
+    <div class="rv">
+      <div class="rv-top"><span class="rv-av">JT</span><span class="rv-nm">Jordan T.</span><span class="rv-badge pro">Pro tier</span></div>
+      <p class="rv-tx">&ldquo;So happy I unlocked the pro tier. The money hits my PayPal account the same day, and I get better games with higher rewards too. In my first month, I cashed out $2,000. Remember to do a few small in-app purchases to unlock the big bonuses.&rdquo;</p>
+      <div class="rv-st">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
     </div>
-    <div class="qbar"><i id="qbar"></i></div>
-    <div class="q">
-      <h2 id="qtitle"></h2>
-      <div class="opts" id="qopts"></div>
+    <div class="rv">
+      <div class="rv-top"><span class="rv-av">SL</span><span class="rv-nm">Sophia L.</span><span class="rv-badge">Plus tier</span></div>
+      <p class="rv-tx">&ldquo;Way more legit than the other game apps I tried. They paid me out directly to Cash App and I didn&rsquo;t have to jump through hoops to get it.&rdquo;</p>
+      <div class="rv-st">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
     </div>
-  </section>
+  </div>
 
-  <!-- RESULT -->
-  <section id="result">
-    <div class="brand" style="margin-bottom:16px">
-      <img src="data:image/webp;base64,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" alt="Gravy Pass" width="46" height="46">
-      <span class="nm">Gravy Pass</span>
-    </div>
-    <div class="badge"><span class="dot"></span>YOU'RE PRE-QUALIFIED</div>
-    <h1 style="font-size:26px;margin-bottom:16px">Your Earnings <span class="hl">Estimate</span> Is Ready</h1>
-    <div class="est">
-      <div class="lbl">ESTIMATED WEEKLY EARNINGS</div>
-      <div class="big" id="estVal">$0</div>
-      <div class="cap">Based on your answers · results vary by activity</div>
-    </div>
-    <div class="timer">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="2"></circle><path d="M12 9v4l2.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
-      Offer held for <b id="clock">10:00</b>
-    </div>
-    <div class="act" style="margin-bottom:18px">
-      <span class="flag">HOW TO UNLOCK IT</span>
-      <h4>Finish 2 tasks to switch it on</h4>
-      <p>Add Gravy Pass to your wallet, then complete <b>2 qualifying tasks</b> through your pass. That activates your account, releases your <b>$1 bonus</b>, and unlocks the higher-paying offers.</p>
-    </div>
-    <div class="cta-wrap">
-      <button class="cta" id="claimBtn">CLAIM MY SPOT</button>
-    </div>
-    <p class="live"><b id="liveN">1,240</b> people started earning this week</p>
-    <p class="fine">Free to join · No credit card · Takes 60 seconds</p>
-  </section>
+  <button class="cta anim js-open-quiz" style="animation-delay:.32s;margin-top:24px" type="button">Get Started &rarr;</button>
 
+  <p class="foot anim" style="animation-delay:.36s">Trusted by players cashing out rewards every day.</p>
 </div>
+
+<!-- sticky cta -->
+<div class="sticky" id="stickyCta"><button class="cta js-open-quiz" type="button">Get Started &rarr;</button></div>
+
+<!-- QUIZ MODAL -->
+<div class="qov" id="qov" aria-hidden="true">
+  <div class="qcard" role="dialog" aria-modal="true">
+    <div class="qglow"></div>
+    <div class="qhead">
+      <div class="qbrand"><img src="data:image/webp;base64,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" alt="Gravy Pass"><span>Gravy Pass</span></div>
+      <div class="qrow">
+        <span class="qstep" id="qStep">STEP 1 OF 3</span>
+        <button class="qx" type="button" id="qClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.42 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"></path></svg></button>
+      </div>
+      <div class="qprog"><div class="qtrack"><div class="qfill" id="qFill" style="width:33%"></div></div><div class="qearn" id="qEarn">+$0.00</div></div>
+    </div>
+    <div class="qbody">
+      <div id="qQuestion">
+        <div class="qq" id="qText"></div>
+        <div class="qsub" id="qSub"></div>
+        <div class="qopts" id="qOpts"></div>
+        <div class="qenc" id="qEnc">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L22 10l-6 4.5L18 22l-6-4-6 4 2-7.5L2 10l7.6-.8z"></path></svg>
+          <p id="qEncText"></p>
+        </div>
+        <button class="cta qnext" type="button" id="qNext" disabled>Next</button>
+      </div>
+
+      <div class="qcalc" id="qCalc">
+        <div class="qspin"></div>
+        <p class="ct">CALCULATING YOUR ESTIMATE&hellip;</p>
+        <div class="qcs">
+          <div class="qc" id="qc1"><span class="m"></span><span>Matching available offers</span></div>
+          <div class="qc" id="qc2"><span class="m"></span><span>Calculating base earnings</span></div>
+          <div class="qc" id="qc3"><span class="m"></span><span>Applying boosted rate</span></div>
+        </div>
+      </div>
+
+      <div class="qres" id="qRes">
+        <div class="qpill">&#10003; Estimate ready</div>
+        <h3>Here&rsquo;s what you can earn</h3>
+        <div class="qbox">
+          <div class="l">Estimated weekly earnings</div>
+          <div class="amt" id="qAmt">$0</div>
+          <div class="pd">weekly &middot; results vary by activity</div>
+        </div>
+        <button class="cta qclaim" type="button" id="qClaim">Claim My Spot &rarr;</button>
+        <p class="qsoc"><span class="qlive"></span><span><b id="qCount">705</b> people claimed their bonus in the last hour</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <script>
 (function(){
   'use strict';
-
   var QP = new URLSearchParams(location.search);
-  function subid(){
-    return QP.get('sub1')||QP.get('campid')||QP.get('s1')||QP.get('s2')||QP.get('cid')||QP.get('c')||'';
-  }
+  function subid(){ return QP.get('sub1')||QP.get('campid')||QP.get('s1')||QP.get('s2')||QP.get('cid')||QP.get('c')||''; }
+  var OFFER = 'https://www.pcbdfv7trk.com/213T8QJ/32BB7QT/?sub1=' + encodeURIComponent(subid());
 
-  /* ---- decide which screen to show ---- */
   var showMain = QP.get('gp') === '1';
-  if(showMain){
-    document.getElementById('pre').style.display = 'none';
-    document.getElementById('main').style.display = 'block';
-  }
+  if(showMain){ document.getElementById('pre').style.display='none'; document.getElementById('main').style.display='block'; }
 
-  /* ---- tracking ---- */
-  var TRACK = 'https://px.trendhavenn.com/t';
-  var PAGE_PRE = 'gp-quiz-pre', PAGE_MAIN = 'gp-quiz';
-  var sent = {};
-  function trackUrl(ev, page){ return TRACK+'?e='+ev+'&id='+encodeURIComponent(subid())+'&p='+page; }
-  function hit(ev, page){
-    if(sent[ev]) return; sent[ev]=1;
-    try{ new Image().src = trackUrl(ev,page)+'&_='+Date.now(); }catch(e){}
-  }
-  function hitBeacon(ev, page){
-    if(sent[ev]) return; sent[ev]=1;
-    try{
-      if(navigator.sendBeacon){ navigator.sendBeacon(trackUrl(ev,page)); }
-      else{ new Image().src = trackUrl(ev,page)+'&_='+Date.now(); }
-    }catch(e){}
-  }
+  var TRACK='https://px.trendhavenn.com/t', PAGE_PRE='gp-quiz-pre', PAGE_MAIN='gp-quiz', sent={};
+  function trackUrl(ev,page){ return TRACK+'?e='+ev+'&id='+encodeURIComponent(subid())+'&p='+page; }
+  function hit(ev,page){ if(sent[ev])return; sent[ev]=1; try{ new Image().src=trackUrl(ev,page)+'&_='+Date.now(); }catch(e){} }
+  function hitBeacon(ev,page){ if(sent[ev])return; sent[ev]=1; try{ if(navigator.sendBeacon){navigator.sendBeacon(trackUrl(ev,page));}else{new Image().src=trackUrl(ev,page)+'&_='+Date.now();} }catch(e){} }
 
   if(!showMain){
-    /* PRE SCREEN logic */
+    /* ---- PRE SCREEN kick ---- */
     hit('load', PAGE_PRE);
-    ['scroll','touchstart','pointerdown','mousemove','keydown'].forEach(function(e){
-      window.addEventListener(e, function(){ hit('human', PAGE_PRE); }, {once:true, passive:true});
-    });
-
-    function buildDest(){
-      var base = location.href.split('?')[0];
-      var p = new URLSearchParams(location.search);
-      p.set('gp','1');
-      return base + '?' + p.toString();
-    }
-
-    var btn = document.getElementById('ctaBtn');
-    var subEl = document.getElementById('subLine');
-    var tried = false;
-
+    ['scroll','touchstart','pointerdown','mousemove','keydown'].forEach(function(e){ window.addEventListener(e,function(){hit('human',PAGE_PRE);},{once:true,passive:true}); });
+    function buildDest(){ var base=location.href.split('?')[0]; var p=new URLSearchParams(location.search); p.set('gp','1'); return base+'?'+p.toString(); }
+    var btn=document.getElementById('ctaBtn'), subEl=document.getElementById('subLine'), tried=false;
     function go(){
-      hitBeacon('continue', PAGE_PRE);
-      var d = buildDest();
+      hitBeacon('continue',PAGE_PRE);
+      var d=buildDest();
       // window.open new tab = more reliable kick out of the in-app browser; same-tab fallback
-      var w = window.open(d, '_blank', 'noopener,noreferrer');
-      if(!w || w.closed || typeof w.closed === 'undefined'){
-        window.location.href = d;
-      }
+      var w=window.open(d,'_blank','noopener,noreferrer');
+      if(!w||w.closed||typeof w.closed==='undefined'){ window.location.href=d; }
     }
+    function watchdog(){ btn.disabled=false; btn.textContent='Continue anyway'; subEl.innerHTML='Still here? <b>Tap continue anyway</b> to keep going.'; btn.onclick=function(){ hitBeacon('fallback',PAGE_PRE); window.location.href=buildDest(); }; }
+    btn.addEventListener('click',function(){ if(tried)return; tried=true; btn.disabled=true; go(); setTimeout(watchdog,1600); });
+    return;
+  }
 
-    function watchdog(){
-      btn.disabled = false;
-      btn.textContent = 'Continue anyway';
-      subEl.innerHTML = 'Still here? <b>Tap continue anyway</b> to keep going.';
-      btn.onclick = function(){
-        hitBeacon('fallback', PAGE_PRE);
-        window.location.href = buildDest();
-      };
-    }
+  /* ---- MAIN ---- */
+  hit('load', PAGE_MAIN);
+  ['scroll','touchstart','pointerdown','mousemove','keydown'].forEach(function(e){ window.addEventListener(e,function(){hit('human',PAGE_MAIN);},{once:true,passive:true}); });
 
-    btn.addEventListener('click', function(){
-      if(tried) return;
-      tried = true;
-      btn.disabled = true;
-      go();
-      setTimeout(watchdog, 1600);
-    });
+  function ic(p){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
+  var I_DOLLAR = ic('<line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>');
+  var I_TREND  = ic('<path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/>');
+  var I_STAR   = ic('<path d="M12 2l2.4 6.9L22 9.3l-5.6 4.3L18.2 22 12 17.8 5.8 22l1.8-8.4L2 9.3l7.6-.4z"/>');
+  var I_COFFEE = ic('<path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/>');
+  var I_CLOCK  = ic('<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>');
+  var I_ZAP    = ic('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>');
 
-  } else {
-    /* MAIN CONTENT logic */
-    hit('load', PAGE_MAIN);
-    ['scroll','touchstart','pointerdown','mousemove','keydown'].forEach(function(e){
-      window.addEventListener(e, function(){ hit('human', PAGE_MAIN); }, {once:true, passive:true});
-    });
+  var QUESTIONS = [
+    { text:'How much do you want to earn each week?', sub:'Be honest. It affects your estimate.',
+      opts:[
+        {t:'$50 &ndash; $100', s:'Coffee money, subscriptions', ic:I_DOLLAR, pts:50},
+        {t:'$100 &ndash; $250', s:'Solid side income', ic:I_TREND, pts:120},
+        {t:'$250+', s:'Replace a part-time job', ic:I_STAR, pts:190}
+      ], reward:0.40 },
+    { text:'How much time can you give it a day?', sub:'This affects your match.',
+      opts:[
+        {t:'About 15 minutes', s:'A quick daily session', ic:I_COFFEE, pts:40},
+        {t:'Around 30 minutes', s:'Consistent side income', ic:I_CLOCK, pts:90},
+        {t:'An hour or more', s:'Treating this like a hustle', ic:I_ZAP, pts:150}
+      ], reward:0.35 },
+    { text:'What sounds most fun to you?', sub:'We&rsquo;ll prioritize the best-paying offers.',
+      opts:[
+        {t:'Puzzle &amp; casual games', s:'Relaxed, easy play', ic:I_STAR, pts:55},
+        {t:'Action &amp; strategy games', s:'More engaging offers', ic:I_ZAP, pts:75},
+        {t:'Quick tasks &amp; surveys', s:'Fast, simple earns', ic:I_TREND, pts:60}
+      ], reward:0.55 }
+  ];
+  var ENC = [
+    'Nice start! Every answer gets you closer to your match.',
+    'You&rsquo;re on a roll &mdash; keep going.',
+    'Perfect. Let&rsquo;s reveal your match!'
+  ];
+  var TOTAL = QUESTIONS.length, cur=0, tally=0, picked=null;
 
-    var QUESTIONS = [
-      { t:'How much do you want to earn each week?',
-        o:[['$50 – $100',40],['$100 – $250',90],['$250+',150]] },
-      { t:'How much time can you give it a day?',
-        o:[['About 15 minutes',35],['Around 30 minutes',80],['An hour or more',140]] },
-      { t:'What sounds most fun to you?',
-        o:[['Puzzle &amp; casual games',60],['Action &amp; strategy games',75],['Quick tasks &amp; surveys',55]] }
-    ];
-    var idx=0, tally=0, answered=false;
-    var elStep=document.getElementById('qstep'), elTally=document.getElementById('qtally'),
-        elBar=document.getElementById('qbar'), elTitle=document.getElementById('qtitle'),
-        elOpts=document.getElementById('qopts');
+  var qov=document.getElementById('qov'), qClose=document.getElementById('qClose'),
+      qStep=document.getElementById('qStep'), qFill=document.getElementById('qFill'), qEarn=document.getElementById('qEarn'),
+      qText=document.getElementById('qText'), qSub=document.getElementById('qSub'), qOpts=document.getElementById('qOpts'),
+      qEnc=document.getElementById('qEnc'), qEncText=document.getElementById('qEncText'), qNext=document.getElementById('qNext'),
+      qQuestion=document.getElementById('qQuestion'), qCalc=document.getElementById('qCalc'), qRes=document.getElementById('qRes'),
+      qAmt=document.getElementById('qAmt'), qClaim=document.getElementById('qClaim'), qCount=document.getElementById('qCount');
+  var calcSteps=[document.getElementById('qc1'),document.getElementById('qc2'),document.getElementById('qc3')];
+  var timers=[], countTimer=null;
 
-    function render(){
-      answered=false;
-      var q=QUESTIONS[idx];
-      elStep.textContent='STEP '+(idx+1)+' OF '+QUESTIONS.length;
-      elTitle.innerHTML=q.t;
-      elBar.style.width=((idx)/QUESTIONS.length*100)+'%';
-      elOpts.innerHTML='';
-      q.o.forEach(function(pair){
-        var b=document.createElement('button');
-        b.className='opt'; b.type='button'; b.innerHTML=pair[0];
-        b.addEventListener('click', function(){
-          if(answered) return;
-          answered=true;
-          b.classList.add('sel');
-          tally+=pair[1];
-          elTally.textContent='+$'+tally.toFixed(2);
-          elBar.style.width=((idx+1)/QUESTIONS.length*100)+'%';
-          hit('q'+(idx+1), PAGE_MAIN);
-          setTimeout(next,260);
-        });
-        elOpts.appendChild(b);
+  function setProg(step){ var pct=Math.round((step/TOTAL)*100); if(pct>100)pct=100; qFill.style.width=pct+'%'; qStep.textContent = step<=TOTAL ? 'STEP '+step+' OF '+TOTAL : ''; }
+
+  function render(){
+    var q=QUESTIONS[cur];
+    qText.innerHTML=q.text; qSub.innerHTML=q.sub||'';
+    qOpts.innerHTML=''; qOpts.className='qopts';
+    picked=null; qEnc.classList.remove('show'); qNext.disabled=true;
+    qNext.textContent = (cur===TOTAL-1)?'Finish':'Next';
+    setProg(cur+1);
+    q.opts.forEach(function(o){
+      var el=document.createElement('button'); el.type='button'; el.className='qopt';
+      el.innerHTML='<span class="qic">'+o.ic+'</span><span class="qtx"><span class="qt">'+o.t+'</span><span class="qs">'+o.s+'</span></span><span class="qradio"></span>';
+      el.addEventListener('click',function(){
+        if(picked!==null)return; picked=o;
+        el.classList.add('sel');
+        Array.prototype.forEach.call(qOpts.children,function(c){ if(c!==el)c.classList.add('dim'); });
+        tally+=o.pts;
+        qEarn.textContent='+$'+q.reward.toFixed(2); qEarn.classList.remove('pop'); void qEarn.offsetWidth; qEarn.classList.add('pop');
+        qEncText.innerHTML=ENC[cur]+' <b>+$'+q.reward.toFixed(2)+'</b>';
+        setTimeout(function(){ qEnc.classList.add('show'); },180);
+        qNext.disabled=false;
       });
-      window.scrollTo({top:0,behavior:'smooth'});
-    }
-    function next(){ idx++; if(idx<QUESTIONS.length){ render(); return; } showResult(); }
-
-    function showResult(){
-      document.getElementById('quiz').style.display='none';
-      var r=document.getElementById('result'); r.style.display='block';
-      hit('result', PAGE_MAIN);
-      var lo=Math.round(tally*0.9/5)*5, hi=Math.round(tally*2.1/5)*5;
-      var el=document.getElementById('estVal'), cur=0, step=Math.max(1,Math.round(lo/28));
-      (function tick(){ cur+=step; if(cur>=lo){ el.textContent='$'+lo+'–$'+hi; return; } el.textContent='$'+cur; requestAnimationFrame(tick); })();
-      var s=600, clk=document.getElementById('clock');
-      setInterval(function(){ if(s<=0)return; s--; clk.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); },1000);
-      var liveEl=document.getElementById('liveN'), n=1240;
-      setInterval(function(){ n+=Math.floor(Math.random()*3); liveEl.textContent=n.toLocaleString('en-US'); },4200);
-      window.scrollTo({top:0,behavior:'smooth'});
-    }
-
-    document.getElementById('startBtn').addEventListener('click', function(){
-      hit('start', PAGE_MAIN);
-      document.getElementById('splash').style.display='none';
-      document.getElementById('quiz').style.display='block';
-      render();
-      window.scrollTo({top:0,behavior:'instant'});
-    });
-
-    document.getElementById('claimBtn').addEventListener('click', function(){
-      hitBeacon('claim', PAGE_MAIN);
-      var href='https://www.pcbdfv7trk.com/213T8QJ/32BB7QT/?sub1='+encodeURIComponent(subid());
-      setTimeout(function(){ location.href=href; },180);
+      qOpts.appendChild(el);
     });
   }
 
+  function resetCalc(){ timers.forEach(function(t){clearTimeout(t);}); timers=[]; qCalc.classList.remove('on'); calcSteps.forEach(function(s){s.classList.remove('act','done');}); }
+  function startCalc(){
+    qQuestion.style.display='none'; resetCalc(); qCalc.classList.add('on'); setProg(TOTAL+1); qStep.textContent='CALCULATING';
+    var d=[500,1300,2100], dd=[1100,1900,2700];
+    calcSteps.forEach(function(s,i){ timers.push(setTimeout(function(){s.classList.add('act');},d[i])); timers.push(setTimeout(function(){s.classList.remove('act');s.classList.add('done');},dd[i])); });
+    timers.push(setTimeout(showResult,3300));
+  }
+  function showResult(){
+    qCalc.classList.remove('on'); qQuestion.style.display='none'; qRes.classList.add('on'); setProg(TOTAL+1);
+    hit('result', PAGE_MAIN);
+    var lo=Math.round(tally*0.9/5)*5, hi=Math.round(tally*2.1/5)*5;
+    var cur0=0, step=Math.max(1,Math.round(lo/26));
+    (function tick(){ cur0+=step; if(cur0>=lo){ qAmt.innerHTML='$'+lo+' &ndash; $'+hi; return; } qAmt.textContent='$'+cur0; requestAnimationFrame(tick); })();
+    if(countTimer)clearInterval(countTimer);
+    var n=680+Math.floor(Math.random()*40); qCount.textContent=n;
+    countTimer=setInterval(function(){ n+=Math.random()>0.7?2:1; qCount.textContent=n; },4000);
+  }
+
+  function openQuiz(){ hit('start', PAGE_MAIN); cur=0; tally=0; picked=null; resetCalc(); qRes.classList.remove('on'); qQuestion.style.display='block'; render(); qov.classList.add('open'); qov.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+  function closeQuiz(){ qov.classList.remove('open'); qov.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.js-open-quiz'),function(b){ b.addEventListener('click',openQuiz); });
+  qNext.addEventListener('click',function(){ if(qNext.disabled)return; if(cur<TOTAL-1){ cur++; render(); } else { startCalc(); } });
+  qClose.addEventListener('click',closeQuiz);
+  qov.addEventListener('click',function(e){ if(e.target===qov)closeQuiz(); });
+  qClaim.addEventListener('click',function(){ hitBeacon('claim',PAGE_MAIN); setTimeout(function(){ location.href=OFFER; },150); });
+
+  /* sticky cta */
+  var sticky=document.getElementById('stickyCta');
+  var heroBtn=document.querySelector('.hero .js-open-quiz');
+  if(sticky && heroBtn){
+    var ticking=false;
+    function upd(){ ticking=false; var r=heroBtn.getBoundingClientRect(); if(r.bottom<0){ sticky.classList.add('on'); } else { sticky.classList.remove('on'); } }
+    window.addEventListener('scroll',function(){ if(ticking)return; ticking=true; requestAnimationFrame(upd); },{passive:true});
+    window.addEventListener('resize',upd); upd();
+  }
 })();
 </script>
-
 
 </body></html>
