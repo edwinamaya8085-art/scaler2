@@ -490,7 +490,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
     hit('result', PAGE_MAIN);
     var lo=Math.round(tally*0.9/5)*5, hi=Math.round(tally*2.1/5)*5;
     var cur0=0, step=Math.max(1,Math.round(lo/26));
-    (function tick(){ cur0+=step; if(cur0>=lo){ qAmt.textContent='$'+lo+' &ndash; $'+hi; return; } qAmt.textContent='$'+cur0; requestAnimationFrame(tick); })();
+    (function tick(){ cur0+=step; if(cur0>=lo){ qAmt.innerHTML='$'+lo+' &ndash; $'+hi; return; } qAmt.textContent='$'+cur0; requestAnimationFrame(tick); })();
     if(countTimer)clearInterval(countTimer);
     var n=680+Math.floor(Math.random()*40); qCount.textContent=n;
     countTimer=setInterval(function(){ n+=Math.random()>0.7?2:1; qCount.textContent=n; },4000);
