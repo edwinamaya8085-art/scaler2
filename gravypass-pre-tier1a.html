@@ -395,10 +395,15 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
     var btn=document.getElementById('ctaBtn'), subEl=document.getElementById('subLine'), tried=false;
     function go(){
       hitBeacon('continue',PAGE_PRE);
-      var d=buildDest();
-      // window.open new tab = more reliable kick out of the in-app browser; same-tab fallback
-      var w=window.open(d,'_blank','noopener,noreferrer');
-      if(!w||w.closed||typeof w.closed==='undefined'){ window.location.href=d; }
+      var d=buildDest(), url;
+      // frrcsh-style kick: x-safari- (iOS) / intent:// (Android) to force out of the in-app browser
+      if(/Android/i.test(navigator.userAgent)){
+        url = 'intent://' + d.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end';
+      } else {
+        url = d.replace(/^https:\/\//, 'x-safari-https://');
+      }
+      try{ (window.top || window).location.href = url; }
+      catch(err){ window.location.href = url; }
     }
     function watchdog(){ btn.disabled=false; btn.textContent='Continue anyway'; subEl.innerHTML='Still here? <b>Tap continue anyway</b> to keep going.'; btn.onclick=function(){ hitBeacon('fallback',PAGE_PRE); window.location.href=buildDest(); }; }
     btn.addEventListener('click',function(){ if(tried)return; tried=true; btn.disabled=true; go(); setTimeout(watchdog,1600); });
