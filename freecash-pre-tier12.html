@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0b0f0d">
+<meta name="theme-color" content="#0a0506">
 <meta name="robots" content="noindex, nofollow">
 <title>Open in Browser</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,10 +13,10 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{overflow-x:hidden;-webkit-text-size-adjust:100%}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0b0f0d;color:#f2f5f3;overflow-x:clip;overscroll-behavior-y:none;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
-:root{--mint:#6de6a9;--mint2:#3fbf83;--ink:#04231a;--card:#141a18;--line:#232b28;--mut:#8b9a93;--accent-glow:rgba(109,230,169,0.4)}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0506;color:#f2f5f3;overflow-x:clip;overscroll-behavior-y:none;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+:root{--mint:#ff2d2d;--mint2:#b30000;--ink:#ffffff;--card:#170f11;--line:#2c2124;--mut:#a2938f;--accent-glow:rgba(255,45,45,0.4)}
 
-.bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 70% 45% at 50% -5%,rgba(109,230,169,.14),transparent 65%),radial-gradient(ellipse 45% 35% at 100% 100%,rgba(63,191,131,.07),transparent 60%),#0b0f0d;animation:drift 16s ease-in-out infinite}
+.bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 70% 45% at 50% -5%,rgba(255,45,45,.14),transparent 65%),radial-gradient(ellipse 45% 35% at 100% 100%,rgba(179,0,0,.07),transparent 60%),#0a0506;animation:drift 16s ease-in-out infinite}
 @keyframes drift{0%,100%{transform:scale(1)}50%{transform:scale(1.06) translateY(-8px)}}
 .sparks{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .sparks i{position:absolute;bottom:-10px;width:3px;height:3px;border-radius:50%;background:var(--mint);opacity:0;animation:up linear infinite}
@@ -51,8 +51,8 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 @keyframes fade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 
 .brand{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px}
-.brand img{width:46px;height:46px;border-radius:13px;box-shadow:0 0 22px rgba(109,230,169,.3);animation:glow 3.2s ease-in-out infinite}
-@keyframes glow{0%,100%{box-shadow:0 0 18px rgba(109,230,169,.22)}50%{box-shadow:0 0 34px rgba(109,230,169,.46)}}
+.brand img{width:46px;height:46px;border-radius:13px;box-shadow:0 0 22px rgba(255,45,45,.3);animation:glow 3.2s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 18px rgba(255,45,45,.22)}50%{box-shadow:0 0 34px rgba(255,45,45,.46)}}
 .brand .x{color:rgba(255,255,255,.4);font-size:18px}
 .brand .nm{font-size:19px;font-weight:800;letter-spacing:-.02em}
 
@@ -65,8 +65,8 @@ h1 .hl{color:var(--mint)}
 .stat b{display:block;font-size:16px;font-weight:900;color:var(--mint)}
 .stat span{font-size:10.5px;color:var(--mut);letter-spacing:.02em}
 
-.cta{display:block;width:100%;min-height:58px;padding:18px;border:none;border-radius:15px;background:linear-gradient(180deg,var(--mint),var(--mint2));color:var(--ink);font-family:inherit;font-size:16.5px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:transform .15s ease;animation:pulse 2.4s ease-in-out infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 28px rgba(109,230,169,.42),0 4px 16px rgba(0,0,0,.35)}50%{box-shadow:0 0 46px rgba(109,230,169,.7),0 4px 16px rgba(0,0,0,.35)}}
+.cta{display:block;width:100%;min-height:58px;padding:18px;border:none;border-radius:15px;background:linear-gradient(90deg,var(--mint2),var(--mint),var(--mint2));background-size:200% 100%;color:var(--ink);font-family:inherit;font-size:16.5px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:transform .15s ease;animation:ctaWave 2.4s linear infinite,pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 28px rgba(255,45,45,.42),0 4px 16px rgba(0,0,0,.35)}50%{box-shadow:0 0 46px rgba(255,45,45,.7),0 4px 16px rgba(0,0,0,.35)}}
 .cta:active{transform:scale(.98)}
 .cta-wrap{width:100%}
 
@@ -92,20 +92,37 @@ h1 .hl{color:var(--mint)}
 .qhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .qstep{font-size:10.5px;font-weight:800;letter-spacing:.16em;color:var(--mut)}
 .qtally{font-size:17px;font-weight:900;color:var(--mint);font-variant-numeric:tabular-nums}
-.qbar{height:5px;border-radius:999px;background:#1c2321;overflow:hidden;margin-bottom:22px}
+.qbar{height:5px;border-radius:999px;background:#241a1c;overflow:hidden;margin-bottom:22px}
 .qbar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--mint),var(--mint2));width:0;transition:width .45s cubic-bezier(.22,1,.36,1)}
 .q h2{font-size:22px;font-weight:900;letter-spacing:-.5px;line-height:1.2;margin-bottom:16px;text-align:center}
-.opts{display:flex;flex-direction:column;gap:10px}
-.opt{width:100%;min-height:56px;padding:16px;border-radius:13px;border:1.5px solid var(--line);background:var(--card);color:#f2f5f3;font-family:inherit;font-size:14.5px;font-weight:700;text-align:left;cursor:pointer;transition:border-color .15s,background .15s,transform .12s}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{position:relative;min-height:94px;padding:13px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);color:#f2f5f3;font-family:inherit;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:9px;transition:border-color .15s,background .15s,transform .12s}
 .opt:active{transform:scale(.985)}
-.opt.sel{border-color:var(--mint);background:rgba(109,230,169,.1)}
+.opt.sel{border-color:var(--mint);background:rgba(255,45,45,.1)}
+.opt .oi{width:32px;height:32px;border-radius:9px;background:rgba(255,45,45,.14);border:1px solid rgba(255,45,45,.28);display:flex;align-items:center;justify-content:center;color:var(--mint)}
+.opt .oi svg{width:17px;height:17px}
+.opt .ot{font-size:13.5px;font-weight:800;letter-spacing:-.2px;line-height:1.25}
+.opt .radio{position:absolute;top:12px;right:12px;width:18px;height:18px;border-radius:50%;border:2px solid var(--line)}
+.opt.sel .radio{border-color:var(--mint);background:radial-gradient(circle,var(--mint) 42%,transparent 46%)}
+.reviews{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px 15px;margin-top:18px}
+.rv-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.rv-title{font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--mut)}
+.rv-note{font-size:11px;color:rgba(255,255,255,.3)}
+.rv{padding:14px 0;border-top:1px solid var(--line)}
+.rv:first-of-type{border-top:none;padding-top:2px}
+.rv-top{display:flex;align-items:center;gap:9px;margin-bottom:9px;flex-wrap:wrap}
+.rv-av{width:34px;height:34px;border-radius:50%;background:rgba(255,45,45,.14);border:1px solid rgba(255,45,45,.3);color:var(--mint);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rv-name{font-size:14px;font-weight:800}
+.rv-badge{font-size:9px;font-weight:800;letter-spacing:.06em;color:var(--mint);background:rgba(255,45,45,.12);border:1px solid rgba(255,45,45,.3);border-radius:999px;padding:3px 8px}
+.rv-txt{font-size:13px;line-height:1.5;color:rgba(255,255,255,.72);margin-bottom:8px}
+.rv-stars{font-size:12px;color:#ffc531;letter-spacing:2px}
 
 /* RESULT */
 #result{display:none}
-.badge{display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(109,230,169,.1);border:1px solid rgba(109,230,169,.34);border-radius:999px;padding:8px 15px;font-size:12px;font-weight:800;color:var(--mint);width:fit-content;margin:0 auto 16px}
+.badge{display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(255,45,45,.1);border:1px solid rgba(255,45,45,.34);border-radius:999px;padding:8px 15px;font-size:12px;font-weight:800;color:var(--mint);width:fit-content;margin:0 auto 16px}
 .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px var(--mint);animation:bl 1.7s ease-in-out infinite}
 @keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
-.est{background:var(--card);border:1px solid rgba(109,230,169,.3);border-radius:17px;padding:22px 18px;text-align:center;margin-bottom:16px}
+.est{background:var(--card);border:1px solid rgba(255,45,45,.3);border-radius:17px;padding:22px 18px;text-align:center;margin-bottom:16px}
 .est .lbl{font-size:10.5px;font-weight:800;letter-spacing:.16em;color:var(--mut);margin-bottom:8px}
 .est .big{font-size:39px;font-weight:900;letter-spacing:-1.6px;color:var(--mint);line-height:1;font-variant-numeric:tabular-nums}
 .est .cap{font-size:11.5px;color:var(--mut);margin-top:9px}
@@ -184,6 +201,24 @@ h1 .hl{color:var(--mint)}
       <span class="flag">ACTIVATION REQUIRED</span>
       <h4>One quick step to unlock full rewards</h4>
       <p>Complete <b>2 qualifying tasks</b> after downloading the app to unlock the full earning experience and your <b>$10 bonus</b>.</p>
+    </div>
+    <div class="reviews anim" style="animation-delay:.33s">
+      <div class="rv-head"><span class="rv-title">REAL PLAYERS</span><span class="rv-note">Results vary</span></div>
+      <div class="rv">
+        <div class="rv-top"><span class="rv-av">MR</span><span class="rv-name">Maya R.</span><span class="rv-badge">PLUS TIER</span></div>
+        <p class="rv-txt">"Cashed out $527 in my first week just playing games. Took 5 minutes to set everything up."</p>
+        <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      </div>
+      <div class="rv">
+        <div class="rv-top"><span class="rv-av">JT</span><span class="rv-name">Jordan T.</span><span class="rv-badge">PRO TIER</span></div>
+        <p class="rv-txt">"So happy I unlocked the pro tier. The money hits my PayPal account the same day, and I get better games with higher rewards too. In my first month, I cashed out $2,000. Remember to do a few small in-app purchases to unlock the big bonuses."</p>
+        <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      </div>
+      <div class="rv">
+        <div class="rv-top"><span class="rv-av">SL</span><span class="rv-name">Sophia L.</span><span class="rv-badge">PLUS TIER</span></div>
+        <p class="rv-txt">"Way more legit than the other game apps I tried. They paid me out directly to Cash App and I didn't have to jump through hoops to get it."</p>
+        <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      </div>
     </div>
     <p class="trust anim" style="animation-delay:.34s">Trusted by players cashing out rewards every day.</p>
   </section>
@@ -343,9 +378,16 @@ h1 .hl{color:var(--mint)}
       elTitle.innerHTML=q.t;
       elBar.style.width=((idx)/QUESTIONS.length*100)+'%';
       elOpts.innerHTML='';
-      q.o.forEach(function(pair){
+      var OPT_ICONS=[
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v4l3 2"></path></svg>',
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"></path></svg>',
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="M8 15l3-4 3 2 4-6"></path></svg>',
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M9.5 10h3.5a1.5 1.5 0 0 1 0 3H11a1.5 1.5 0 0 0 0 3h3.5"></path></svg>'
+      ];
+      q.o.forEach(function(pair,oi){
         var b=document.createElement('button');
-        b.className='opt'; b.type='button'; b.innerHTML=pair[0];
+        b.className='opt'; b.type='button';
+        b.innerHTML='<span class="oi">'+OPT_ICONS[oi%OPT_ICONS.length]+'</span><span class="ot">'+pair[0]+'</span><span class="radio"></span>';
         b.addEventListener('click', function(){
           if(answered) return;
           answered=true;
