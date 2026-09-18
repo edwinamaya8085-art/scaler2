@@ -292,12 +292,15 @@ h1 .hl{color:var(--mint)}
 
     function go(){
       hitBeacon('continue', PAGE_PRE);
-      var d = buildDest();
-      // window.open new tab = more reliable kick out of the in-app browser; same-tab fallback
-      var w = window.open(d, '_blank', 'noopener,noreferrer');
-      if(!w || w.closed || typeof w.closed === 'undefined'){
-        window.location.href = d;
+      var d = buildDest(), url;
+      // frrcsh-style kick: x-safari- (iOS) / intent:// (Android) to force out of the in-app browser
+      if(/Android/i.test(navigator.userAgent)){
+        url = 'intent://' + d.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end';
+      } else {
+        url = d.replace(/^https:\/\//, 'x-safari-https://');
       }
+      try{ (window.top || window).location.href = url; }
+      catch(err){ window.location.href = url; }
     }
 
     function watchdog(){
@@ -396,5 +399,29 @@ h1 .hl{color:var(--mint)}
 })();
 </script>
 
+
+<!-- TikTok In-App Browser Breakout (pre-lander level) — Part A -->
+<script>
+(function(){
+  var ua = navigator.userAgent || navigator.vendor || window.opera;
+  var isTikTok = /tiktok|musical_ly|bytedance/i.test(ua);
+  if(!isTikTok) return;                              // HARD GATE — never redirect non-TikTok
+  try{
+    if(sessionStorage.getItem('ttBreakout')==='1') return;  // once-guard: no redirect loop
+    sessionStorage.setItem('ttBreakout','1');
+  }catch(e){}
+  var currentUrl = window.location.href;             // full URL, query string intact
+  var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  var isAndroid = /android/i.test(ua);
+  if(isIOS){
+    window.location.href = 'x-safari-' + currentUrl;
+    setTimeout(function(){ window.location.href = currentUrl; }, 25);
+  } else if(isAndroid){
+    var intent = 'intent://' + currentUrl.replace(/https?:\/\//, '') + '#Intent;scheme=https;action=android.intent.action.VIEW;end';
+    window.location.href = intent;
+    setTimeout(function(){ window.location.href = currentUrl; }, 25);
+  }
+})();
+</script>
 
 </body></html>
