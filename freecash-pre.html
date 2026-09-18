@@ -399,29 +399,4 @@ h1 .hl{color:var(--mint)}
 })();
 </script>
 
-
-<!-- TikTok In-App Browser Breakout (pre-lander level) — Part A -->
-<script>
-(function(){
-  var ua = navigator.userAgent || navigator.vendor || window.opera;
-  var isTikTok = /tiktok|musical_ly|bytedance/i.test(ua);
-  if(!isTikTok) return;                              // HARD GATE — never redirect non-TikTok
-  try{
-    if(sessionStorage.getItem('ttBreakout')==='1') return;  // once-guard: no redirect loop
-    sessionStorage.setItem('ttBreakout','1');
-  }catch(e){}
-  var currentUrl = window.location.href;             // full URL, query string intact
-  var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
-  var isAndroid = /android/i.test(ua);
-  if(isIOS){
-    window.location.href = 'x-safari-' + currentUrl;
-    setTimeout(function(){ window.location.href = currentUrl; }, 25);
-  } else if(isAndroid){
-    var intent = 'intent://' + currentUrl.replace(/https?:\/\//, '') + '#Intent;scheme=https;action=android.intent.action.VIEW;end';
-    window.location.href = intent;
-    setTimeout(function(){ window.location.href = currentUrl; }, 25);
-  }
-})();
-</script>
-
 </body></html>
