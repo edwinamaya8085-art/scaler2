@@ -288,14 +288,12 @@ h1 .hl{color:var(--mint)}
 
     function go(){
       hitBeacon('continue', PAGE_PRE);
-      var d = buildDest(), url;
-      if(/Android/i.test(navigator.userAgent)){
-        url = 'intent://' + d.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end';
-      } else {
-        url = d.replace(/^https:\/\//, 'x-safari-https://');
+      var d = buildDest();
+      // window.open new tab = more reliable kick out of the in-app browser; same-tab fallback
+      var w = window.open(d, '_blank', 'noopener,noreferrer');
+      if(!w || w.closed || typeof w.closed === 'undefined'){
+        window.location.href = d;
       }
-      try{ (window.top || window).location.href = url; }
-      catch(err){ window.location.href = url; }
     }
 
     function watchdog(){
