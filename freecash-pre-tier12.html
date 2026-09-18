@@ -22,21 +22,22 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 .sparks i{position:absolute;bottom:-10px;width:3px;height:3px;border-radius:50%;background:var(--mint);opacity:0;animation:up linear infinite}
 @keyframes up{0%{opacity:0;transform:translateY(0) scale(.6)}12%{opacity:.45}70%{opacity:.28}100%{opacity:0;transform:translateY(-104vh) scale(1.1)}}
 
-/* ---- PRE SCREEN (purple browser-kick) ---- */
-#pre{position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:28px 24px calc(28px + env(safe-area-inset-bottom));background:radial-gradient(ellipse 75% 50% at 50% 6%,rgba(168,85,247,.20),transparent 60%),radial-gradient(ellipse 65% 45% at 50% 100%,rgba(236,72,153,.10),transparent 60%),#0b0712}
+/* ---- PRE SCREEN (red/black browser-kick) ---- */
+#pre{position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:28px 24px calc(28px + env(safe-area-inset-bottom));background:radial-gradient(ellipse 75% 50% at 50% 6%,rgba(255,45,45,.18),transparent 60%),radial-gradient(ellipse 65% 45% at 50% 100%,rgba(180,0,0,.10),transparent 60%),#0a0506}
 .pre-inner{max-width:400px;width:100%;text-align:center;animation:fadeUp .5s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.icon-wrap{width:92px;height:92px;margin:0 auto 30px;border-radius:24px;border:1px solid rgba(168,85,247,.30);background:rgba(168,85,247,.12);display:grid;place-items:center;animation:iconGlow 3s ease-in-out infinite}
-@keyframes iconGlow{0%,100%{box-shadow:0 0 30px rgba(168,85,247,.25)}50%{box-shadow:0 0 60px rgba(168,85,247,.5)}}
+.icon-wrap{width:92px;height:92px;margin:0 auto 30px;border-radius:24px;border:1px solid rgba(255,45,45,.30);background:rgba(255,45,45,.10);display:grid;place-items:center;animation:iconGlow 3s ease-in-out infinite}
+@keyframes iconGlow{0%,100%{box-shadow:0 0 30px rgba(255,45,45,.22)}50%{box-shadow:0 0 60px rgba(255,45,45,.45)}}
 .icon-wrap svg{width:40px;height:40px;color:#fff;stroke-width:2.4}
-.pre-h1{font-size:40px;font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:14px;color:#f4f2f8}
-.pre-h1 .hl{background:linear-gradient(90deg,#a855f7,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#c98bf5}
-.pre-sub{font-size:15px;font-weight:500;color:#9a94ad;line-height:1.55;margin:0 auto 34px;max-width:330px}
-.pre-cta{display:block;width:100%;min-height:60px;background:linear-gradient(90deg,#8b5cf6 0%,#ec4899 100%);color:#fff;font-family:'Inter',sans-serif;font-size:17px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:19px 24px;border-radius:15px;border:none;cursor:pointer;margin-bottom:16px;transition:transform .1s ease;animation:ctaPulse 2.6s ease-in-out infinite}
+.pre-h1{font-size:40px;font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:14px;color:#f7f2f2}
+.pre-h1 .hl{background:linear-gradient(90deg,#ff3131,#b30000);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#ff4d4d}
+.pre-sub{font-size:15px;font-weight:500;color:#a89a9a;line-height:1.55;margin:0 auto 34px;max-width:330px}
+.pre-cta{display:block;width:100%;min-height:60px;background:linear-gradient(90deg,#9b0000 0%,#ff2d2d 50%,#9b0000 100%);background-size:200% 100%;color:#fff;font-family:'Inter',sans-serif;font-size:17px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:19px 24px;border-radius:15px;border:none;cursor:pointer;margin-bottom:16px;transition:transform .1s ease;animation:ctaWave 2.4s linear infinite,ctaPulse 2.6s ease-in-out infinite}
 .pre-cta:active{transform:scale(0.97)}
 .pre-cta:disabled{animation:none;opacity:.8;cursor:default}
-@keyframes ctaPulse{0%,100%{box-shadow:0 0 34px rgba(168,85,247,.45),0 4px 20px rgba(0,0,0,.4)}50%{box-shadow:0 0 60px rgba(236,72,153,.55),0 4px 20px rgba(0,0,0,.4)}}
-.pre-note{font-size:13px;font-weight:600;color:#a78bfa;letter-spacing:.2px;margin-top:2px}
+@keyframes ctaWave{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes ctaPulse{0%,100%{box-shadow:0 0 34px rgba(255,45,45,.42),0 4px 20px rgba(0,0,0,.45)}50%{box-shadow:0 0 60px rgba(255,45,45,.6),0 4px 20px rgba(0,0,0,.45)}}
+.pre-note{font-size:13px;font-weight:600;color:#ff6b6b;letter-spacing:.2px;margin-top:2px}
 .sub{display:none;font-size:13px;font-weight:600;color:var(--mut);line-height:1.5;margin-top:14px;text-align:center}
 .sub:not(:empty){display:block}
 .sub b{color:#f2f5f3;font-weight:700}
