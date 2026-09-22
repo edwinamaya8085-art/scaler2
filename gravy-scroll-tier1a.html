@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#070d0a">
+<meta name="robots" content="noindex, nofollow">
+<title>Open in Browser</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#070d0a; --surf:#0f1a14; --surf2:#0b120e;
+  --line:rgba(255,255,255,0.07); --line2:rgba(109,230,169,0.18);
+  --mint:#6de6a9; --mint2:#3fbf83; --mint3:#a7f3cf;
+  --gold:#f5c86b; --gold2:#c9973c;
+  --ink:#eef5f1; --muted:#7f9189;
+}
+html,body{height:100%;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);color:var(--ink);overflow-x:clip;position:relative;
+  padding-bottom:calc(150px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:430px;margin:0 auto;position:relative;padding:0 16px;
+  background:
+    radial-gradient(660px 380px at 50% -70px,rgba(109,230,169,0.17),transparent 68%),
+    radial-gradient(440px 320px at 8% 46%,rgba(63,191,131,0.08),transparent 70%),
+    var(--bg)}
+.wrap>*{position:relative;z-index:1}
+
+/* ── background sparks ──────────────────────────────────────── */
+.sparks{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.sparks i{position:absolute;bottom:-14px;border-radius:50%;background:var(--mint);
+  opacity:0;animation:sparkFloat linear infinite}
+@keyframes sparkFloat{
+  0%{transform:translateY(0) scale(.6);opacity:0}
+  14%{opacity:.45}80%{opacity:.22}
+  100%{transform:translateY(-105vh) scale(1.15);opacity:0}}
+
+/* ── entrance ───────────────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(20px);
+  transition:opacity .62s cubic-bezier(.22,1,.36,1),transform .62s cubic-bezier(.22,1,.36,1)}
+.rv.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+
+/* ── top bar ────────────────────────────────────────────────── */
+.top{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:9px;
+  margin:0 -16px;padding:10px 16px;background:rgba(7,13,10,.88);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.tile{flex:none;border-radius:11px;border:1px solid rgba(255,255,255,.12);
+  background:#5DE2FD url('data:image/webp;base64,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') center/cover no-repeat;display:block}
+.top .tile{width:38px;height:38px}
+.wordmark{font-size:21px;font-weight:800;letter-spacing:-.045em;color:#fff;margin-right:auto}
+.live{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;
+  background:rgba(109,230,169,.10);border:1px solid var(--line2);white-space:nowrap;
+  font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mint)}
+.live i{width:6px;height:6px;border-radius:50%;background:var(--mint);animation:dot 1.7s ease-in-out infinite}
+@keyframes dot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(109,230,169,.6)}55%{opacity:.35;box-shadow:0 0 0 6px rgba(109,230,169,0)}}
+.live b{color:#fff;font-variant-numeric:tabular-nums}
+
+/* ── hero ───────────────────────────────────────────────────── */
+.hero{padding:26px 4px 6px;text-align:center}
+h1{font-size:43px;line-height:.96;font-weight:900;letter-spacing:-.045em;margin-bottom:14px}
+h1 .a{display:block;color:#fff}
+h1 .b{display:block;
+  background:linear-gradient(100deg,var(--mint3) 18%,#fff 40%,var(--mint) 56%,var(--mint3) 78%);
+  background-size:250% 100%;-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{0%{background-position:130% 0}100%{background-position:-130% 0}}
+.lede{font-size:15px;line-height:1.55;color:var(--muted);max-width:340px;margin:0 auto}
+
+/* ── section divider label ──────────────────────────────────── */
+.divl{display:flex;align-items:center;gap:11px;margin:30px 0 14px}
+.divl::before,.divl::after{content:'';flex:1;height:1px;background:var(--line)}
+.divl span{font-size:10.5px;font-weight:800;letter-spacing:.19em;text-transform:uppercase;color:var(--muted)}
+
+/* ── rank ladder ────────────────────────────────────────────── */
+.rank{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:17px;margin-bottom:11px;
+  background:var(--surf2);border:1px solid var(--line);transition:border-color .45s,background .45s,box-shadow .45s}
+.pill{flex:none;display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;
+  font-size:14px;font-weight:900;letter-spacing:-.01em;color:#0b1b13;
+  background:linear-gradient(150deg,#5d6d65,#3b4740)}
+.pill svg{width:15px;height:15px;flex:none}
+.rtx{flex:1;min-width:0;text-align:right}
+.rtx b{display:block;font-size:12.5px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.rtx span{display:block;font-size:12px;font-weight:700;line-height:1.35;margin-top:3px;color:var(--muted)}
+.rank.act{background:linear-gradient(180deg,rgba(109,230,169,.11),var(--surf2));border-color:var(--line2);
+  box-shadow:0 0 22px rgba(109,230,169,.13)}
+.rank.act .pill{background:linear-gradient(150deg,var(--mint3),var(--mint2));animation:ring 2.3s ease-out infinite}
+.rank.act .rtx span{color:var(--mint)}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(109,230,169,.55)}100%{box-shadow:0 0 0 13px rgba(109,230,169,0)}}
+.rank.gold.act{background:linear-gradient(180deg,rgba(245,200,107,.12),var(--surf2));
+  border-color:rgba(245,200,107,.32);box-shadow:0 0 22px rgba(245,200,107,.14)}
+.rank.gold.act .pill{background:linear-gradient(150deg,#ffe6ad,var(--gold));color:#3a2a05;animation:ringg 2.3s ease-out infinite}
+.rank.gold.act .rtx span{color:var(--gold)}
+@keyframes ringg{0%{box-shadow:0 0 0 0 rgba(245,200,107,.55)}100%{box-shadow:0 0 0 13px rgba(245,200,107,0)}}
+
+/* ── balance + phone ────────────────────────────────────────── */
+.card{background:linear-gradient(180deg,var(--surf),var(--surf2));border:1px solid var(--line);
+  border-radius:22px;overflow:hidden}
+.balhead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 16px 14px}
+.blab{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.blab i{width:6px;height:6px;border-radius:50%;background:var(--mint)}
+.bal{font-size:34px;font-weight:900;letter-spacing:-.035em;line-height:1;color:#fff;
+  font-variant-numeric:tabular-nums;transition:transform .19s ease,color .19s ease}
+.bal.pop{transform:scale(1.11);color:var(--mint)}
+.bal em{font-style:normal;font-size:13px;font-weight:700;color:var(--muted);margin-left:4px;letter-spacing:0}
+.rate{flex:none;display:inline-flex;align-items:center;gap:5px;padding:8px 12px;border-radius:999px;
+  background:rgba(109,230,169,.10);border:1px solid var(--line2);
+  font-size:12px;font-weight:900;color:var(--mint);white-space:nowrap}
+.simrow{display:flex;gap:14px;padding:0 16px 16px;align-items:flex-start}
+
+/* the phone */
+.phone{flex:none;width:44%;max-width:150px;aspect-ratio:9/16;max-height:236px;position:relative;
+  border-radius:17px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#0a1410}
+.track{position:absolute;inset:0;transition:transform .55s cubic-bezier(.6,0,.2,1)}
+.track.nojump{transition:none}
+.clip{position:absolute;left:0;right:0;height:100%;overflow:hidden}
+.clip .bgv{position:absolute;inset:0}
+.clip .bgv::before,.clip .bgv::after{content:'';position:absolute;border-radius:50%;filter:blur(16px)}
+.clip .bgv::before{width:130%;height:55%;left:-20%;top:8%;opacity:.85}
+.clip .bgv::after{width:110%;height:48%;right:-25%;bottom:4%;opacity:.6}
+.c0 .bgv{background:linear-gradient(165deg,#123a2c,#071a12)}
+.c0 .bgv::before{background:#2fd08a}.c0 .bgv::after{background:#0f6b48}
+.c1 .bgv{background:linear-gradient(165deg,#1a2f43,#08131c)}
+.c1 .bgv::before{background:#3aa8d8}.c1 .bgv::after{background:#14526e}
+.c2 .bgv{background:linear-gradient(165deg,#3a2340,#150a19)}
+.c2 .bgv::before{background:#a05fd0}.c2 .bgv::after{background:#5b2a78}
+.clip .scrim{position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,transparent 28%,transparent 46%,rgba(0,0,0,.72) 100%)}
+.tag{position:absolute;top:8px;left:8px;font-size:8px;font-weight:900;letter-spacing:.11em;
+  text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);border-radius:5px;padding:4px 6px;
+  backdrop-filter:blur(3px)}
+.rail{position:absolute;right:6px;bottom:44px;display:flex;flex-direction:column;align-items:center;gap:9px}
+.rail div{display:flex;flex-direction:column;align-items:center;gap:1px;color:#fff;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.75))}
+.rail svg{width:17px;height:17px}
+.rail b{font-size:9px;font-weight:800;font-variant-numeric:tabular-nums}
+.who{position:absolute;left:8px;right:34px;bottom:12px}
+.who .u{display:flex;align-items:center;gap:6px}
+.who .av{width:18px;height:18px;border-radius:50%;flex:none;border:1.5px solid rgba(255,255,255,.85);
+  background:linear-gradient(145deg,var(--mint3),#2b9c8f)}
+.who .h{font-size:11px;font-weight:800;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.8))}
+.who .cap{height:3px;border-radius:2px;background:rgba(255,255,255,.4);margin-top:6px;width:78%}
+.who .cap+.cap{width:50%;margin-top:3px}
+.prog{position:absolute;left:0;right:0;bottom:0;height:2.5px;background:rgba(255,255,255,.16)}
+.prog i{display:block;height:100%;background:var(--mint);width:0;animation:fill 2.6s linear infinite}
+@keyframes fill{from{width:0}to{width:100%}}
+.coin{position:absolute;left:50%;bottom:26%;transform:translateX(-50%);font-size:16px;font-weight:900;
+  color:var(--mint);pointer-events:none;opacity:0;z-index:5;text-shadow:0 0 14px rgba(109,230,169,.8)}
+.coin.fly{animation:coinUp 1.05s cubic-bezier(.22,1,.36,1)}
+@keyframes coinUp{0%{opacity:0;transform:translate(-50%,10px) scale(.8)}
+  18%{opacity:1}72%{opacity:1}100%{opacity:0;transform:translate(-50%,-92px) scale(1.25)}}
+
+.simtx{flex:1;min-width:0;padding-top:4px}
+.simtx h3{font-size:19px;font-weight:900;letter-spacing:-.03em;line-height:1.16;margin-bottom:8px}
+.simtx h3 em{font-style:normal;color:var(--mint)}
+.simtx p{font-size:12.5px;line-height:1.55;color:var(--muted)}
+.simtx p b{color:var(--ink);font-weight:800}
+.simfoot{padding:11px 16px;font-size:11.5px;font-weight:700;color:var(--muted);text-align:center;
+  background:rgba(109,230,169,.05);border-top:1px solid var(--line2)}
+.simfoot b{color:var(--mint)}
+
+/* ── buttons ────────────────────────────────────────────────── */
+.cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:58px;
+  border:none;border-radius:16px;cursor:pointer;font-family:inherit;font-size:17px;font-weight:900;
+  letter-spacing:-.015em;color:#04231a;text-decoration:none;position:relative;overflow:hidden;
+  background:linear-gradient(150deg,var(--mint3),var(--mint2));
+  transition:transform .12s ease;animation:pulse 2.4s ease-in-out infinite}
+.cta:active{transform:scale(.975)}
+@keyframes pulse{0%,100%{box-shadow:0 6px 22px rgba(109,230,169,.32)}50%{box-shadow:0 10px 38px rgba(109,230,169,.6)}}
+.cta::after{content:'';position:absolute;top:0;bottom:0;width:42%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
+  left:-50%;animation:sweep 3.3s ease-in-out infinite}
+@keyframes sweep{0%{left:-50%}60%,100%{left:120%}}
+.cta svg{width:20px;height:20px;flex:none}
+.note{margin-top:9px;text-align:center;font-size:10.5px;font-weight:800;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted)}
+
+/* ── 3 steps ────────────────────────────────────────────────── */
+h2{font-size:27px;font-weight:900;letter-spacing:-.035em;text-align:center;margin-bottom:16px}
+h2 em{font-style:normal;color:var(--mint)}
+.step{display:flex;gap:12px;padding:14px;border-radius:17px;background:var(--surf2);
+  border:1px solid var(--line);margin-bottom:10px}
+.sn{flex:none;width:32px;height:32px;border-radius:11px;display:grid;place-items:center;
+  font-size:14px;font-weight:900;color:var(--mint);background:rgba(109,230,169,.12);border:1px solid var(--line2)}
+.sb{flex:1;min-width:0}
+.sb b{display:block;font-size:15.5px;font-weight:800;letter-spacing:-.015em;margin-bottom:4px}
+.sb span{display:block;font-size:13px;line-height:1.5;color:var(--muted)}
+.pass{display:flex;align-items:center;gap:11px;padding:13px;border-radius:17px;margin-bottom:10px;
+  background:linear-gradient(180deg,rgba(109,230,169,.09),var(--surf2));border:1px solid var(--line2)}
+.pass .tile{width:46px;height:46px;border-radius:13px}
+.pi{flex:1;min-width:0}
+.pi b{display:block;font-size:14.5px;font-weight:800;letter-spacing:-.015em}
+.pi span{display:block;font-size:11.5px;font-weight:600;color:var(--muted);margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pi em{font-style:normal;color:var(--ink);font-weight:800}
+.stars{color:var(--gold);letter-spacing:.4px}
+.add{flex:none;border:none;cursor:pointer;font-family:inherit;border-radius:999px;padding:10px 18px;
+  font-size:12.5px;font-weight:900;letter-spacing:.05em;color:#04231a;
+  background:linear-gradient(150deg,var(--mint3),var(--mint2))}
+.payrow{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.payrow span{font-size:11px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.04);
+  border:1px solid var(--line);border-radius:9px;padding:6px 10px}
+
+/* ── locked games ───────────────────────────────────────────── */
+.games{padding:18px 16px 20px;position:relative}
+.games h3{font-size:19px;font-weight:900;letter-spacing:-.03em;line-height:1.25;margin-bottom:14px}
+.games h3 em{font-style:normal;color:var(--mint)}
+.grid{display:flex;gap:10px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.gtile{flex:none;width:88px;text-align:center;position:relative}
+.gtile .im{position:relative;width:88px;height:88px;border-radius:19px;overflow:hidden;background:#101a14;
+  border:1px solid var(--line)}
+.gtile img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) brightness(.52)}
+.gtile .lk{position:absolute;right:5px;bottom:5px;width:20px;height:20px;border-radius:50%;
+  background:rgba(0,0,0,.68);display:grid;place-items:center;backdrop-filter:blur(3px)}
+.gtile .lk svg{width:11px;height:11px}
+.gtile b{display:block;margin-top:7px;font-size:11px;font-weight:700;color:var(--muted)}
+.unlock{position:absolute;left:50%;top:calc(50% + 8px);transform:translate(-50%,-50%);
+  display:inline-flex;align-items:center;gap:7px;padding:13px 24px;border-radius:999px;border:none;
+  cursor:pointer;font-family:inherit;font-size:14px;font-weight:900;letter-spacing:.06em;color:#04231a;
+  background:linear-gradient(150deg,var(--mint3),var(--mint2));white-space:nowrap;z-index:3;
+  animation:pulse 2.4s ease-in-out infinite}
+.unlock:active{transform:translate(-50%,-50%) scale(.97)}
+.unlock svg{width:14px;height:14px}
+
+/* ── closer + legal ─────────────────────────────────────────── */
+.closer{text-align:center;padding:26px 4px 6px}
+.closer p{font-size:14px;line-height:1.6;color:var(--muted);max-width:330px;margin:0 auto 18px}
+.legal{padding:24px 6px 10px;font-size:10.5px;line-height:1.65;color:#5f7169;text-align:center}
+.legal a{color:var(--muted);text-decoration:none}
+.legal .cr{margin-top:10px}
+
+/* ── sticky dock ────────────────────────────────────────────── */
+.dock{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:50;
+  padding:11px 16px calc(11px + env(safe-area-inset-bottom));background:rgba(5,10,8,.94);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line2)}
+.drow{display:flex;align-items:center;gap:10px;margin-bottom:9px;overflow:hidden}
+.drow .tile{width:44px;height:44px;border-radius:13px}
+.dmid{flex:1 1 auto;min-width:0}
+.dr1{display:flex;align-items:center;gap:7px;white-space:nowrap;overflow:hidden}
+.dr1 b{font-size:16px;font-weight:800;letter-spacing:-.04em;color:#fff}
+.chip{flex:none;font-size:9.5px;font-weight:800;color:var(--mint);background:rgba(109,230,169,.11);
+  border:1px solid var(--line2);border-radius:6px;padding:3px 7px;white-space:nowrap}
+.dr2{font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;margin-top:2px}
+.dr2 em{font-style:normal;color:var(--ink);font-weight:800}
+.dock .cta{min-height:54px;font-size:16.5px;border-radius:15px}
+.dock .note{margin-top:7px}
+
+/* ── pre-lander gate ────────────────────────────────────────── */
+#pre{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;
+  padding:28px 24px calc(28px + env(safe-area-inset-bottom));text-align:center;
+  background:radial-gradient(ellipse 75% 50% at 50% 6%,rgba(109,230,169,.16),transparent 60%),var(--bg)}
+.pre-inner{max-width:400px;width:100%;animation:preIn .5s cubic-bezier(.22,1,.36,1) both}
+@keyframes preIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.pre-ic{width:88px;height:88px;margin:0 auto 28px;border-radius:24px;border:1px solid var(--line2);
+  background:rgba(109,230,169,.10);display:grid;place-items:center;animation:pulse 2.6s ease-in-out infinite}
+.pre-ic svg{width:38px;height:38px;color:var(--mint)}
+.pre-h1{font-size:40px;font-weight:900;letter-spacing:-.045em;line-height:1.05;margin-bottom:14px;color:#fff}
+.pre-h1 span{color:var(--mint)}
+.pre-sub{font-size:15px;color:var(--muted);line-height:1.55;margin:0 auto 32px;max-width:330px}
+.pre-cta{display:block;width:100%;min-height:60px;border:none;border-radius:16px;font-family:inherit;
+  font-size:17px;font-weight:900;letter-spacing:-.01em;color:#04231a;cursor:pointer;
+  background:linear-gradient(150deg,var(--mint3),var(--mint2));animation:pulse 2.4s ease-in-out infinite}
+.pre-cta:active{transform:scale(.975)}
+.pre-cta:disabled{opacity:.85;animation:none}
+.pre-note{margin-top:14px;font-size:13px;font-weight:700;color:var(--mint)}
+.pre-sm{margin-top:12px;font-size:13px;color:var(--muted);line-height:1.5}
+.pre-sm:empty{display:none}
+.pre-sm b{color:#fff}
+
+@media (max-width:374px){
+  h1{font-size:36px} h2{font-size:23px}
+  .bal{font-size:29px} .wordmark{font-size:19px}
+  .gtile,.gtile .im{width:78px} .gtile .im{height:78px}
+  .cta{font-size:15.5px;min-height:54px}
+  .simtx h3{font-size:17px} .pill{padding:8px 12px;font-size:13px}
+  .pre-h1{font-size:34px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important}
+  .rv{opacity:1!important;transform:none!important;transition:none!important}
+  .track{transition:none!important}
+  h1 .b{-webkit-text-fill-color:var(--mint)!important;color:var(--mint)!important;background:none!important}
+  .prog i{width:100%}
+}
+</style>
+</head>
+<body>
+
+<section id="pre">
+  <div class="pre-inner">
+    <div class="pre-ic">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+    </div>
+    <h1 class="pre-h1">Open in <span>browser</span></h1>
+    <p class="pre-sub">For the best experience, this page needs to open in your browser.</p>
+    <button class="pre-cta" id="ctaBtn" type="button">Continue &rarr;</button>
+    <p class="pre-sm" id="subLine"></p>
+    <p class="pre-note">Opens in Safari or Chrome</p>
+  </div>
+</section>
+
+<div id="main" style="display:none">
+
+<div class="sparks" id="sparks" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <header class="top">
+    <span class="tile" role="img" aria-label="Gravy Pass"></span>
+    <span class="wordmark">gravypass</span>
+    <span class="live"><i></i><b id="liveN">4,124</b> earning now</span>
+  </header>
+
+  <section class="hero">
+    <h1 class="rv"><span class="a">EARN ON</span><span class="b">EVERY SCROLL</span></h1>
+    <p class="lede rv d1">You already scroll for hours every day. Now get paid for it. Join thousands cashing out daily. Simple.</p>
+  </section>
+
+  <div class="divl rv"><span>Rank progression</span></div>
+
+  <div class="rank rv act" data-rank="0">
+    <span class="pill">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c3.6 4 6.5 7.2 6.5 10.6a6.5 6.5 0 01-13 0C5.5 9.7 8.4 6.5 12 2.5z"></path></svg>
+      NOOB</span>
+    <div class="rtx"><b>0&ndash;2 offers complete</b><span>General offer pool unlocked</span></div>
+  </div>
+  <div class="rank rv d1" data-rank="1">
+    <span class="pill">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2L4 13.5h6L9.5 22 20 10.5h-6.5L13.5 2z"></path></svg>
+      PRO</span>
+    <div class="rtx"><b>2&ndash;5 offers complete</b><span>Exclusive offer pool with higher payouts</span></div>
+  </div>
+  <div class="rank gold rv d2" data-rank="2">
+    <span class="pill">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.2 6.6.9-4.8 4.7 1.2 6.7L12 17.3 6.1 20.5l1.2-6.7L2.5 9.1l6.6-.9L12 2z"></path></svg>
+      SCROLLER</span>
+    <div class="rtx"><b>5+ offers complete</b><span>Top pool, best payouts, first access to new offers</span></div>
+  </div>
+
+  <section class="card rv" style="margin-top:18px">
+    <div class="balhead">
+      <div>
+        <div class="blab"><i></i>Your balance</div>
+        <div class="bal pop" id="bal">$2.25<em>USD</em></div>
+      </div>
+      <span class="rate">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2L4 13.5h6L9.5 22 20 10.5h-6.5L13.5 2z"></path></svg>
+        $0.25 / SCROLL</span>
+    </div>
+
+    <div class="simrow">
+      <div class="phone">
+        <div class="track" id="track" style="transform: translateY(-100%);"></div>
+        <div class="coin fly" id="coin">+$0.25</div>
+      </div>
+      <div class="simtx">
+        <h3>Every scroll <em>pays you.</em></h3>
+        <p>Swipe sponsored clips like you already do. Each one credits <b>$0.25</b> straight to your balance.</p>
+      </div>
+    </div>
+
+    <div class="simfoot">Keep scrolling &mdash; <b>your</b> balance is building</div>
+  </section>
+
+  <div style="margin-top:16px" class="rv">
+    <a href="#" class="cta" data-go="">Add My Free Pass</a>
+    <p class="note">Works on iPhone &amp; Android &middot; No app store</p>
+  </div>
+
+  <div class="divl rv"><span>How it works</span></div>
+  <h2 class="rv">3 steps to <em>cash.</em></h2>
+
+  <div class="step rv">
+    <span class="sn">1</span>
+    <div class="sb"><b>Add your free pass</b><span>Goes straight into <span class="wn">Wallet</span> &mdash; works on iPhone and Android. No app store, no download.</span></div>
+  </div>
+  <div class="pass rv d1">
+    <span class="tile" role="img" aria-label="Gravy Pass"></span>
+    <div class="pi"><b>Gravy Pass</b><span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <em>4.5</em> &middot; <span class="wn">Wallet</span> &middot; Free</span></div>
+    <button type="button" class="add" data-go="">ADD</button>
+  </div>
+  <div class="step rv d1">
+    <span class="sn">2</span>
+    <div class="sb"><b>Play to earn</b><span>Play mobile games, mini-games and offers. Each one pays out.</span></div>
+  </div>
+  <div class="step rv d2">
+    <span class="sn">3</span>
+    <div class="sb"><b>Cash out your way</b><span>Turn points into gift cards or cash. $1 welcome bonus, $10 minimum.</span>
+      <div class="payrow"><span>PayPal</span><span>Cash App</span><span>Venmo</span><span>Gift cards</span></div>
+    </div>
+  </div>
+
+  <section class="card games rv" style="margin-top:16px">
+    <h3>Get paid to play the games <em>you already love</em></h3>
+    <div class="grid" id="grid"></div>
+    <button type="button" class="unlock" data-go="">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"></rect><path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      UNLOCK</button>
+  </section>
+
+  <section class="closer">
+    <h2 class="rv">Still playing <em>for free?</em></h2>
+    <p class="rv d1">Stop giving your time away. Add the pass to your wallet and claim your bonus right away.</p>
+    <div class="rv d2">
+      <a href="#" class="cta" data-go="">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.8" stroke="currentColor" stroke-width="2.2"></rect><path d="M2.5 10.5h19" stroke="currentColor" stroke-width="2.2"></path></svg>
+        Add To <span class="wn">Wallet</span></a>
+      <p class="note">Free &middot; No card needed &middot; 18+</p>
+    </div>
+  </section>
+
+  <p class="legal">
+    18+ only. Rewards and payouts subject to terms. Not affiliated with Apple, Google, TikTok or any
+    brand shown. Games pictured are for illustrative purposes only and may not be available in the
+    current offer pool.
+    <span class="cr">&copy; 2026 &middot; All rights reserved.</span>
+  </p>
+</div>
+
+<div class="dock">
+  <div class="drow">
+    <span class="tile" role="img" aria-label="Gravy Pass"></span>
+    <div class="dmid">
+      <div class="dr1"><b>gravypass</b><span class="chip wn">Wallet</span></div>
+      <div class="dr2"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <em>4.5</em> &middot; 264K ratings &middot; Free</div>
+    </div>
+  </div>
+  <a href="#" class="cta" data-go="">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.8" stroke="currentColor" stroke-width="2.2"></rect><path d="M2.5 10.5h19" stroke="currentColor" stroke-width="2.2"></path></svg>
+    Add To <span class="wn">Wallet</span></a>
+  <p class="note">Free &middot; iPhone &amp; Android &middot; 18+</p>
+</div>
+
+</div>
+
+<script>
+/* ── pre-lander gate + frrcsh kicker ──────────────────────────── */
+(function () {
+  'use strict';
+  var QP = new URLSearchParams(location.search);
+  function subid(){ return QP.get('sub1')||QP.get('campid')||QP.get('s1')||QP.get('s2')||QP.get('cid')||QP.get('c')||''; }
+  var showMain = QP.get('gp') === '1';
+  var pre = document.getElementById('pre'), main = document.getElementById('main');
+  if (showMain) { pre.style.display='none'; main.style.display='block'; return; }
+
+  var TRK='https://px.trendhavenn.com/t', PAGE_PRE='gp-scroll-pre', sent={};
+  function trackUrl(ev){ return TRK+'?e='+encodeURIComponent(ev)+'&id='+encodeURIComponent(subid())+'&p='+PAGE_PRE; }
+  function hit(ev){ if(sent[ev])return; sent[ev]=1; try{ new Image().src=trackUrl(ev)+'&_='+Date.now(); }catch(e){} }
+  function hitBeacon(ev){ if(sent[ev])return; sent[ev]=1; try{ if(navigator.sendBeacon){navigator.sendBeacon(trackUrl(ev));}else{new Image().src=trackUrl(ev)+'&_='+Date.now();} }catch(e){} }
+  hit('load');
+  ['scroll','touchstart','pointerdown','mousemove','keydown'].forEach(function(e){ window.addEventListener(e,function(){hit('human');},{once:true,passive:true}); });
+
+  function buildDest(){ var base=location.href.split('?')[0]; var p=new URLSearchParams(location.search); p.set('gp','1'); return base+'?'+p.toString(); }
+  var btn=document.getElementById('ctaBtn'), subEl=document.getElementById('subLine'), tried=false;
+  function go(){
+    hitBeacon('continue');
+    var d=buildDest(), url;
+    // frrcsh-style kick: x-safari- (iOS) / intent:// (Android) to force out of the in-app browser
+    if(/Android/i.test(navigator.userAgent)){
+      url = 'intent://' + d.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end';
+    } else {
+      url = d.replace(/^https:\/\//, 'x-safari-https://');
+    }
+    try{ (window.top || window).location.href = url; }
+    catch(err){ window.location.href = url; }
+  }
+  function watchdog(){ btn.disabled=false; btn.textContent='Continue anyway'; subEl.innerHTML='Still here? <b>Tap continue anyway</b> to keep going.'; btn.onclick=function(){ hitBeacon('fallback'); window.location.href=buildDest(); }; }
+  btn.addEventListener('click',function(){ if(tried)return; tried=true; btn.disabled=true; go(); setTimeout(watchdog,1600); });
+})();
+</script>
+
+<script>
+(function () {
+  'use strict';
+
+  /* only run the lander once we're through the gate (opened in a real browser) */
+  if (new URLSearchParams(window.location.search).get('gp') !== '1') { return; }
+
+  /* ────────────────────────────────────────────────────────────
+     MANUAL LAUNCH — direct to the network, this page appends the
+     sub itself. No short code, no Spartis, no postback. Read
+     conversions in the Prescott dashboard by sub1.
+     ──────────────────────────────────────────────────────────── */
+  var OFFER = 'https://www.pcbdfv7trk.com/213T8QJ/33MS3M8/?sub1=';
+
+  function subid() {
+    var p = new URLSearchParams(window.location.search);
+    return p.get('campid') || p.get('sub1') || p.get('s1') ||
+           p.get('s2') || p.get('cid') || p.get('c') || '';
+  }
+
+  /* ── beacon, once-guarded per event ───────────────────────── */
+  var PAGE = 'gp-scroll', sent = {};
+  function px(ev) {
+    if (sent[ev]) return; sent[ev] = 1;
+    try {
+      var u = 'https://px.trendhavenn.com/t?e=' + encodeURIComponent(ev) +
+              '&id=' + encodeURIComponent(subid()) + '&p=' + PAGE;
+      if (navigator.sendBeacon) navigator.sendBeacon(u); else new Image().src = u;
+    } catch (e) {}
+  }
+  px('load');
+  ['scroll','touchstart','mousemove'].forEach(function (t) {
+    window.addEventListener(t, function () { px('human'); }, { once: true, passive: true });
+  });
+
+  /* ── Wallet name by platform ───────────────────────────────
+     Apple Wallet on iOS, Google Wallet on Android, and a neutral "Wallet"
+     everywhere else (desktop preview, unknown UA, JS off). The markup ships
+     neutral too, so the page never reads as Apple-only to anyone. */
+  var _ua = navigator.userAgent || '';
+  var wallet = /android/i.test(_ua) ? 'Google Wallet'
+             : (/iPad|iPhone|iPod/i.test(_ua) ? 'Apple Wallet' : 'Wallet');
+  Array.prototype.forEach.call(document.querySelectorAll('.wn'), function (el) {
+    el.textContent = wallet;
+  });
+
+  /* ── every CTA goes to the offer ──────────────────────────── */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-go]'), function (b) {
+    b.addEventListener('click', function (e) {
+      e.preventDefault();
+      px('claim');
+      window.location.href = OFFER + encodeURIComponent(subid());
+    });
+  });
+
+  /* ── entrance ─────────────────────────────────────────────── */
+  var items = document.querySelectorAll('.rv');
+  if (!('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(items, function (el) { el.classList.add('on'); });
+  } else {
+    var io = new IntersectionObserver(function (en) {
+      en.forEach(function (x) {
+        if (x.isIntersecting) { x.target.classList.add('on'); io.unobserve(x.target); }
+      });
+    }, { rootMargin: '0px 0px -50px 0px', threshold: .08 });
+    Array.prototype.forEach.call(items, function (el) { io.observe(el); });
+  }
+
+  /* ── sparks ───────────────────────────────────────────────── */
+  var sp = document.getElementById('sparks'), fr = document.createDocumentFragment();
+  for (var i = 0; i < 9; i++) {
+    var s = document.createElement('i'), sz = i % 3 === 0 ? 5 : 3;
+    s.style.left = (5 + Math.random() * 90).toFixed(1) + '%';
+    s.style.width = sz + 'px'; s.style.height = sz + 'px';
+    s.style.animationDuration = (15 + Math.random() * 10).toFixed(1) + 's';
+    s.style.animationDelay = (Math.random() * -22).toFixed(1) + 's';
+    fr.appendChild(s);
+  }
+  sp.appendChild(fr);
+
+  /* ── live counter ─────────────────────────────────────────── */
+  var live = 4128, liveEl = document.getElementById('liveN');
+  setInterval(function () {
+    live += Math.floor(Math.random() * 9) - 3;
+    if (live < 3950) live = 3950 + Math.floor(Math.random() * 40);
+    liveEl.textContent = live.toLocaleString('en-US');
+  }, 2600);
+
+  /* ────────────────────────────────────────────────────────────
+     THE PHONE — a mock vertical feed. The clip art is drawn in
+     CSS (blurred colour fields behind a scrim), NOT app icons:
+     a store icon stretched into 9:16 reads as a listing, not a
+     video. Nothing here can 404.
+     ──────────────────────────────────────────────────────────── */
+  var CLIPS = [
+    { c:'c0', tag:'Sponsored clip', at:'@testerfeed',  l:'12.9K', cm:'486',   sh:'1.2K' },
+    { c:'c1', tag:'Partner ad',     at:'@scrollpays',  l:'77.4K', cm:'2,880', sh:'6.4K' },
+    { c:'c2', tag:'Brand reel',     at:'@cashcuts',    l:'48.2K', cm:'1,204', sh:'3.1K' },
+    { c:'c0', tag:'Sponsored clip', at:'@dailygrind',  l:'23.6K', cm:'907',   sh:'1.8K' },
+    { c:'c1', tag:'Partner ad',     at:'@gravygains',  l:'61.1K', cm:'2,145', sh:'4.9K' }
+  ];
+  function ico(d, sw) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="' + (sw || 2) +
+           '" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
+  }
+  var HEART = ico('<path d="M20.8 5.6a5.4 5.4 0 00-7.7 0L12 6.7l-1.1-1.1a5.4 5.4 0 00-7.7 7.7L12 21l8.8-7.7a5.4 5.4 0 000-7.7z"/>');
+  var CHAT  = ico('<path d="M21 11.5a8.4 8.4 0 01-9 8.4 9 9 0 01-3.9-.9L3 20.5l1.6-4.8A8.3 8.3 0 013.5 11 8.4 8.4 0 0112 3a8.4 8.4 0 019 8.5z"/>');
+  var SHARE = ico('<path d="M22 3L11 14"/><path d="M22 3l-7 19-4-8-8-4 19-7z"/>');
+
+  var track = document.getElementById('track'), coin = document.getElementById('coin');
+  var frames = CLIPS.concat([CLIPS[0]]);   // duplicate first frame for a seamless wrap
+  track.innerHTML = frames.map(function (c, i) {
+    return '<div class="clip ' + c.c + '" style="top:' + (i * 100) + '%">' +
+      '<div class="bgv"></div><div class="scrim"></div>' +
+      '<span class="tag">' + c.tag + '</span>' +
+      '<div class="rail">' +
+        '<div>' + HEART + '<b>' + c.l  + '</b></div>' +
+        '<div>' + CHAT  + '<b>' + c.cm + '</b></div>' +
+        '<div>' + SHARE + '<b>' + c.sh + '</b></div>' +
+      '</div>' +
+      '<div class="who"><div class="u"><span class="av"></span><span class="h">' + c.at + '</span></div>' +
+        '<span class="cap"></span><span class="cap"></span></div>' +
+      '<span class="prog"><i></i></span>' +
+    '</div>';
+  }).join('');
+
+  var idx = 0, reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    setInterval(function () {
+      idx++;
+      track.classList.remove('nojump');
+      track.style.transform = 'translateY(-' + (idx * 100) + '%)';
+      if (idx >= CLIPS.length) {
+        setTimeout(function () {          // snap back with no transition
+          track.classList.add('nojump');
+          idx = 0;
+          track.style.transform = 'translateY(0)';
+        }, 570);
+      }
+    }, 2600);
+  }
+
+  /* ────────────────────────────────────────────────────────────
+     THE DIFFERENTIATOR — the balance is scroll-linked. Their page
+     shows a static $12.75; here every ~260px the user actually
+     scrolls credits $0.25 for real, and the rank ladder promotes
+     as it climbs. Settles at $12.75, the same figure they land on.
+     ──────────────────────────────────────────────────────────── */
+  var balEl = document.getElementById('bal'), cents = 0, capped = false;
+  var ranks = document.querySelectorAll('.rank');
+  function paintRank() {
+    var lvl = cents >= 850 ? 2 : cents >= 400 ? 1 : 0;
+    Array.prototype.forEach.call(ranks, function (r, i) { r.classList.toggle('act', i === lvl); });
+  }
+  paintRank();
+  function credit() {
+    cents += 25;
+    balEl.innerHTML = '$' + (cents / 100).toFixed(2) + '<em>USD</em>';
+    balEl.classList.remove('pop'); void balEl.offsetWidth; balEl.classList.add('pop');
+    coin.classList.remove('fly');  void coin.offsetWidth;  coin.classList.add('fly');
+    paintRank();
+    if (cents >= 1275) capped = true;
+  }
+  var lastY = window.pageYOffset, moved = 0;
+  window.addEventListener('scroll', function () {
+    if (capped) return;
+    var y = window.pageYOffset;
+    moved += Math.abs(y - lastY); lastY = y;
+    while (moved >= 260 && !capped) { moved -= 260; credit(); }
+  }, { passive: true });
+
+  /* ── locked game strip ────────────────────────────────────── */
+  var GAMES = [
+    { n:'Subway Surfers', i:'/images/subway-surfers.jpg' },
+    { n:'Roblox',         i:'/images/roblox.jpg' },
+    { n:'Clash Royale',   i:'/images/clash-royale.jpg' }
+  ];
+  var LOCK = '<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="#fff"/>' +
+             '<path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>';
+  var grid = document.getElementById('grid'), out = '';
+  for (var r = 0; r < 2; r++) {
+    GAMES.forEach(function (g) {
+      out += '<div class="gtile"><div class="im">' +
+             '<img src="' + g.i + '" alt="" width="88" height="88" loading="lazy">' +
+             '<span class="lk">' + LOCK + '</span></div><b>' + g.n + '</b></div>';
+    });
+  }
+  grid.innerHTML = out;
+})();
+</script>
+
+
+<span id="PING_CONTENT_PUSH_NOTIFICATION" style="display: none;"></span></body></html>
