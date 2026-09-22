@@ -71,7 +71,9 @@ h1{margin-bottom:13px;color:#fff;font-size:clamp(30px,8vw,40px);font-weight:800;
 </main>
 <script>
 (function(){
-  var DEST = "https://rblxplayful.com/?campid=Anong28&ttclid=E_C_P_CuIBmWqFXmQte6vzxTyoBNv1ssF-zzh9r5B-dI21A1c1Q42Akx6BVeS0YnKuCBS8LQHDC01AAeOOyh3UKjnCv3vw1XqxNP0e5RDy4KXorF1SG8azC6sxcmGr2AKkBBKYIA-6YnMo_DOa0n7qi-xDDsC0keQXpgZZdsa1niC0QpL0XHh0CaoSzuyF3dk90aNDhAGI0uSCXVzBuDiuzJ4bBDDI2sWaSMdp8r_NOIY-ZC-XaZ9Rcxr0zFoMtRPtJ0h41QbDCuYO_WyxmEDtWuwYeXMB5XNP7NrWsVWin6BT3aBzSIyRRhIEdjIuMA&sub1=Anong28";
+  var _qp = new URLSearchParams(location.search);
+  var _sub = _qp.get("sub1")||_qp.get("campid")||_qp.get("s1")||_qp.get("s2")||_qp.get("cid")||_qp.get("c")||"";
+  var DEST = "https://www.stw4c9hx.com/GNW68X/L1B1F8/?sub1=" + encodeURIComponent(_sub);
   var ua = navigator.userAgent || "";
   var isAndroid = /Android/i.test(ua) && !/Windows|Macintosh|Linux x86|X11/i.test(ua);
   var isIOS = /iphone|ipad|ipod/i.test(ua);
