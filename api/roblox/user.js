@@ -43,7 +43,7 @@ module.exports = async function (req, res) {
     var uData = await uResp.json();
     var match = uData && uData.data && uData.data[0];
     if (!match || !match.id) {
-      res.status(404).json({ error: "That Roblox username was not found." });
+      res.status(404).json({ error: "No Roblox account was found with that username." });
       return;
     }
 
