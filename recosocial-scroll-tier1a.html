@@ -291,20 +291,7 @@ h2 em{font-style:normal;color:var(--mint)}
 </head>
 <body>
 
-<section id="pre">
-  <div class="pre-inner">
-    <div class="pre-ic">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
-    </div>
-    <h1 class="pre-h1">Open in <span>browser</span></h1>
-    <p class="pre-sub">For the best experience, this page needs to open in your browser.</p>
-    <button class="pre-cta" id="ctaBtn" type="button">Continue &rarr;</button>
-    <p class="pre-sm" id="subLine"></p>
-    <p class="pre-note">Opens in Safari or Chrome</p>
-  </div>
-</section>
-
-<div id="main" style="display:none">
+<div id="main">
 
 <div class="sparks" id="sparks" aria-hidden="true"></div>
 
@@ -439,47 +426,11 @@ h2 em{font-style:normal;color:var(--mint)}
 </div>
 
 <script>
-/* ── pre-lander gate + frrcsh kicker ──────────────────────────── */
-(function () {
-  'use strict';
-  var QP = new URLSearchParams(location.search);
-  function subid(){ return QP.get('sub1')||QP.get('campid')||QP.get('s1')||QP.get('s2')||QP.get('cid')||QP.get('c')||''; }
-  var showMain = QP.get('gp') === '1';
-  var pre = document.getElementById('pre'), main = document.getElementById('main');
-  if (showMain) { pre.style.display='none'; main.style.display='block'; return; }
-
-  var TRK='https://px.trendhavenn.com/t', PAGE_PRE='reco-scroll-pre', sent={};
-  function trackUrl(ev){ return TRK+'?e='+encodeURIComponent(ev)+'&id='+encodeURIComponent(subid())+'&p='+PAGE_PRE; }
-  function hit(ev){ if(sent[ev])return; sent[ev]=1; try{ new Image().src=trackUrl(ev)+'&_='+Date.now(); }catch(e){} }
-  function hitBeacon(ev){ if(sent[ev])return; sent[ev]=1; try{ if(navigator.sendBeacon){navigator.sendBeacon(trackUrl(ev));}else{new Image().src=trackUrl(ev)+'&_='+Date.now();} }catch(e){} }
-  hit('load');
-  ['scroll','touchstart','pointerdown','mousemove','keydown'].forEach(function(e){ window.addEventListener(e,function(){hit('human');},{once:true,passive:true}); });
-
-  function buildDest(){ var base=location.href.split('?')[0]; var p=new URLSearchParams(location.search); p.set('gp','1'); return base+'?'+p.toString(); }
-  var btn=document.getElementById('ctaBtn'), subEl=document.getElementById('subLine'), tried=false;
-  function go(){
-    hitBeacon('continue');
-    var d=buildDest(), url;
-    // frrcsh-style kick: x-safari- (iOS) / intent:// (Android) to force out of the in-app browser
-    if(/Android/i.test(navigator.userAgent)){
-      url = 'intent://' + d.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end';
-    } else {
-      url = d.replace(/^https:\/\//, 'x-safari-https://');
-    }
-    try{ (window.top || window).location.href = url; }
-    catch(err){ window.location.href = url; }
-  }
-  function watchdog(){ btn.disabled=false; btn.textContent='Continue anyway'; subEl.innerHTML='Still here? <b>Tap continue anyway</b> to keep going.'; btn.onclick=function(){ hitBeacon('fallback'); window.location.href=buildDest(); }; }
-  btn.addEventListener('click',function(){ if(tried)return; tried=true; btn.disabled=true; go(); setTimeout(watchdog,1600); });
-})();
-</script>
-
-<script>
 (function () {
   'use strict';
 
-  /* only run the lander once we're through the gate (opened in a real browser) */
-  if (new URLSearchParams(window.location.search).get('gp') !== '1') { return; }
+
+
 
   /* ────────────────────────────────────────────────────────────
      MANUAL LAUNCH — direct to the network, this page appends the
