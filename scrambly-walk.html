@@ -261,7 +261,7 @@ h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-
       <div class="ped-earn">
         <span class="coin">$</span>
         <span class="amt" id="earnN">$0.00<em>earned</em></span>
-        <span class="rate">+$0.02<br>per 100 steps</span>
+        <span class="rate">+$0.10<br>per 100 steps</span>
       </div>
     </div>
 
@@ -276,10 +276,10 @@ h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-
 
   <div class="lbl rv on"><span>Cash out milestones</span></div>
   <div class="trail">
-    <div class="mile rv on"><div class="s"><b>2,000 steps</b><span>A short morning walk</span></div><div class="pay">$0.50</div></div>
-    <div class="mile p rv on d1"><div class="s"><b>5,000 steps</b><span>Your daily stroll</span></div><div class="pay">$1.50</div></div>
-    <div class="mile rv on d2"><div class="s"><b>10,000 steps</b><span>Hit your goal &mdash; bonus unlocked</span></div><div class="pay">$5.00</div></div>
-    <div class="mile p rv on d3"><div class="s"><b>Weekly streak</b><span>Walk 5 days &mdash; extra reward</span></div><div class="pay">$12+</div></div>
+    <div class="mile rv on"><div class="s"><b>2,000 steps</b><span>A short morning walk</span></div><div class="pay">$2.00</div></div>
+    <div class="mile p rv on d1"><div class="s"><b>5,000 steps</b><span>Your daily stroll</span></div><div class="pay">$6.00</div></div>
+    <div class="mile rv on d2"><div class="s"><b>10,000 steps</b><span>Hit your goal &mdash; bonus unlocked</span></div><div class="pay">$15.00</div></div>
+    <div class="mile p rv on d3"><div class="s"><b>Weekly streak</b><span>Walk 5 days &mdash; extra reward</span></div><div class="pay">$40+</div></div>
   </div>
 
   <div class="lbl rv on"><span>How it works</span></div>
@@ -407,7 +407,7 @@ h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-
   setInterval(function(){ live+=Math.floor(Math.random()*7)-3; if(live<2700)live=2700+Math.floor(Math.random()*40); liveEl.textContent=live.toLocaleString('en-US'); },2600);
 
   /* animated pedometer: steps count up + ring fills + earnings tick */
-  var GOAL=10000, TARGET=8472, RATE=0.0002; // $ per step (~$0.02/100)
+  var GOAL=10000, TARGET=8472, RATE=0.001; // $ per step (~$0.10/100)
   var stepEl=document.getElementById('stepN'), earnEl=document.getElementById('earnN'), ring=document.getElementById('ringFill');
   var C=565, cur=0, start=null, dur=2400;
   function frame(t){ if(!start)start=t; var k=Math.min(1,(t-start)/dur); var e=1-Math.pow(1-k,3);
