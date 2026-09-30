@@ -1,218 +1,245 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en-US"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#160a24">
-<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#150a24">
+<meta name="robots" content="noindex, nofollow">
 <title>Open in Browser</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#160a24; --bg2:#1e0f33; --card:rgba(40,22,66,.72); --line:rgba(255,255,255,.09);
-  --orange:#ff7a1a; --orange2:#ff9d3c; --orange-soft:rgba(255,122,26,.14);
-  --purple:#a855f7; --purple2:#7c3aed; --purple-soft:rgba(168,85,247,.16);
-  --ink:#f6f0ff; --mut:#b6a7d6; --mut2:#8b7bb0;
-  --grad:linear-gradient(100deg,#ff7a1a 0%,#ff5ea0 46%,#a855f7 100%);
-  --grad-btn:linear-gradient(180deg,#ff9d3c,#ff6a12);
+  --bg:#150a24; --surf:#241338; --surf2:#1b0f2e;
+  --line:rgba(255,255,255,0.08); --line2:rgba(255,140,60,0.22);
+  --orange:#ff8a2a; --orange2:#ff6a12; --orange3:#ffb15c;
+  --purple:#a855f7; --purple2:#7c3aed; --purple3:#c99bff;
   --gold:#ffcf3a;
-  --safe-b:env(safe-area-inset-bottom,0px);
+  --ink:#f6f0ff; --muted:#a493c4;
 }
-html{-webkit-text-size-adjust:100%;background:var(--bg)}
-body{font-family:"Nunito",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);
-  background:var(--bg);overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased;
-  padding-bottom:calc(150px + var(--safe-b))}
-button,input{font:inherit}
-h1,h2,h3,.fred{font-family:"Fredoka",sans-serif}
+html,body{height:100%;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);color:var(--ink);overflow-x:clip;position:relative;
+  padding-bottom:calc(150px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:430px;margin:0 auto;position:relative;padding:0 16px;
+  background:
+    radial-gradient(660px 380px at 50% -70px,rgba(255,122,26,0.18),transparent 66%),
+    radial-gradient(500px 360px at 92% 34%,rgba(168,85,247,0.16),transparent 70%),
+    radial-gradient(460px 320px at 6% 62%,rgba(124,58,237,0.12),transparent 72%),
+    var(--bg)}
+.wrap>*{position:relative;z-index:1}
 
-/* floating background blobs */
-.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
-  background:radial-gradient(680px 380px at 82% -6%,rgba(255,122,26,.20),transparent 60%),
-            radial-gradient(620px 420px at 10% 20%,rgba(168,85,247,.20),transparent 62%),
-            radial-gradient(700px 500px at 50% 108%,rgba(124,58,237,.18),transparent 60%),var(--bg)}
-.paw{position:absolute;font-size:20px;opacity:.06;animation:drift linear infinite}
-@keyframes drift{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(-108vh) rotate(40deg)}}
+/* ── background sparks ──────────────────────────────────────── */
+.sparks{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.sparks i{position:absolute;bottom:-14px;border-radius:50%;background:var(--orange);
+  opacity:0;animation:sparkFloat linear infinite}
+@keyframes sparkFloat{
+  0%{transform:translateY(0) scale(.6);opacity:0}
+  14%{opacity:.5}80%{opacity:.24}
+  100%{transform:translateY(-105vh) scale(1.15);opacity:0}}
 
-.wrap{position:relative;z-index:1;max-width:440px;margin:0 auto;padding:0 16px}
-.rv{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
-.rv.on{opacity:1;transform:none}
-.d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}
+/* ── entrance ───────────────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(20px);
+  transition:opacity .62s cubic-bezier(.22,1,.36,1),transform .62s cubic-bezier(.22,1,.36,1)}
+.rv.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.2s}
 
-/* nav */
-.nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:9px;margin:0 -16px;padding:10px 16px;
-  background:rgba(22,10,36,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.logo{display:flex;align-items:center;gap:9px;margin-right:auto}
-.foxwrap{width:38px;height:38px;flex:none;border-radius:12px;background:linear-gradient(150deg,#2a1642,#3a1f5e);
-  border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;box-shadow:0 0 16px rgba(168,85,247,.3)}
-.foxwrap svg{width:30px;height:30px}
-.foxwrap img{width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block}
-.mascot{margin:20px auto 0;width:270px;max-width:78%;position:relative}
-.mascot img{width:100%;display:block;border-radius:30px;box-shadow:0 22px 55px rgba(255,122,26,.34),0 0 0 1px rgba(255,255,255,.08)}
-.mascot::after{content:"";position:absolute;inset:-14px;border-radius:40px;background:radial-gradient(circle at 50% 40%,rgba(255,122,26,.35),transparent 68%);z-index:-1;filter:blur(6px)}
-.brand{font-family:"Fredoka",sans-serif;font-size:21px;font-weight:700;letter-spacing:-.02em;
-  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.live{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;background:var(--orange-soft);
-  border:1px solid rgba(255,122,26,.3);font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--orange2);white-space:nowrap}
-.live i{width:6px;height:6px;border-radius:50%;background:var(--orange2);animation:pulse 1.6s ease-in-out infinite}
+/* ── top bar ────────────────────────────────────────────────── */
+.top{display:flex;align-items:center;gap:9px;padding:12px 2px 6px;position:sticky;top:0;z-index:30}
+.tile{flex:none;width:30px;height:30px;border-radius:9px;overflow:hidden;display:block;
+  background:linear-gradient(150deg,#2a1642,#3a1f5e);border:1px solid rgba(255,255,255,.12)}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
+.wordmark{font-size:19px;font-weight:900;letter-spacing:-.02em;margin-right:auto;
+  background:linear-gradient(100deg,#ff8a2a,#ff5ea0 55%,#a855f7);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.live{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;
+  background:rgba(255,122,26,.12);border:1px solid var(--line2);
+  font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--orange3);white-space:nowrap}
+.live i{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:blip 1.6s ease-in-out infinite}
 .live b{color:#fff;font-variant-numeric:tabular-nums}
-@keyframes pulse{0%,100%{opacity:1}55%{opacity:.35}}
+@keyframes blip{0%,100%{opacity:1}55%{opacity:.35}}
 
-/* hero */
-.hero{text-align:center;padding:26px 4px 6px}
-.tag{display:inline-flex;align-items:center;gap:7px;margin-bottom:16px;padding:7px 14px;border-radius:999px;
-  background:var(--purple-soft);border:1px solid rgba(168,85,247,.32);color:#d9baff;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-h1{font-size:41px;font-weight:700;line-height:1.02;letter-spacing:-.03em;margin-bottom:12px}
-h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.lede{font-size:15px;line-height:1.55;color:var(--mut);max-width:360px;margin:0 auto}
+/* ── hero ───────────────────────────────────────────────────── */
+.hero{text-align:center;padding:22px 4px 4px}
+.htag{display:inline-flex;align-items:center;gap:6px;margin-bottom:15px;padding:7px 13px;border-radius:999px;
+  background:rgba(168,85,247,.16);border:1px solid rgba(168,85,247,.32);color:var(--purple3);
+  font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.hero h1{font-weight:900;line-height:.98;letter-spacing:-.04em;margin-bottom:12px;display:flex;flex-direction:column}
+.hero h1 .a{font-size:30px;color:var(--ink)}
+.hero h1 .b{font-size:46px;
+  background:linear-gradient(100deg,#ff8a2a,#ff5ea0 52%,#a855f7);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lede{font-size:15px;line-height:1.55;color:var(--muted);max-width:360px;margin:0 auto}
 
-/* pedometer */
-.ped{position:relative;margin:22px auto 0;width:100%;border:1px solid var(--line);border-radius:26px;overflow:hidden;
-  background:linear-gradient(180deg,rgba(46,15,51,.9),rgba(30,15,45,.92));box-shadow:0 24px 60px rgba(0,0,0,.4)}
-.ped-top{padding:22px 20px 6px;display:flex;flex-direction:column;align-items:center}
-.ring{position:relative;width:210px;height:210px}
-.ring svg{transform:rotate(-90deg)}
-.ring .track{fill:none;stroke:rgba(255,255,255,.08);stroke-width:16}
-.ring .fill{fill:none;stroke:url(#pg);stroke-width:16;stroke-linecap:round;stroke-dasharray:565;stroke-dashoffset:565;transition:stroke-dashoffset 1.4s cubic-bezier(.3,1,.4,1)}
-.ring-mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.ring-mid .foxmini{width:30px;height:30px;margin-bottom:2px;animation:trot 1s ease-in-out infinite}
+/* ── divider label ──────────────────────────────────────────── */
+.divl{display:flex;align-items:center;gap:10px;margin:28px 0 14px}
+.divl::before,.divl::after{content:"";flex:1;height:1px;background:var(--line)}
+.divl span{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* ── balance card + phone ───────────────────────────────────── */
+.card{background:linear-gradient(180deg,var(--surf),var(--surf2));border:1px solid var(--line);
+  border-radius:22px;overflow:hidden}
+.balhead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 16px 14px}
+.blab{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.blab i{width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.bal{font-size:34px;font-weight:900;letter-spacing:-.035em;line-height:1;color:#fff;
+  font-variant-numeric:tabular-nums;transition:transform .19s ease,color .19s ease}
+.bal.pop{transform:scale(1.11);color:var(--orange3)}
+.bal em{font-style:normal;font-size:13px;font-weight:700;color:var(--muted);margin-left:4px;letter-spacing:0}
+.rate{flex:none;display:inline-flex;align-items:center;gap:5px;padding:8px 12px;border-radius:999px;
+  background:rgba(255,122,26,.10);border:1px solid var(--line2);
+  font-size:11.5px;font-weight:900;color:var(--orange3);white-space:nowrap;text-align:center;line-height:1.25}
+.simrow{display:flex;gap:14px;padding:0 16px 16px;align-items:flex-start}
+
+/* the phone — Scrambly app screen with a climbing step counter */
+.phone{flex:none;width:44%;max-width:150px;aspect-ratio:9/16;max-height:236px;position:relative;
+  border-radius:17px;overflow:hidden;border:1px solid rgba(255,255,255,.14);
+  background:linear-gradient(170deg,#ff8a2a,#ff5ea0 60%,#a855f7)}
+.pscreen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;text-align:center}
+.pscreen .pfox{width:38px;height:38px;border-radius:11px;overflow:hidden;border:1.5px solid rgba(255,255,255,.7);margin-bottom:10px;animation:trot 1s ease-in-out infinite}
+.pscreen .pfox img{width:100%;height:100%;object-fit:cover;display:block}
 @keyframes trot{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-.steps{font-family:"Fredoka",sans-serif;font-size:44px;font-weight:700;line-height:1;letter-spacing:-.02em;color:#fff;font-variant-numeric:tabular-nums}
-.steps-l{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--mut2);margin-top:4px}
-.goal{margin-top:10px;font-size:12.5px;font-weight:700;color:var(--mut)}
-.goal b{color:var(--orange2)}
-.ped-earn{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 16px;
-  background:linear-gradient(90deg,rgba(255,122,26,.14),rgba(168,85,247,.14));border-top:1px solid var(--line)}
-.ped-earn .coin{width:30px;height:30px;flex:none;border-radius:50%;background:radial-gradient(circle at 34% 30%,#ffe08a,#ffb31e 55%,#e07d0a);
-  display:grid;place-items:center;font-weight:900;color:#7a3b00;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,.35)}
-.ped-earn .amt{font-family:"Fredoka",sans-serif;font-size:26px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
-.ped-earn .amt em{font-style:normal;font-size:13px;color:var(--mut);font-family:"Nunito";font-weight:700;margin-left:3px}
-.ped-earn .rate{margin-left:auto;font-size:11px;font-weight:800;color:var(--orange2);text-align:right;line-height:1.3}
+.pscreen .pstep{font-size:30px;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;text-shadow:0 2px 8px rgba(0,0,0,.25)}
+.pscreen .plab{font-size:8.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-top:5px}
+.pbar{width:78%;height:6px;border-radius:6px;background:rgba(255,255,255,.28);margin-top:12px;overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:#fff;border-radius:6px;transition:width .5s cubic-bezier(.3,1,.4,1)}
+.coin{position:absolute;left:50%;bottom:30%;transform:translateX(-50%);font-size:16px;font-weight:900;
+  color:#fff;pointer-events:none;opacity:0;z-index:5;text-shadow:0 0 14px rgba(255,207,58,.9)}
+.coin.fly{animation:coinUp 1.05s cubic-bezier(.22,1,.36,1)}
+@keyframes coinUp{0%{opacity:0;transform:translate(-50%,10px) scale(.8)}
+  18%{opacity:1}72%{opacity:1}100%{opacity:0;transform:translate(-50%,-92px) scale(1.25)}}
 
-/* buttons */
-.cta{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:60px;border:0;border-radius:17px;
-  background:var(--grad-btn);color:#3a1600;cursor:pointer;font-family:"Fredoka",sans-serif;font-size:18px;font-weight:700;
-  letter-spacing:.01em;text-decoration:none;position:relative;overflow:hidden;box-shadow:0 10px 30px rgba(255,122,26,.34);
-  transition:transform .12s ease;animation:glow 2.6s ease-in-out infinite}
-.cta:active{transform:scale(.978)}
-@keyframes glow{0%,100%{box-shadow:0 10px 30px rgba(255,122,26,.34)}50%{box-shadow:0 12px 40px rgba(255,122,26,.6)}}
-.cta::after{content:"";position:absolute;top:0;bottom:0;width:44%;left:-55%;pointer-events:none;
-  background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);animation:sweep 3.2s ease-in-out infinite}
-@keyframes sweep{0%{left:-55%}60%,100%{left:130%}}
-.cta svg{width:22px;height:22px;flex:none}
-.note{margin-top:10px;text-align:center;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mut2)}
-.hero-cta{margin-top:20px}
+.simtx{flex:1;min-width:0;padding-top:4px}
+.simtx h3{font-size:19px;font-weight:900;letter-spacing:-.03em;line-height:1.16;margin-bottom:8px}
+.simtx h3 em{font-style:normal;color:var(--orange3)}
+.simtx p{font-size:12.5px;line-height:1.55;color:var(--muted)}
+.simtx p b{color:var(--ink);font-weight:800}
+.simfoot{padding:11px 16px;font-size:11.5px;font-weight:700;color:var(--muted);text-align:center;
+  background:rgba(255,122,26,.06);border-top:1px solid var(--line2)}
+.simfoot b{color:var(--orange3)}
 
-/* section label */
-.lbl{display:flex;align-items:center;gap:10px;margin:32px 0 14px}
-.lbl::before,.lbl::after{content:"";flex:1;height:1px;background:var(--line)}
-.lbl span{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--mut2)}
+/* ── buttons ────────────────────────────────────────────────── */
+.cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:58px;
+  border:none;border-radius:16px;cursor:pointer;font-family:inherit;font-size:17px;font-weight:900;
+  letter-spacing:-.015em;color:#3a1600;text-decoration:none;position:relative;overflow:hidden;
+  background:linear-gradient(150deg,var(--orange3),var(--orange2));
+  transition:transform .12s ease;animation:pulse 2.4s ease-in-out infinite}
+.cta:active{transform:scale(.975)}
+@keyframes pulse{0%,100%{box-shadow:0 6px 22px rgba(255,122,26,.34)}50%{box-shadow:0 10px 38px rgba(255,122,26,.6)}}
+.cta::after{content:'';position:absolute;top:0;bottom:0;width:42%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
+  left:-50%;animation:sweep 3.3s ease-in-out infinite}
+@keyframes sweep{0%{left:-50%}60%,100%{left:120%}}
+.cta svg{width:20px;height:20px;flex:none}
+.note{margin-top:9px;text-align:center;font-size:10.5px;font-weight:800;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted)}
 
-/* milestone trail */
-.trail{position:relative;padding-left:30px}
-.trail::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:3px;border-radius:3px;
-  background:linear-gradient(180deg,var(--orange),var(--purple))}
-.mile{position:relative;margin-bottom:12px;padding:13px 15px;border-radius:16px;background:var(--card);border:1px solid var(--line);
-  display:flex;align-items:center;gap:12px}
-.mile::before{content:"";position:absolute;left:-24px;top:22px;width:14px;height:14px;border-radius:50%;
-  background:var(--orange);border:3px solid var(--bg2);box-shadow:0 0 0 2px var(--orange)}
-.mile.p::before{background:var(--purple);box-shadow:0 0 0 2px var(--purple)}
-.mile .s{flex:1;min-width:0}
-.mile .s b{display:block;font-family:"Fredoka";font-size:16px;font-weight:600}
-.mile .s span{font-size:12.5px;color:var(--mut)}
-.mile .pay{font-family:"Fredoka";font-size:19px;font-weight:700;color:var(--gold);white-space:nowrap}
+/* ── milestones (rank-style ladder) ─────────────────────────── */
+.mile{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:16px;margin-bottom:10px;
+  background:var(--surf2);border:1px solid var(--line);opacity:.62;
+  transition:opacity .3s ease,border-color .3s ease,background .3s ease}
+.mile.act{opacity:1;border-color:var(--line2);background:linear-gradient(180deg,rgba(255,122,26,.10),var(--surf2))}
+.mile.gold.act{border-color:rgba(255,207,58,.4);background:linear-gradient(180deg,rgba(255,207,58,.12),var(--surf2))}
+.mpill{flex:none;display:inline-flex;align-items:center;gap:6px;padding:8px 11px;border-radius:11px;
+  font-size:12px;font-weight:900;letter-spacing:-.01em;color:#fff;
+  background:linear-gradient(150deg,var(--purple),var(--purple2))}
+.mile.gold .mpill{background:linear-gradient(150deg,var(--orange3),var(--orange2));color:#3a1600}
+.mtx{flex:1;min-width:0}
+.mtx b{display:block;font-size:15px;font-weight:800;letter-spacing:-.015em}
+.mtx span{display:block;font-size:12.5px;color:var(--muted)}
+.mpay{flex:none;font-size:18px;font-weight:900;letter-spacing:-.02em;color:var(--gold)}
 
-/* steps how */
-.step{display:flex;gap:13px;padding:15px;border-radius:17px;background:var(--card);border:1px solid var(--line);margin-bottom:10px}
-.sn{width:34px;height:34px;flex:none;border-radius:11px;display:grid;place-items:center;font-family:"Fredoka";font-size:15px;font-weight:700;color:#fff}
-.sn.o{background:linear-gradient(150deg,#ff9d3c,#ff6a12)}
-.sn.g{background:linear-gradient(150deg,#c084fc,#7c3aed)}
-.sn.b{background:linear-gradient(150deg,#ffcf3a,#ff9d3c);color:#5a2c00}
+/* ── 3 steps ────────────────────────────────────────────────── */
+h2{font-size:27px;font-weight:900;letter-spacing:-.035em;text-align:center;margin-bottom:16px}
+h2 em{font-style:normal;color:var(--orange3)}
+.step{display:flex;gap:12px;padding:14px;border-radius:17px;background:var(--surf2);
+  border:1px solid var(--line);margin-bottom:10px}
+.sn{flex:none;width:32px;height:32px;border-radius:11px;display:grid;place-items:center;
+  font-size:14px;font-weight:900;color:#fff;background:linear-gradient(150deg,var(--orange3),var(--orange2))}
+.sn.p{background:linear-gradient(150deg,var(--purple3),var(--purple2))}
+.sn.g{background:linear-gradient(150deg,var(--gold),var(--orange2));color:#3a1600}
 .sb{flex:1;min-width:0}
-.sb b{display:block;font-family:"Fredoka";font-size:16px;font-weight:600;margin-bottom:3px}
-.sb p{font-size:13px;color:var(--mut);line-height:1.5}
-.sb p em{font-style:normal;color:#d9baff;font-weight:700}
-.pays{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
-.pays span{font-size:11px;font-weight:700;color:var(--mut);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:9px;padding:6px 10px}
+.sb b{display:block;font-size:15.5px;font-weight:800;letter-spacing:-.015em;margin-bottom:4px}
+.sb span{display:block;font-size:13px;line-height:1.5;color:var(--muted)}
+.sb span em{font-style:normal;color:var(--purple3);font-weight:700}
+.pass{display:flex;align-items:center;gap:11px;padding:13px;border-radius:17px;margin-bottom:10px;
+  background:linear-gradient(180deg,rgba(255,122,26,.09),var(--surf2));border:1px solid var(--line2)}
+.pass .tile{width:46px;height:46px;border-radius:13px}
+.pi{flex:1;min-width:0}
+.pi b{display:block;font-size:14.5px;font-weight:800;letter-spacing:-.015em}
+.pi span{display:block;font-size:11.5px;font-weight:600;color:var(--muted);margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pi em{font-style:normal;color:var(--ink);font-weight:800}
+.stars{letter-spacing:.4px;background:linear-gradient(90deg,var(--gold) 90%,rgba(255,255,255,.22) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.add{flex:none;border:none;cursor:pointer;font-family:inherit;border-radius:999px;padding:10px 18px;
+  font-size:12.5px;font-weight:900;letter-spacing:.05em;color:#3a1600;
+  background:linear-gradient(150deg,var(--orange3),var(--orange2))}
+.payrow{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.payrow span{font-size:11px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.04);
+  border:1px solid var(--line);border-radius:9px;padding:6px 10px}
 
-/* reviews */
-.rev{padding:15px;border-radius:16px;background:var(--card);border:1px solid var(--line);margin-bottom:10px}
-.rev .h{display:flex;align-items:center;gap:9px;margin-bottom:8px;flex-wrap:wrap}
-.rev .av{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:12px;color:#fff;background:linear-gradient(150deg,#ff7a1a,#a855f7)}
+/* ── reviews ────────────────────────────────────────────────── */
+.rev{padding:14px;border-radius:16px;background:var(--surf2);border:1px solid var(--line);margin-bottom:10px}
+.rev .rh{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.rev .av{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:12px;color:#fff;background:linear-gradient(150deg,var(--orange),var(--purple))}
 .rev .nm{font-weight:800;font-size:14px}
-.rev .st{color:var(--gold);font-size:11px;letter-spacing:1px;margin-left:auto}
+.rev .rs{color:var(--gold);font-size:11px;letter-spacing:1px;margin-left:auto}
 .rev p{font-size:13px;color:#d7ccec;line-height:1.55}
 
-.foot{margin-top:18px;text-align:center;font-size:11.5px;color:var(--mut2);line-height:1.6}
+/* ── closer ─────────────────────────────────────────────────── */
+.closer{text-align:center;margin-top:30px}
+.closer h2{margin-bottom:10px}
+.closer p{font-size:14px;color:var(--muted);line-height:1.55;max-width:340px;margin:0 auto 16px}
+.legal{margin-top:22px;font-size:10.5px;line-height:1.6;color:#6f6090;text-align:center}
+.legal .cr{display:block;margin-top:8px;color:#5c4f7c}
 
-/* sticky dock */
-.dock{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:440px;z-index:50;
-  padding:11px 16px calc(11px + var(--safe-b));background:rgba(18,8,30,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+/* ── sticky dock ────────────────────────────────────────────── */
+.dock{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:430px;z-index:50;
+  padding:11px 16px calc(11px + env(safe-area-inset-bottom));
+  background:rgba(18,8,30,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line)}
 .drow{display:flex;align-items:center;gap:11px;margin-bottom:9px}
-.drow .foxwrap{width:46px;height:46px;border-radius:14px}
-.drow .foxwrap svg{width:36px;height:36px}
+.drow .tile{width:46px;height:46px;border-radius:14px}
 .dmid{flex:1;min-width:0}
 .dr1{display:flex;align-items:center;gap:7px}
-.dr1 b{font-family:"Fredoka";font-size:17px;font-weight:700;color:#fff}
-.chip{font-size:9.5px;font-weight:800;color:var(--orange2);background:var(--orange-soft);border:1px solid rgba(255,122,26,.3);border-radius:6px;padding:3px 7px;white-space:nowrap}
-.dr2{font-size:11.5px;color:var(--mut);margin-top:2px}
+.dr1 b{font-size:16px;font-weight:900;letter-spacing:-.01em;color:#fff}
+.chip{font-size:9.5px;font-weight:800;color:var(--orange3);background:rgba(255,122,26,.12);border:1px solid var(--line2);border-radius:6px;padding:3px 7px;white-space:nowrap}
+.dr2{font-size:11.5px;color:var(--muted);margin-top:2px}
 .dr2 em{font-style:normal;color:#fff;font-weight:800}
-.stars{color:var(--gold);letter-spacing:.4px;background:linear-gradient(90deg,var(--gold) 90%,rgba(255,255,255,.22) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.dock .cta{min-height:54px;font-size:16.5px;border-radius:15px}
+.dock .cta{min-height:54px;font-size:16px;border-radius:15px}
 
-/* pre-lander gate */
+/* ── pre-lander gate ────────────────────────────────────────── */
 #pre{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;text-align:center;
-  padding:28px 24px calc(28px + var(--safe-b));
+  padding:28px 24px calc(28px + env(safe-area-inset-bottom));
   background:radial-gradient(ellipse 70% 50% at 50% 8%,rgba(255,122,26,.18),transparent 60%),
             radial-gradient(ellipse 70% 50% at 50% 100%,rgba(168,85,247,.18),transparent 60%),var(--bg)}
-.pre-in{max-width:400px;width:100%;animation:pin .5s cubic-bezier(.22,1,.36,1) both}
+.pre-inner{max-width:400px;width:100%;animation:pin .5s cubic-bezier(.22,1,.36,1) both}
 @keyframes pin{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-.pre-ic{width:92px;height:92px;margin:0 auto 26px;border-radius:26px;border:1px solid rgba(255,255,255,.12);
-  background:linear-gradient(150deg,#2a1642,#3a1f5e);display:grid;place-items:center;box-shadow:0 0 40px rgba(168,85,247,.4)}
-.pre-ic svg{width:52px;height:52px}
-.pre-ic img{width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block}
-.pre-h1{font-family:"Fredoka";font-size:38px;font-weight:700;letter-spacing:-.02em;line-height:1.05;margin-bottom:13px;color:#fff}
-.pre-h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.pre-sub{font-size:15px;color:var(--mut);line-height:1.55;margin:0 auto 30px;max-width:330px}
-.pre-cta{display:block;width:100%;min-height:60px;border:0;border-radius:17px;font-family:"Fredoka";font-size:18px;font-weight:700;
-  color:#3a1600;cursor:pointer;background:var(--grad-btn);animation:glow 2.6s ease-in-out infinite}
+.pre-ic{width:92px;height:92px;margin:0 auto 26px;border-radius:26px;overflow:hidden;border:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(150deg,#2a1642,#3a1f5e);box-shadow:0 0 40px rgba(168,85,247,.4)}
+.pre-ic img{width:100%;height:100%;object-fit:cover;display:block}
+.pre-h1{font-size:38px;font-weight:900;letter-spacing:-.03em;line-height:1.05;margin-bottom:13px;color:#fff}
+.pre-h1 span{background:linear-gradient(100deg,#ff8a2a,#ff5ea0 55%,#a855f7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.pre-sub{font-size:15px;color:var(--muted);line-height:1.55;margin:0 auto 30px;max-width:330px}
+.pre-cta{display:block;width:100%;min-height:60px;border:0;border-radius:17px;font-family:inherit;font-size:18px;font-weight:900;
+  color:#3a1600;cursor:pointer;background:linear-gradient(150deg,var(--orange3),var(--orange2));animation:pulse 2.4s ease-in-out infinite}
 .pre-cta:active{transform:scale(.978)}
 .pre-cta:disabled{opacity:.85;animation:none}
-.pre-note{margin-top:14px;font-size:13px;font-weight:700;color:var(--orange2)}
-.pre-sm{margin-top:12px;font-size:13px;color:var(--mut)}
+.pre-note{margin-top:14px;font-size:13px;font-weight:700;color:var(--orange3)}
+.pre-sm{margin-top:12px;font-size:13px;color:var(--muted)}
 .pre-sm:empty{display:none}
 .pre-sm b{color:#fff}
 
-@media(max-width:374px){h1{font-size:35px}.steps{font-size:38px}.ring{width:186px;height:186px}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important}.rv{opacity:1!important;transform:none!important}.ring .fill{transition:none}}
+@media(max-width:374px){.hero h1 .b{font-size:40px}.hero h1 .a{font-size:26px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.rv{opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body>
 
-<!-- reusable fox: front-facing cute fox -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a1a"/><stop offset=".5" stop-color="#ff5ea0"/><stop offset="1" stop-color="#a855f7"/></linearGradient>
-  <g id="fox">
-    <path d="M20 14 L54 42 L12 50 Z" fill="#ff8a2a"/>
-    <path d="M100 14 L66 42 L108 50 Z" fill="#ff8a2a"/>
-    <path d="M28 22 L47 42 L24 46 Z" fill="#6d28d9"/>
-    <path d="M92 22 L73 42 L96 46 Z" fill="#6d28d9"/>
-    <path d="M16 46 Q60 24 104 46 Q99 76 60 82 Q21 76 16 46 Z" fill="#ff9333"/>
-    <path d="M33 58 Q60 53 87 58 Q79 94 60 100 Q41 94 33 58 Z" fill="#fdf3ff"/>
-    <ellipse cx="43" cy="55" rx="6.2" ry="7.4" fill="#2a1030"/>
-    <ellipse cx="77" cy="55" rx="6.2" ry="7.4" fill="#2a1030"/>
-    <circle cx="45" cy="52" r="2" fill="#fff"/>
-    <circle cx="79" cy="52" r="2" fill="#fff"/>
-    <path d="M60 76 L52.5 67 Q60 63.5 67.5 67 Z" fill="#2a1030"/>
-  </g>
-</defs></svg>
-
-<div class="bg" id="bg" aria-hidden="true"></div>
-
 <!-- ============ PRE GATE ============ -->
 <section id="pre">
-  <div class="pre-in">
+  <div class="pre-inner">
     <div class="pre-ic"><img src="images/scrambly-fox.png" alt="Scrambly"></div>
     <h1 class="pre-h1">Open in <span>browser</span></h1>
     <p class="pre-sub">For the best experience, open this page in Safari or Chrome to continue to Scrambly.</p>
@@ -224,106 +251,142 @@ h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-
 
 <!-- ============ MAIN ============ -->
 <div id="main" style="display:none">
+
+<div class="sparks" id="sparks" aria-hidden="true"></div>
+
 <div class="wrap">
 
-  <header class="nav">
-    <div class="logo">
-      <span class="foxwrap"><img src="images/scrambly-fox.png" alt="Scrambly"></span>
-      <span class="brand">Scrambly</span>
-    </div>
+  <header class="top">
+    <span class="tile"><img src="images/scrambly-fox.png" alt="Scrambly"></span>
+    <span class="wordmark">Scrambly</span>
     <span class="live"><i></i><b id="liveN">2,847</b> walking now</span>
   </header>
 
   <section class="hero">
-    <span class="tag rv on">🦊 Walk &amp; Earn</span>
-    <h1 class="rv on d1">Get paid for <span class="g">every step</span> you take</h1>
-    <p class="lede rv on d2">Scrambly turns your daily steps into real cash. Your phone already counts them &mdash; now they pay you back.</p>
-
-    <div class="mascot rv on d2"><img src="images/scrambly-hero.png" alt="Scrambly &mdash; withdraw at $1"></div>
-
-    <!-- PEDOMETER -->
-    <div class="ped rv on d2">
-      <div class="ped-top">
-        <div class="ring">
-          <svg width="210" height="210" viewBox="0 0 210 210">
-            <circle class="track" cx="105" cy="105" r="90"></circle>
-            <circle class="fill" id="ringFill" cx="105" cy="105" r="90"></circle>
-          </svg>
-          <div class="ring-mid">
-            <img class="foxmini" src="images/scrambly-fox.png" alt="" style="border-radius:9px">
-
-            <div class="steps" id="stepN">0</div>
-            <div class="steps-l">steps today</div>
-          </div>
-        </div>
-        <div class="goal">Goal <b>10,000</b> &middot; keep walking to earn more</div>
-      </div>
-      <div class="ped-earn">
-        <span class="coin">$</span>
-        <span class="amt" id="earnN">$0.00<em>earned</em></span>
-        <span class="rate">+$0.10<br>per 100 steps</span>
-      </div>
-    </div>
-
-    <div class="hero-cta rv on d3">
-      <a href="#" class="cta" data-go="">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-        Get Scrambly Free
-      </a>
-      <p class="note">Free &middot; iPhone &amp; Android &middot; No cost to join</p>
-    </div>
+    <span class="htag rv">🦊 Walk &amp; Earn</span>
+    <h1 class="rv d1"><span class="a">GET PAID FOR</span><span class="b">EVERY STEP</span></h1>
+    <p class="lede rv d2">Scrambly turns your daily steps into real cash. Your phone already counts them &mdash; now they pay you back.</p>
   </section>
 
-  <div class="lbl rv on"><span>Cash out milestones</span></div>
-  <div class="trail">
-    <div class="mile rv on"><div class="s"><b>2,000 steps</b><span>A short morning walk</span></div><div class="pay">$2.00</div></div>
-    <div class="mile p rv on d1"><div class="s"><b>5,000 steps</b><span>Your daily stroll</span></div><div class="pay">$6.00</div></div>
-    <div class="mile rv on d2"><div class="s"><b>10,000 steps</b><span>Hit your goal &mdash; bonus unlocked</span></div><div class="pay">$15.00</div></div>
-    <div class="mile p rv on d3"><div class="s"><b>Weekly streak</b><span>Walk 5 days &mdash; extra reward</span></div><div class="pay">$40+</div></div>
+  <div class="divl rv"><span>Live earnings</span></div>
+
+  <section class="card rv">
+    <div class="balhead">
+      <div>
+        <div class="blab"><i></i>Earned today</div>
+        <div class="bal pop" id="bal">$0.00<em>USD</em></div>
+      </div>
+      <span class="rate">+$0.10<br>/ 100 steps</span>
+    </div>
+
+    <div class="simrow">
+      <div class="phone">
+        <div class="pscreen">
+          <span class="pfox"><img src="images/scrambly-fox.png" alt=""></span>
+          <div class="pstep" id="pstep">0</div>
+          <div class="plab">steps today</div>
+          <div class="pbar"><i id="pbar"></i></div>
+        </div>
+        <div class="coin fly" id="coin">+$0.10</div>
+      </div>
+      <div class="simtx">
+        <h3>Every step <em>pays you.</em></h3>
+        <p>Your phone already counts your steps. Each one credits real cash &mdash; <b>keep scrolling</b> and watch it bank.</p>
+      </div>
+    </div>
+
+    <div class="simfoot">Goal <b>10,000</b> steps &mdash; keep walking to earn more</div>
+  </section>
+
+  <div style="margin-top:16px" class="rv">
+    <a href="#" class="cta" data-go="">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      Get Scrambly Free</a>
+    <p class="note">Free &middot; iPhone &amp; Android &middot; No cost to join</p>
   </div>
 
-  <div class="lbl rv on"><span>How it works</span></div>
-  <h2 class="rv on" style="text-align:center;font-size:26px;margin-bottom:16px">3 steps to <span style="color:var(--orange2)">cash</span></h2>
+  <div class="divl rv"><span>Cash out milestones</span></div>
 
-  <div class="step rv on">
-    <span class="sn o">1</span>
-    <div class="sb"><b>Download Scrambly</b><p>Free on <em>iPhone &amp; Android</em>. Installs in seconds &mdash; no card, no catch.</p></div>
+  <div class="mile act rv" data-step="2000">
+    <span class="mpill">2K</span>
+    <div class="mtx"><b>2,000 steps</b><span>A short morning walk</span></div>
+    <div class="mpay">$2.00</div>
   </div>
-  <div class="step rv on d1">
-    <span class="sn g">2</span>
-    <div class="sb"><b>Walk &amp; play</b><p>It counts your steps in the background. Play quick games and offers for even more.</p></div>
+  <div class="mile rv d1" data-step="5000">
+    <span class="mpill">5K</span>
+    <div class="mtx"><b>5,000 steps</b><span>Your daily stroll</span></div>
+    <div class="mpay">$6.00</div>
   </div>
-  <div class="step rv on d2">
-    <span class="sn b">3</span>
-    <div class="sb"><b>Cash out your steps</b><p>Turn steps into real money &mdash; your way.</p>
-      <div class="pays"><span>PayPal</span><span>Cash App</span><span>Venmo</span><span>Gift cards</span></div>
+  <div class="mile rv d2" data-step="10000">
+    <span class="mpill">10K</span>
+    <div class="mtx"><b>10,000 steps</b><span>Hit your goal &mdash; bonus unlocked</span></div>
+    <div class="mpay">$15.00</div>
+  </div>
+  <div class="mile gold rv d3" data-step="99999">
+    <span class="mpill">7&times;</span>
+    <div class="mtx"><b>Weekly streak</b><span>Walk 5 days &mdash; extra reward</span></div>
+    <div class="mpay">$40+</div>
+  </div>
+
+  <div class="divl rv"><span>How it works</span></div>
+  <h2 class="rv">3 steps to <em>cash.</em></h2>
+
+  <div class="step rv">
+    <span class="sn">1</span>
+    <div class="sb"><b>Download Scrambly</b><span>Free on <em>iPhone &amp; Android</em>. Installs in seconds &mdash; no card, no catch.</span></div>
+  </div>
+  <div class="pass rv d1">
+    <span class="tile"><img src="images/scrambly-fox.png" alt="Scrambly"></span>
+    <div class="pi"><b>Scrambly</b><span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <em>4.5</em> &middot; App &middot; Free</span></div>
+    <button type="button" class="add" data-go="">GET</button>
+  </div>
+  <div class="step rv d1">
+    <span class="sn p">2</span>
+    <div class="sb"><b>Walk &amp; play</b><span>It counts your steps in the background. Play quick games and offers for even more.</span></div>
+  </div>
+  <div class="step rv d2">
+    <span class="sn g">3</span>
+    <div class="sb"><b>Cash out your steps</b><span>Turn steps into real money &mdash; your way.</span>
+      <div class="payrow"><span>PayPal</span><span>Cash App</span><span>Venmo</span><span>Gift cards</span></div>
     </div>
   </div>
 
-  <div class="lbl rv on"><span>Real walkers</span></div>
-  <div class="rev rv on">
-    <div class="h"><span class="av">MK</span><span class="nm">Maya K.</span><span class="st">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+  <div class="divl rv"><span>Real walkers</span></div>
+
+  <div class="rev rv">
+    <div class="rh"><span class="av">MK</span><span class="nm">Maya K.</span><span class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
     <p>&ldquo;I already walk my dog every morning &mdash; now Scrambly pays me for it. Cashed out $60 to PayPal in my first two weeks.&rdquo;</p>
   </div>
-  <div class="rev rv on d1">
-    <div class="h"><span class="av">DR</span><span class="nm">Devon R.</span><span class="st">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+  <div class="rev rv d1">
+    <div class="rh"><span class="av">DR</span><span class="nm">Devon R.</span><span class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
     <p>&ldquo;Didn&rsquo;t believe it at first. Hit 10k steps, saw the bonus drop, and the money actually landed in Cash App. Wild.&rdquo;</p>
   </div>
-  <div class="rev rv on d2">
-    <div class="h"><span class="av">SL</span><span class="nm">Sofia L.</span><span class="st">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+  <div class="rev rv d2">
+    <div class="rh"><span class="av">SL</span><span class="nm">Sofia L.</span><span class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
     <p>&ldquo;The little fox is adorable and it genuinely motivates me to hit my step goal. Free money for something I do anyway.&rdquo;</p>
   </div>
 
-  <a href="#" class="cta rv on" data-go="" style="margin-top:22px">
-    <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-    Start Earning Free
-  </a>
-  <p class="foot rv on">Trusted by walkers cashing out every day.<br>18+ &middot; Rewards subject to terms &middot; Not affiliated with Apple or Google.</p>
+  <section class="closer">
+    <h2 class="rv">Still walking <em>for free?</em></h2>
+    <p class="rv d1">Stop giving your steps away. Download Scrambly and start turning every walk into real cash.</p>
+    <div class="rv d2">
+      <a href="#" class="cta" data-go="">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        Start Earning Free</a>
+      <p class="note">Free &middot; No card needed &middot; 18+</p>
+    </div>
+  </section>
+
+  <p class="legal">
+    18+ only. Rewards and payouts subject to terms. Not affiliated with Apple or Google. Step values shown
+    are illustrative and may vary by offer availability.
+    <span class="cr">&copy; 2026 &middot; All rights reserved.</span>
+  </p>
 </div>
 
 <div class="dock">
   <div class="drow">
-    <span class="foxwrap"><img src="images/scrambly-fox.png" alt="Scrambly"></span>
+    <span class="tile"><img src="images/scrambly-fox.png" alt="Scrambly"></span>
     <div class="dmid">
       <div class="dr1"><b>Scrambly</b><span class="chip">Health &amp; Fitness</span></div>
       <div class="dr2"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <em>4.5</em> &middot; 128K ratings &middot; Free</div>
@@ -331,8 +394,7 @@ h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-
   </div>
   <a href="#" class="cta" data-go="">
     <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-    Download Scrambly
-  </a>
+    Download Scrambly</a>
   <p class="note">Free &middot; iPhone &amp; Android &middot; 18+</p>
 </div>
 
@@ -348,7 +410,7 @@ h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-
   var pre = document.getElementById('pre'), main = document.getElementById('main');
   if (showMain) { pre.style.display='none'; main.style.display='block'; return; }
 
-  var TRK='https://px.trendhavenn.com/t', PAGE_PRE='scrambly-pre', sent={};
+  var TRK='https://px.trendhavenn.com/t', PAGE_PRE='scrambly-scroll-pre', sent={};
   function trackUrl(ev){ return TRK+'?e='+encodeURIComponent(ev)+'&id='+encodeURIComponent(subid())+'&p='+PAGE_PRE; }
   function hit(ev){ if(sent[ev])return; sent[ev]=1; try{ new Image().src=trackUrl(ev)+'&_='+Date.now(); }catch(e){} }
   function hitBeacon(ev){ if(sent[ev])return; sent[ev]=1; try{ if(navigator.sendBeacon){navigator.sendBeacon(trackUrl(ev));}else{new Image().src=trackUrl(ev)+'&_='+Date.now();} }catch(e){} }
@@ -376,54 +438,63 @@ h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-
 
   var OFFER = 'https://montrk2.co.uk/?a=26648&c=56532&s1=';
   function subid(){ var p=new URLSearchParams(window.location.search);
-    return p.get('sub1')||p.get('campid')||p.get('s1')||p.get('s2')||p.get('cid')||p.get('c')||''; }
+    return p.get('campid')||p.get('sub1')||p.get('s1')||p.get('s2')||p.get('cid')||p.get('c')||''; }
 
-  var PAGE='scrambly', sent={};
+  var PAGE='scrambly-scroll', sent={};
   function px(ev){ if(sent[ev])return; sent[ev]=1; try{ var u='https://px.trendhavenn.com/t?e='+encodeURIComponent(ev)+'&id='+encodeURIComponent(subid())+'&p='+PAGE;
     if(navigator.sendBeacon)navigator.sendBeacon(u); else new Image().src=u; }catch(e){} }
   px('load');
   ['scroll','touchstart','mousemove'].forEach(function(t){ window.addEventListener(t,function(){px('human');},{once:true,passive:true}); });
 
-  /* CTAs -> offer */
+  /* every CTA -> offer */
   Array.prototype.forEach.call(document.querySelectorAll('[data-go]'), function (b) {
     b.addEventListener('click', function (e) { e.preventDefault(); px('claim'); window.location.href = OFFER + encodeURIComponent(subid()); });
   });
 
   /* entrance */
   var items=document.querySelectorAll('.rv');
-  if(!('IntersectionObserver' in window)){ items.forEach(function(el){el.classList.add('on');}); }
-  else { var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target);}});},{rootMargin:'0px 0px -40px 0px',threshold:.08}); items.forEach(function(el){io.observe(el);}); }
+  if(!('IntersectionObserver' in window)){ Array.prototype.forEach.call(items,function(el){el.classList.add('on');}); }
+  else { var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target);}});},{rootMargin:'0px 0px -50px 0px',threshold:.08}); Array.prototype.forEach.call(items,function(el){io.observe(el);}); }
 
-  /* floating paw prints */
-  var bg=document.getElementById('bg');
-  for(var i=0;i<7;i++){ var p=document.createElement('span'); p.className='paw'; p.textContent='🐾';
-    p.style.left=(6+Math.random()*88).toFixed(1)+'%'; p.style.bottom='-30px';
-    p.style.fontSize=(14+Math.random()*16).toFixed(0)+'px';
-    p.style.animationDuration=(16+Math.random()*12).toFixed(1)+'s'; p.style.animationDelay=(Math.random()*-24).toFixed(1)+'s';
-    bg.appendChild(p); }
+  /* sparks */
+  var sp=document.getElementById('sparks'), fr=document.createDocumentFragment();
+  for(var i=0;i<9;i++){ var s=document.createElement('i'), sz=i%3===0?5:3;
+    s.style.left=(5+Math.random()*90).toFixed(1)+'%'; s.style.width=sz+'px'; s.style.height=sz+'px';
+    s.style.animationDuration=(15+Math.random()*10).toFixed(1)+'s'; s.style.animationDelay=(Math.random()*-22).toFixed(1)+'s';
+    fr.appendChild(s); }
+  sp.appendChild(fr);
 
   /* live counter */
   var live=2851, liveEl=document.getElementById('liveN');
   setInterval(function(){ live+=Math.floor(Math.random()*7)-3; if(live<2700)live=2700+Math.floor(Math.random()*40); liveEl.textContent=live.toLocaleString('en-US'); },2600);
 
-  /* animated pedometer: steps count up + ring fills + earnings tick */
-  var GOAL=10000, TARGET=8472, RATE=0.001; // $ per step (~$0.10/100)
-  var stepEl=document.getElementById('stepN'), earnEl=document.getElementById('earnN'), ring=document.getElementById('ringFill');
-  var C=565, cur=0, start=null, dur=2400;
-  function frame(t){ if(!start)start=t; var k=Math.min(1,(t-start)/dur); var e=1-Math.pow(1-k,3);
-    cur=Math.round(TARGET*e);
-    stepEl.textContent=cur.toLocaleString('en-US');
-    earnEl.innerHTML='$'+(cur*RATE).toFixed(2)+'<em>earned</em>';
-    ring.style.strokeDashoffset=(C-C*Math.min(1,cur/GOAL)).toFixed(0);
-    if(k<1)requestAnimationFrame(frame);
-    else { // keep gently ticking to feel live
-      setInterval(function(){ if(cur<GOAL){ cur+=Math.floor(2+Math.random()*7);
-        stepEl.textContent=cur.toLocaleString('en-US'); earnEl.innerHTML='$'+(cur*RATE).toFixed(2)+'<em>earned</em>';
-        ring.style.strokeDashoffset=(C-C*Math.min(1,cur/GOAL)).toFixed(0); } },1500);
-    }
+  /* ── THE DIFFERENTIATOR: earnings are scroll-linked ──
+     Every ~240px the user scrolls banks 250 steps ($0.25 at $0.10/100).
+     Step screen climbs, milestones unlock, balance settles at 10,000 / $10.00. */
+  var GOAL=10000, RATE=0.001;              // $ per step
+  var balEl=document.getElementById('bal'), pstepEl=document.getElementById('pstep'), pbar=document.getElementById('pbar'), coin=document.getElementById('coin');
+  var miles=document.querySelectorAll('.mile');
+  var steps=0, capped=false;
+  function paintMiles(){ Array.prototype.forEach.call(miles,function(m){
+    var need=parseInt(m.getAttribute('data-step'),10);
+    if(need<=99999 && need!==99999){ m.classList.toggle('act', steps>=need || need===2000); }
+  }); if(steps>=10000){ var g=document.querySelector('.mile.gold'); if(g)g.classList.add('act'); } }
+  function paint(){
+    pstepEl.textContent=steps.toLocaleString('en-US');
+    balEl.innerHTML='$'+(steps*RATE).toFixed(2)+'<em>USD</em>';
+    pbar.style.width=Math.min(100,steps/GOAL*100).toFixed(1)+'%';
+    balEl.classList.remove('pop'); void balEl.offsetWidth; balEl.classList.add('pop');
+    coin.classList.remove('fly'); void coin.offsetWidth; coin.classList.add('fly');
+    paintMiles();
+    if(steps>=GOAL) capped=true;
   }
-  ring.style.strokeDashoffset=C;
-  requestAnimationFrame(frame);
+  paintMiles();
+  var lastY=window.pageYOffset, moved=0;
+  window.addEventListener('scroll', function(){
+    if(capped) return;
+    var y=window.pageYOffset; moved+=Math.abs(y-lastY); lastY=y;
+    while(moved>=240 && !capped){ moved-=240; steps=Math.min(GOAL, steps+250); paint(); }
+  }, {passive:true});
 })();
 </script>
 
