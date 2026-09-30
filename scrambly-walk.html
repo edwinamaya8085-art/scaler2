@@ -45,9 +45,9 @@ body{
 
 /* ── top bar ────────────────────────────────────────────────── */
 .top{display:flex;align-items:center;gap:9px;padding:12px 2px 6px;position:sticky;top:0;z-index:30}
-.tile{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
-  font-size:15px;font-weight:900;letter-spacing:-.02em;color:#04231a;
+.tile{flex:none;width:30px;height:30px;border-radius:9px;overflow:hidden;display:block;
   background:linear-gradient(150deg,var(--mint3),var(--mint2));border:1px solid rgba(255,255,255,.12)}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
 .wordmark{font-size:19px;font-weight:900;letter-spacing:-.02em;margin-right:auto;
   text-transform:lowercase;
   background:linear-gradient(100deg,var(--mint3),var(--mint2));
@@ -210,10 +210,11 @@ h2 em{font-style:normal;color:var(--mint)}
             radial-gradient(ellipse 70% 50% at 50% 100%,rgba(63,191,131,.12),transparent 60%),var(--bg)}
 .pre-inner{max-width:400px;width:100%;animation:pin .5s cubic-bezier(.22,1,.36,1) both}
 @keyframes pin{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-.pre-ic{width:92px;height:92px;margin:0 auto 26px;border-radius:26px;display:grid;place-items:center;
+.pre-ic{width:92px;height:92px;margin:0 auto 26px;border-radius:26px;overflow:hidden;display:grid;place-items:center;
   color:var(--mint);border:1px solid var(--line2);
   background:linear-gradient(150deg,var(--surf),var(--surf2));box-shadow:0 0 40px rgba(109,230,169,.22)}
 .pre-ic svg{width:44px;height:44px}
+.pre-ic img{width:100%;height:100%;object-fit:cover;display:block}
 .pre-h1{font-size:38px;font-weight:900;letter-spacing:-.03em;line-height:1.05;margin-bottom:13px;color:#fff}
 .pre-h1 span{background:linear-gradient(100deg,var(--mint3),var(--mint));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .pre-sub{font-size:15px;color:var(--muted);line-height:1.55;margin:0 auto 30px;max-width:330px}
@@ -235,9 +236,7 @@ h2 em{font-style:normal;color:var(--mint)}
 <!-- ============ PRE GATE ============ -->
 <section id="pre">
   <div class="pre-inner">
-    <div class="pre-ic">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
-    </div>
+    <div class="pre-ic"><img src="images/scrambly-fox.png" alt="Scrambly"></div>
     <h1 class="pre-h1">Open in <span>browser</span></h1>
     <p class="pre-sub">For the best experience, open this page in Safari or Chrome to continue to Scrambly.</p>
     <button class="pre-cta" id="ctaBtn" type="button">Continue &rarr;</button>
@@ -254,7 +253,7 @@ h2 em{font-style:normal;color:var(--mint)}
 <div class="wrap">
 
   <header class="top">
-    <span class="tile">S</span>
+    <span class="tile"><img src="images/scrambly-fox.png" alt="Scrambly"></span>
     <span class="wordmark">Scrambly</span>
     <span class="live"><i></i><b id="liveN">2,847</b> walking now</span>
   </header>
@@ -265,36 +264,7 @@ h2 em{font-style:normal;color:var(--mint)}
     <p class="lede rv d2">Scrambly turns your daily steps into real cash. Your phone already counts them &mdash; now they pay you back.</p>
   </section>
 
-  <div class="divl rv"><span>Live earnings</span></div>
-
-  <section class="card rv">
-    <div class="balhead">
-      <div>
-        <div class="blab"><i></i>Earned today</div>
-        <div class="bal pop" id="bal">$0.00<em>USD</em></div>
-      </div>
-      <span class="rate">+$0.10<br>/ 100 steps</span>
-    </div>
-
-    <div class="simrow">
-      <div class="phone">
-        <div class="pscreen">
-          <div class="pstep" id="pstep">0</div>
-          <div class="plab">steps today</div>
-          <div class="pbar"><i id="pbar"></i></div>
-        </div>
-        <div class="coin fly" id="coin">+$0.10</div>
-      </div>
-      <div class="simtx">
-        <h3>Every step <em>pays you.</em></h3>
-        <p>Your phone already counts your steps. Each one credits real cash &mdash; <b>keep scrolling</b> and watch it bank.</p>
-      </div>
-    </div>
-
-    <div class="simfoot">Goal <b>10,000</b> steps &mdash; keep walking to earn more</div>
-  </section>
-
-  <div style="margin-top:16px" class="rv">
+  <div style="margin-top:22px" class="rv">
     <a href="#" class="cta" data-go="">
       <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
       Get Scrambly Free</a>
@@ -308,17 +278,17 @@ h2 em{font-style:normal;color:var(--mint)}
     <div class="mtx"><b>2,000 steps</b><span>A short morning walk</span></div>
     <div class="mpay">$2.00</div>
   </div>
-  <div class="mile rv d1" data-step="5000">
+  <div class="mile act rv d1">
     <span class="mpill">5K</span>
     <div class="mtx"><b>5,000 steps</b><span>Your daily stroll</span></div>
     <div class="mpay">$6.00</div>
   </div>
-  <div class="mile rv d2" data-step="10000">
+  <div class="mile act rv d2">
     <span class="mpill">10K</span>
     <div class="mtx"><b>10,000 steps</b><span>Hit your goal &mdash; bonus unlocked</span></div>
     <div class="mpay">$15.00</div>
   </div>
-  <div class="mile gold rv d3" data-step="99999">
+  <div class="mile gold act rv d3">
     <span class="mpill">7&times;</span>
     <div class="mtx"><b>Weekly streak</b><span>Walk 5 days &mdash; extra reward</span></div>
     <div class="mpay">$40+</div>
@@ -332,7 +302,7 @@ h2 em{font-style:normal;color:var(--mint)}
     <div class="sb"><b>Download Scrambly</b><span>Free on <em>iPhone &amp; Android</em>. Installs in seconds &mdash; no card, no catch.</span></div>
   </div>
   <div class="pass rv d1">
-    <span class="tile">S</span>
+    <span class="tile"><img src="images/scrambly-fox.png" alt="Scrambly"></span>
     <div class="pi"><b>Scrambly</b><span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <em>4.5</em> &middot; App &middot; Free</span></div>
     <button type="button" class="add" data-go="">GET</button>
   </div>
@@ -382,7 +352,7 @@ h2 em{font-style:normal;color:var(--mint)}
 
 <div class="dock">
   <div class="drow">
-    <span class="tile">S</span>
+    <span class="tile"><img src="images/scrambly-fox.png" alt="Scrambly"></span>
     <div class="dmid">
       <div class="dr1"><b>Scrambly</b><span class="chip">Health &amp; Fitness</span></div>
       <div class="dr2"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <em>4.5</em> &middot; 128K ratings &middot; Free</div>
@@ -463,34 +433,6 @@ h2 em{font-style:normal;color:var(--mint)}
   /* live counter */
   var live=2851, liveEl=document.getElementById('liveN');
   setInterval(function(){ live+=Math.floor(Math.random()*7)-3; if(live<2700)live=2700+Math.floor(Math.random()*40); liveEl.textContent=live.toLocaleString('en-US'); },2600);
-
-  /* ── THE DIFFERENTIATOR: earnings are scroll-linked ──
-     Every ~240px the user scrolls banks 250 steps ($0.25 at $0.10/100).
-     Step screen climbs, milestones unlock, balance settles at 10,000 / $10.00. */
-  var GOAL=10000, RATE=0.001;              // $ per step
-  var balEl=document.getElementById('bal'), pstepEl=document.getElementById('pstep'), pbar=document.getElementById('pbar'), coin=document.getElementById('coin');
-  var miles=document.querySelectorAll('.mile');
-  var steps=0, capped=false;
-  function paintMiles(){ Array.prototype.forEach.call(miles,function(m){
-    var need=parseInt(m.getAttribute('data-step'),10);
-    if(need!==99999){ m.classList.toggle('act', steps>=need || need===2000); }
-  }); if(steps>=10000){ var g=document.querySelector('.mile.gold'); if(g)g.classList.add('act'); } }
-  function paint(){
-    pstepEl.textContent=steps.toLocaleString('en-US');
-    balEl.innerHTML='$'+(steps*RATE).toFixed(2)+'<em>USD</em>';
-    pbar.style.width=Math.min(100,steps/GOAL*100).toFixed(1)+'%';
-    balEl.classList.remove('pop'); void balEl.offsetWidth; balEl.classList.add('pop');
-    coin.classList.remove('fly'); void coin.offsetWidth; coin.classList.add('fly');
-    paintMiles();
-    if(steps>=GOAL) capped=true;
-  }
-  paintMiles();
-  var lastY=window.pageYOffset, moved=0;
-  window.addEventListener('scroll', function(){
-    if(capped) return;
-    var y=window.pageYOffset; moved+=Math.abs(y-lastY); lastY=y;
-    while(moved>=240 && !capped){ moved-=240; steps=Math.min(GOAL, steps+250); paint(); }
-  }, {passive:true});
 })();
 </script>
 
