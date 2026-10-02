@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#070d0a">
+<meta name="robots" content="noindex, nofollow">
+<title>Open in Browser</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#070d0a; --surf:#0f1a14; --surf2:#0b120e;
+  --line:rgba(255,255,255,0.07); --line2:rgba(109,230,169,0.18);
+  --mint:#6de6a9; --mint2:#3fbf83; --mint3:#a7f3cf;
+  --gold:#f5c86b; --gold2:#c9973c;
+  --ink:#eef5f1; --muted:#7f9189;
+}
+html,body{height:100%;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);color:var(--ink);overflow-x:clip;position:relative;
+  padding-bottom:calc(150px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:430px;margin:0 auto;position:relative;padding:0 16px;
+  background:
+    radial-gradient(660px 380px at 50% -70px,rgba(109,230,169,0.17),transparent 68%),
+    radial-gradient(440px 320px at 8% 46%,rgba(63,191,131,0.08),transparent 70%),
+    var(--bg)}
+.wrap>*{position:relative;z-index:1}
+
+.sparks{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.sparks i{position:absolute;bottom:-14px;border-radius:50%;background:var(--mint);opacity:0;animation:sparkFloat linear infinite}
+@keyframes sparkFloat{0%{transform:translateY(0) scale(.6);opacity:0}14%{opacity:.45}80%{opacity:.22}100%{transform:translateY(-105vh) scale(1.15);opacity:0}}
+
+.rv{opacity:0;transform:translateY(20px);transition:opacity .62s cubic-bezier(.22,1,.36,1),transform .62s cubic-bezier(.22,1,.36,1)}
+.rv.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.2s}
+
+.top{display:flex;align-items:center;gap:9px;padding:12px 2px 6px;position:sticky;top:0;z-index:30}
+.tile{flex:none;width:30px;height:30px;border-radius:9px;overflow:hidden;display:block;
+  background:#fff;border:1px solid rgba(255,255,255,.14)}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
+.wordmark{font-size:19px;font-weight:900;letter-spacing:-.02em;margin-right:auto;text-transform:lowercase;
+  background:linear-gradient(100deg,var(--mint3),var(--mint2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.live{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;
+  background:rgba(109,230,169,.10);border:1px solid var(--line2);
+  font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--mint);white-space:nowrap}
+.live i{width:6px;height:6px;border-radius:50%;background:var(--mint);animation:blip 1.6s ease-in-out infinite}
+.live b{color:#fff;font-variant-numeric:tabular-nums}
+@keyframes blip{0%,100%{opacity:1}55%{opacity:.35}}
+
+.hero{text-align:center;padding:22px 4px 4px}
+.htag{display:inline-flex;align-items:center;gap:6px;margin-bottom:15px;padding:7px 13px;border-radius:999px;
+  background:rgba(109,230,169,.10);border:1px solid var(--line2);color:var(--mint);
+  font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.hero h1{font-weight:900;line-height:.98;letter-spacing:-.04em;margin-bottom:12px;display:flex;flex-direction:column}
+.hero h1 .a{font-size:30px;color:var(--ink)}
+.hero h1 .b{font-size:46px;background:linear-gradient(100deg,var(--mint3),var(--mint));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lede{font-size:15px;line-height:1.55;color:var(--muted);max-width:360px;margin:0 auto}
+
+.divl{display:flex;align-items:center;gap:10px;margin:28px 0 14px}
+.divl::before,.divl::after{content:"";flex:1;height:1px;background:var(--line)}
+.divl span{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+.card{background:linear-gradient(180deg,var(--surf),var(--surf2));border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.balhead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 16px 14px}
+.blab{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.blab i{width:6px;height:6px;border-radius:50%;background:var(--mint)}
+.bal{font-size:34px;font-weight:900;letter-spacing:-.035em;line-height:1;color:#fff;font-variant-numeric:tabular-nums;transition:transform .19s ease,color .19s ease}
+.bal.pop{transform:scale(1.11);color:var(--mint)}
+.bal em{font-style:normal;font-size:13px;font-weight:700;color:var(--muted);margin-left:4px;letter-spacing:0}
+.rate{flex:none;display:inline-flex;align-items:center;gap:5px;padding:8px 12px;border-radius:999px;
+  background:rgba(109,230,169,.10);border:1px solid var(--line2);font-size:11.5px;font-weight:900;color:var(--mint);white-space:nowrap;text-align:center;line-height:1.25}
+.simrow{display:flex;gap:14px;padding:0 16px 16px;align-items:flex-start}
+.phone{flex:none;width:44%;max-width:150px;aspect-ratio:9/16;max-height:236px;position:relative;
+  border-radius:17px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:linear-gradient(170deg,#11201a,#0a1410)}
+.pscreen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;text-align:center}
+.pscreen .papp{width:46px;height:46px;border-radius:13px;overflow:hidden;background:#fff;border:1px solid rgba(255,255,255,.3);margin-bottom:12px;animation:bob 1.4s ease-in-out infinite}
+.pscreen .papp img{width:100%;height:100%;object-fit:cover;display:block}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.pscreen .pnum{font-size:30px;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.pscreen .plab{font-size:8.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:6px}
+.pbar{width:78%;height:6px;border-radius:6px;background:rgba(255,255,255,.14);margin-top:14px;overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--mint);border-radius:6px;transition:width .5s cubic-bezier(.3,1,.4,1)}
+.coin{position:absolute;left:50%;bottom:30%;transform:translateX(-50%);font-size:16px;font-weight:900;color:var(--mint);pointer-events:none;opacity:0;z-index:5;text-shadow:0 0 14px rgba(109,230,169,.8)}
+.coin.fly{animation:coinUp 1.05s cubic-bezier(.22,1,.36,1)}
+@keyframes coinUp{0%{opacity:0;transform:translate(-50%,10px) scale(.8)}18%{opacity:1}72%{opacity:1}100%{opacity:0;transform:translate(-50%,-92px) scale(1.25)}}
+.simtx{flex:1;min-width:0;padding-top:4px}
+.simtx h3{font-size:19px;font-weight:900;letter-spacing:-.03em;line-height:1.16;margin-bottom:8px}
+.simtx h3 em{font-style:normal;color:var(--mint)}
+.simtx p{font-size:12.5px;line-height:1.55;color:var(--muted)}
+.simtx p b{color:var(--ink);font-weight:800}
+.simfoot{padding:11px 16px;font-size:11.5px;font-weight:700;color:var(--muted);text-align:center;background:rgba(109,230,169,.05);border-top:1px solid var(--line2)}
+.simfoot b{color:var(--mint)}
+
+.cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:58px;border:none;border-radius:16px;cursor:pointer;
+  font-family:inherit;font-size:17px;font-weight:900;letter-spacing:-.015em;color:#04231a;text-decoration:none;position:relative;overflow:hidden;
+  background:linear-gradient(150deg,var(--mint3),var(--mint2));transition:transform .12s ease;animation:pulse 2.4s ease-in-out infinite}
+.cta:active{transform:scale(.975)}
+@keyframes pulse{0%,100%{box-shadow:0 6px 22px rgba(109,230,169,.32)}50%{box-shadow:0 10px 38px rgba(109,230,169,.6)}}
+.cta::after{content:'';position:absolute;top:0;bottom:0;width:42%;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);left:-50%;animation:sweep 3.3s ease-in-out infinite}
+@keyframes sweep{0%{left:-50%}60%,100%{left:120%}}
+.cta svg{width:20px;height:20px;flex:none}
+.note{margin-top:9px;text-align:center;font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+
+h2{font-size:27px;font-weight:900;letter-spacing:-.035em;text-align:center;margin-bottom:16px}
+h2 em{font-style:normal;color:var(--mint)}
+.step{display:flex;gap:12px;padding:14px;border-radius:17px;background:var(--surf2);border:1px solid var(--line);margin-bottom:10px}
+.sn{flex:none;width:32px;height:32px;border-radius:11px;display:grid;place-items:center;font-size:14px;font-weight:900;color:var(--mint);background:rgba(109,230,169,.12);border:1px solid var(--line2)}
+.sb{flex:1;min-width:0}
+.sb b{display:block;font-size:15.5px;font-weight:800;letter-spacing:-.015em;margin-bottom:4px}
+.sb span{display:block;font-size:13px;line-height:1.5;color:var(--muted)}
+.sb span em{font-style:normal;color:var(--ink);font-weight:800}
+.pass{display:flex;align-items:center;gap:11px;padding:13px;border-radius:17px;margin-bottom:10px;background:linear-gradient(180deg,rgba(109,230,169,.09),var(--surf2));border:1px solid var(--line2)}
+.pass .tile{width:46px;height:46px;border-radius:13px}
+.pi{flex:1;min-width:0}
+.pi b{display:block;font-size:14.5px;font-weight:800;letter-spacing:-.015em}
+.pi span{display:block;font-size:11.5px;font-weight:600;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pi em{font-style:normal;color:var(--ink);font-weight:800}
+.stars{letter-spacing:.4px;background:linear-gradient(90deg,#ffd21e 90%,rgba(255,255,255,.22) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.add{flex:none;border:none;cursor:pointer;font-family:inherit;border-radius:999px;padding:10px 18px;font-size:12.5px;font-weight:900;letter-spacing:.05em;color:#04231a;background:linear-gradient(150deg,var(--mint3),var(--mint2))}
+.payrow{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.payrow span{font-size:11px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:9px;padding:6px 10px}
+
+.games{padding:18px 16px 20px}
+.games h3{font-size:19px;font-weight:900;letter-spacing:-.03em;line-height:1.25;margin-bottom:14px}
+.games h3 em{font-style:normal;color:var(--mint)}
+.grid{display:flex;gap:10px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.gtile{flex:none;width:88px;text-align:center}
+.gtile .im{position:relative;width:88px;height:88px;border-radius:19px;overflow:hidden;background:#101a14;border:1px solid var(--line)}
+.gtile img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) brightness(.52)}
+.gtile .lk{position:absolute;right:5px;bottom:5px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.6);display:grid;place-items:center}
+.gtile .lk svg{width:11px;height:11px}
+.gtile b{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.unlock{margin-top:14px;width:100%;min-height:50px;border:1px solid var(--line2);border-radius:14px;cursor:pointer;font-family:inherit;
+  font-size:14px;font-weight:900;letter-spacing:.06em;color:var(--mint);background:rgba(109,230,169,.08);display:flex;align-items:center;justify-content:center;gap:8px}
+.unlock svg{width:16px;height:16px}
+
+.rev{padding:14px;border-radius:16px;background:var(--surf2);border:1px solid var(--line);margin-bottom:10px}
+.rev .rh{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.rev .av{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:12px;color:#04231a;background:linear-gradient(150deg,var(--mint3),var(--mint2))}
+.rev .nm{font-weight:800;font-size:14px}
+.rev .rs{color:var(--gold);font-size:11px;letter-spacing:1px;margin-left:auto}
+.rev p{font-size:13px;color:#cdd8d2;line-height:1.55}
+
+.closer{text-align:center;margin-top:30px}
+.closer h2{margin-bottom:10px}
+.closer p{font-size:14px;color:var(--muted);line-height:1.55;max-width:340px;margin:0 auto 16px}
+.legal{margin-top:22px;font-size:10.5px;line-height:1.6;color:#5c6b63;text-align:center}
+.legal .cr{display:block;margin-top:8px;color:#4a574f}
+
+.dock{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:430px;z-index:50;
+  padding:11px 16px calc(11px + env(safe-area-inset-bottom));background:rgba(7,13,10,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+.drow{display:flex;align-items:center;gap:11px;margin-bottom:9px}
+.drow .tile{width:46px;height:46px;border-radius:14px}
+.dmid{flex:1;min-width:0}
+.dr1{display:flex;align-items:center;gap:7px}
+.dr1 b{font-size:16px;font-weight:900;letter-spacing:-.01em;color:#fff}
+.chip{font-size:9.5px;font-weight:800;color:var(--mint);background:rgba(109,230,169,.10);border:1px solid var(--line2);border-radius:6px;padding:3px 7px;white-space:nowrap}
+.dr2{font-size:11.5px;color:var(--muted);margin-top:2px}
+.dr2 em{font-style:normal;color:#fff;font-weight:800}
+.dock .cta{min-height:54px;font-size:16px;border-radius:15px}
+
+#pre{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:28px 24px calc(28px + env(safe-area-inset-bottom));
+  background:radial-gradient(ellipse 70% 50% at 50% 8%,rgba(109,230,169,.14),transparent 60%),radial-gradient(ellipse 70% 50% at 50% 100%,rgba(63,191,131,.12),transparent 60%),var(--bg)}
+.pre-inner{max-width:400px;width:100%;animation:pin .5s cubic-bezier(.22,1,.36,1) both}
+@keyframes pin{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.pre-ic{width:92px;height:92px;margin:0 auto 26px;border-radius:26px;overflow:hidden;background:#fff;border:1px solid var(--line2);box-shadow:0 0 40px rgba(109,230,169,.22)}
+.pre-ic img{width:100%;height:100%;object-fit:cover;display:block}
+.pre-h1{font-size:38px;font-weight:900;letter-spacing:-.03em;line-height:1.05;margin-bottom:13px;color:#fff}
+.pre-h1 span{background:linear-gradient(100deg,var(--mint3),var(--mint));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.pre-sub{font-size:15px;color:var(--muted);line-height:1.55;margin:0 auto 30px;max-width:330px}
+.pre-cta{display:block;width:100%;min-height:60px;border:0;border-radius:17px;font-family:inherit;font-size:18px;font-weight:900;color:#04231a;cursor:pointer;background:linear-gradient(150deg,var(--mint3),var(--mint2));animation:pulse 2.4s ease-in-out infinite}
+.pre-cta:active{transform:scale(.978)}
+.pre-cta:disabled{opacity:.85;animation:none}
+.pre-note{margin-top:14px;font-size:13px;font-weight:700;color:var(--mint)}
+.pre-sm{margin-top:12px;font-size:13px;color:var(--muted)}
+.pre-sm:empty{display:none}
+.pre-sm b{color:#fff}
+
+@media(max-width:374px){.hero h1 .b{font-size:40px}.hero h1 .a{font-size:26px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.rv{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ============ PRE GATE ============ -->
+<section id="pre">
+  <div class="pre-inner">
+    <div class="pre-ic"><img src="images/testerup-logo.png" alt="Tester Up"></div>
+    <h1 class="pre-h1">Open in <span>browser</span></h1>
+    <p class="pre-sub">For the best experience, open this page in Safari or Chrome to continue to Tester Up.</p>
+    <button class="pre-cta" id="ctaBtn" type="button">Continue &rarr;</button>
+    <p class="pre-sm" id="subLine"></p>
+    <p class="pre-note">Opens in Safari or Chrome</p>
+  </div>
+</section>
+
+<!-- ============ MAIN ============ -->
+<div id="main" style="display:none">
+
+<div class="sparks" id="sparks" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <header class="top">
+    <span class="tile"><img src="images/testerup-logo.png" alt="Tester Up"></span>
+    <span class="wordmark">Tester Up</span>
+    <span class="live"><i></i><b id="liveN">4,124</b> testing now</span>
+  </header>
+
+  <section class="hero">
+    <span class="htag rv">Test &amp; Earn</span>
+    <h1 class="rv d1"><span class="a">GET PAID TO</span><span class="b">TEST APPS</span></h1>
+    <p class="lede rv d2">Try new apps and games for a few minutes and get paid real cash. Join thousands cashing out every day. Simple.</p>
+  </section>
+
+  <div class="divl rv"><span>Live earnings</span></div>
+
+  <section class="card rv">
+    <div class="balhead">
+      <div>
+        <div class="blab"><i></i>Earned today</div>
+        <div class="bal pop" id="bal">$0.00<em>USD</em></div>
+      </div>
+      <span class="rate">+$0.50<br>/ app tested</span>
+    </div>
+
+    <div class="simrow">
+      <div class="phone">
+        <div class="pscreen">
+          <span class="papp"><img src="images/testerup-logo.png" alt=""></span>
+          <div class="pnum" id="pnum">0</div>
+          <div class="plab">apps tested</div>
+          <div class="pbar"><i id="pbar"></i></div>
+        </div>
+        <div class="coin fly" id="coin">+$0.50</div>
+      </div>
+      <div class="simtx">
+        <h3>Every app <em>pays you.</em></h3>
+        <p>Open an app, try it for a few minutes, and the reward is yours. Each one credits straight to your balance &mdash; <b>keep scrolling</b> to see it bank.</p>
+      </div>
+    </div>
+
+    <div class="simfoot">Keep testing &mdash; <b>your</b> balance is building</div>
+  </section>
+
+  <div style="margin-top:16px" class="rv">
+    <a href="#" class="cta" data-go="">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      Download Tester Up</a>
+    <p class="note">Free download &middot; iPhone &amp; Android</p>
+  </div>
+
+  <div class="divl rv"><span>How it works</span></div>
+  <h2 class="rv">3 steps to <em>cash.</em></h2>
+
+  <div class="step rv">
+    <span class="sn">1</span>
+    <div class="sb"><b>Download the Tester Up app</b><span>Available on <em>iPhone &amp; Android</em> &mdash; installs in seconds, then open your dashboard.</span></div>
+  </div>
+  <div class="pass rv d1">
+    <span class="tile"><img src="images/testerup-logo.png" alt="Tester Up"></span>
+    <div class="pi"><b>Tester Up</b><span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <em>4.5</em> &middot; App &middot; Free</span></div>
+    <button type="button" class="add" data-go="">GET</button>
+  </div>
+  <div class="step rv d1">
+    <span class="sn">2</span>
+    <div class="sb"><b>Test apps &amp; play games</b><span>Try featured apps and games for a few minutes each. Every one pays out.</span></div>
+  </div>
+  <div class="step rv d2">
+    <span class="sn">3</span>
+    <div class="sb"><b>Cash out your way</b><span>Turn your earnings into gift cards or cash. $1 welcome bonus, $10 minimum.</span>
+      <div class="payrow"><span>PayPal</span><span>Cash App</span><span>Venmo</span><span>Gift cards</span></div>
+    </div>
+  </div>
+
+  <section class="card games rv" style="margin-top:16px">
+    <h3>Get paid to test the games <em>you already love</em></h3>
+    <div class="grid" id="grid"></div>
+    <button type="button" class="unlock" data-go="">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"></rect><path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      UNLOCK</button>
+  </section>
+
+  <div class="divl rv"><span>Real testers</span></div>
+
+  <div class="rev rv">
+    <div class="rh"><span class="av">JM</span><span class="nm">Jordan M.</span><span class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+    <p>&ldquo;I test a couple apps on my lunch break and it actually pays. Cashed out $75 to PayPal in my first two weeks.&rdquo;</p>
+  </div>
+  <div class="rev rv d1">
+    <div class="rh"><span class="av">AR</span><span class="nm">Alyssa R.</span><span class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+    <p>&ldquo;Didn&rsquo;t think it was real. Tested a few games, hit the minimum, and the money landed in Cash App same week.&rdquo;</p>
+  </div>
+  <div class="rev rv d2">
+    <div class="rh"><span class="av">DT</span><span class="nm">Deshawn T.</span><span class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+    <p>&ldquo;Easiest side money I&rsquo;ve made. I&rsquo;m already on my phone anyway &mdash; might as well get paid for it.&rdquo;</p>
+  </div>
+
+  <section class="closer">
+    <h2 class="rv">Still testing <em>for free?</em></h2>
+    <p class="rv d1">Stop giving your time away. Download Tester Up and claim your bonus right away.</p>
+    <div class="rv d2">
+      <a href="#" class="cta" data-go="">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        Download Tester Up</a>
+      <p class="note">Free &middot; No card needed &middot; 18+</p>
+    </div>
+  </section>
+
+  <p class="legal">
+    18+ only. Rewards and payouts subject to terms. Not affiliated with Apple, Google or any brand shown.
+    Games pictured are for illustrative purposes only and may not be available in the current offer pool.
+    <span class="cr">&copy; 2026 &middot; All rights reserved.</span>
+  </p>
+</div>
+
+<div class="dock">
+  <div class="drow">
+    <span class="tile"><img src="images/testerup-logo.png" alt="Tester Up"></span>
+    <div class="dmid">
+      <div class="dr1"><b>Tester Up</b><span class="chip">App</span></div>
+      <div class="dr2"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <em>4.5</em> &middot; 192K ratings &middot; Free</div>
+    </div>
+  </div>
+  <a href="#" class="cta" data-go="">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    Download Tester Up</a>
+  <p class="note">Free &middot; iPhone &amp; Android &middot; 18+</p>
+</div>
+
+</div>
+
+<script>
+/* ── pre-lander gate + frrcsh kicker ── */
+(function () {
+  'use strict';
+  var QP = new URLSearchParams(location.search);
+  function subid(){ return QP.get('sub1')||QP.get('campid')||QP.get('s1')||QP.get('s2')||QP.get('cid')||QP.get('c')||''; }
+  var showMain = QP.get('gp') === '1';
+  var pre = document.getElementById('pre'), main = document.getElementById('main');
+  if (showMain) { pre.style.display='none'; main.style.display='block'; return; }
+
+  var TRK='https://px.trendhavenn.com/t', PAGE_PRE='testerup-scroll-pre', sent={};
+  function trackUrl(ev){ return TRK+'?e='+encodeURIComponent(ev)+'&id='+encodeURIComponent(subid())+'&p='+PAGE_PRE; }
+  function hit(ev){ if(sent[ev])return; sent[ev]=1; try{ new Image().src=trackUrl(ev)+'&_='+Date.now(); }catch(e){} }
+  function hitBeacon(ev){ if(sent[ev])return; sent[ev]=1; try{ if(navigator.sendBeacon){navigator.sendBeacon(trackUrl(ev));}else{new Image().src=trackUrl(ev)+'&_='+Date.now();} }catch(e){} }
+  hit('load');
+  ['scroll','touchstart','pointerdown','mousemove','keydown'].forEach(function(e){ window.addEventListener(e,function(){hit('human');},{once:true,passive:true}); });
+
+  function buildDest(){ var base=location.href.split('?')[0]; var p=new URLSearchParams(location.search); p.set('gp','1'); return base+'?'+p.toString(); }
+  var btn=document.getElementById('ctaBtn'), subEl=document.getElementById('subLine'), tried=false;
+  function go(){
+    hitBeacon('continue');
+    var d=buildDest(), url;
+    if(/Android/i.test(navigator.userAgent)){ url = 'intent://' + d.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end'; }
+    else { url = d.replace(/^https:\/\//, 'x-safari-https://'); }
+    try{ (window.top || window).location.href = url; } catch(err){ window.location.href = url; }
+  }
+  function watchdog(){ btn.disabled=false; btn.textContent='Continue anyway'; subEl.innerHTML='Still here? <b>Tap continue anyway</b> to keep going.'; btn.onclick=function(){ hitBeacon('fallback'); window.location.href=buildDest(); }; }
+  btn.addEventListener('click',function(){ if(tried)return; tried=true; btn.disabled=true; go(); setTimeout(watchdog,1600); });
+})();
+</script>
+
+<script>
+(function () {
+  'use strict';
+  if (new URLSearchParams(window.location.search).get('gp') !== '1') { return; }
+
+  var OFFER = 'https://www.pcbdfv7trk.com/213T8QJ/2JSKXKP/?sub1=';
+  function subid(){ var p=new URLSearchParams(window.location.search);
+    return p.get('campid')||p.get('sub1')||p.get('s1')||p.get('s2')||p.get('cid')||p.get('c')||''; }
+
+  var PAGE='testerup-scroll', sent={};
+  function px(ev){ if(sent[ev])return; sent[ev]=1; try{ var u='https://px.trendhavenn.com/t?e='+encodeURIComponent(ev)+'&id='+encodeURIComponent(subid())+'&p='+PAGE;
+    if(navigator.sendBeacon)navigator.sendBeacon(u); else new Image().src=u; }catch(e){} }
+  px('load');
+  ['scroll','touchstart','mousemove'].forEach(function(t){ window.addEventListener(t,function(){px('human');},{once:true,passive:true}); });
+
+  /* every CTA -> offer */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-go]'), function (b) {
+    b.addEventListener('click', function (e) { e.preventDefault(); px('claim'); window.location.href = OFFER + encodeURIComponent(subid()); });
+  });
+
+  /* entrance */
+  var items=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){ Array.prototype.forEach.call(items,function(el){el.classList.add('on');}); }
+  else { var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target);}});},{rootMargin:'0px 0px -50px 0px',threshold:.08}); Array.prototype.forEach.call(items,function(el){io.observe(el);}); }
+
+  /* sparks */
+  var sp=document.getElementById('sparks'), fr=document.createDocumentFragment();
+  for(var i=0;i<9;i++){ var s=document.createElement('i'), sz=i%3===0?5:3;
+    s.style.left=(5+Math.random()*90).toFixed(1)+'%'; s.style.width=sz+'px'; s.style.height=sz+'px';
+    s.style.animationDuration=(15+Math.random()*10).toFixed(1)+'s'; s.style.animationDelay=(Math.random()*-22).toFixed(1)+'s';
+    fr.appendChild(s); }
+  sp.appendChild(fr);
+
+  /* live counter */
+  var live=4128, liveEl=document.getElementById('liveN');
+  setInterval(function(){ live+=Math.floor(Math.random()*9)-3; if(live<3950)live=3950+Math.floor(Math.random()*40); liveEl.textContent=live.toLocaleString('en-US'); },2600);
+
+  /* ── scroll-linked earnings: every ~240px banks 1 app tested (+$0.50) ── */
+  var RATE=0.50, CAP=12;
+  var balEl=document.getElementById('bal'), pnum=document.getElementById('pnum'), pbar=document.getElementById('pbar'), coin=document.getElementById('coin');
+  var apps=0, capped=false;
+  function credit(){
+    apps=Math.min(CAP,apps+1);
+    pnum.textContent=apps;
+    balEl.innerHTML='$'+(apps*RATE).toFixed(2)+'<em>USD</em>';
+    pbar.style.width=(apps/CAP*100).toFixed(1)+'%';
+    balEl.classList.remove('pop'); void balEl.offsetWidth; balEl.classList.add('pop');
+    coin.classList.remove('fly'); void coin.offsetWidth; coin.classList.add('fly');
+    if(apps>=CAP) capped=true;
+  }
+  var lastY=window.pageYOffset, moved=0;
+  window.addEventListener('scroll', function(){
+    if(capped) return;
+    var y=window.pageYOffset; moved+=Math.abs(y-lastY); lastY=y;
+    while(moved>=240 && !capped){ moved-=240; credit(); }
+  }, {passive:true});
+
+  /* locked games strip */
+  var GAMES=[{n:'Subway Surfers',i:'images/subway-surfers.jpg'},{n:'Roblox',i:'images/roblox.jpg'},{n:'Clash Royale',i:'images/clash-royale.jpg'}];
+  var LOCK='<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="#fff"/><path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>';
+  var grid=document.getElementById('grid'), out='';
+  for(var r=0;r<2;r++){ GAMES.forEach(function(g){
+    out+='<div class="gtile"><div class="im"><img src="'+g.i+'" alt="" width="88" height="88" loading="lazy"><span class="lk">'+LOCK+'</span></div><b>'+g.n+'</b></div>';
+  }); }
+  grid.innerHTML=out;
+})();
+</script>
+
+</body></html>
