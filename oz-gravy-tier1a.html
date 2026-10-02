@@ -287,6 +287,84 @@ h2 em{font-style:normal;color:var(--mint)}
   h1 .b{-webkit-text-fill-color:var(--mint)!important;color:var(--mint)!important;background:none!important}
   .prog i{width:100%}
 }
+/* ===== MULTI-STEP QUIZ ===== */
+:root{--text:var(--ink);--mut:var(--muted);--mut2:#5c6b63;--red:#6de6a9;--red-lite:#a7f3cf;--grad:linear-gradient(100deg,#a7f3cf,#3fbf83);--ok:#4ade80}
+.qov{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.qov.open{display:flex}
+.qcard{width:min(460px,100%);max-height:92dvh;border-radius:18px;border:1px solid var(--line);background:#0f1a14;box-shadow:0 26px 90px rgba(0,0,0,.72);overflow:hidden;position:relative;display:flex;flex-direction:column;transform:translateY(16px) scale(.98);opacity:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .24s ease}
+.qov.open .qcard{transform:none;opacity:1}
+.qglow{position:absolute;inset:0 0 auto 0;height:3px;background:var(--grad);z-index:2}
+.qhead{padding:20px 20px 14px;flex-shrink:0;border-bottom:1px solid var(--line2)}
+.qbrand{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:14px}
+.qbrand img{width:34px;height:34px;border-radius:9px}
+.qbrand span{font-size:16px;font-weight:900;letter-spacing:-.02em}
+.qrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.qstep{font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut2)}
+.qx{width:34px;height:34px;border-radius:11px;border:0;background:rgba(255,255,255,.08);color:#fff;cursor:pointer;display:grid;place-items:center}
+.qx svg{width:17px;height:17px;fill:currentColor}
+.qprog{position:relative}
+.qtrack{width:100%;height:4px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.qfill{height:100%;border-radius:3px;background:var(--grad);transition:width .4s cubic-bezier(.4,0,.2,1)}
+.qearn{position:absolute;top:-22px;left:0;font-size:.78rem;font-weight:900;color:var(--red-lite);opacity:0;pointer-events:none;white-space:nowrap}
+.qearn.pop{animation:qfloat .9s ease-out forwards}
+@keyframes qfloat{0%{opacity:0;transform:translateY(6px) scale(.8)}25%{opacity:1;transform:translateY(0) scale(1.05)}100%{opacity:0;transform:translateY(-18px) scale(1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.qbody{flex:1;overflow-y:auto;padding:22px 20px 24px;-webkit-overflow-scrolling:touch}
+.qq{font-size:1.24rem;font-weight:900;line-height:1.28;margin-bottom:6px;letter-spacing:-.01em;color:var(--text)}
+.qsub{font-size:.86rem;color:var(--mut);margin-bottom:18px;line-height:1.5}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.qopt{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-height:118px;padding:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:15px;color:var(--text);text-align:left;cursor:pointer;transition:transform .12s,border-color .14s,background .14s,opacity .2s}
+.qopt:active{transform:scale(.98)}
+.qopt.sel{border-color:rgba(109,230,169,.55);background:linear-gradient(180deg,rgba(63,191,131,.18),rgba(255,255,255,.03))}
+.qopt.dim{opacity:.45;pointer-events:none}
+.qopts:not(.stack) .qopt:last-child:nth-child(odd){grid-column:span 2;flex-direction:row;align-items:center;min-height:74px}
+.qopts:not(.stack) .qopt:last-child:nth-child(odd) .qradio{top:50%!important;transform:translateY(-50%)!important}
+.qic{width:36px;height:36px;border-radius:10px;background:rgba(63,191,131,.14);display:flex;align-items:center;justify-content:center;color:var(--red-lite);flex-shrink:0}
+.qic svg{width:18px;height:18px}
+.qopt.sel .qic{background:rgba(63,191,131,.32);color:#fff}
+.qtx{flex:1;display:flex;flex-direction:column;gap:2px}
+.qt{font-size:.9rem;font-weight:800;line-height:1.2}
+.qs{font-size:.72rem;font-weight:600;color:var(--mut2);line-height:1.35}
+.qradio{position:absolute;top:14px;right:14px;width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
+.qopt.sel .qradio{border-color:var(--red);background:var(--red)}
+.qopt.sel .qradio::after{content:'';width:7px;height:7px;border-radius:50%;background:#062013}
+.qenc{display:none;background:linear-gradient(135deg,rgba(109,230,169,.2),rgba(63,191,131,.4) 55%,rgba(167,243,207,.18));border:1px solid rgba(109,230,169,.5);border-radius:16px;padding:16px;gap:13px;align-items:center;margin:18px 0 4px}
+.qenc.show{display:flex;animation:qencin .35s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes qencin{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+.qenc svg{flex-shrink:0;width:36px;height:36px;color:#a7f3cf;animation:qspark 1.6s ease-in-out infinite}
+@keyframes qspark{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.12) rotate(8deg)}}
+.qenc p{font-size:1rem;font-weight:700;line-height:1.4;margin:0;color:var(--text)}
+.qenc p b{display:block;margin-top:5px;font-size:1.2rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.qnext{width:100%;margin-top:20px}
+.qnext:disabled{background:rgba(255,255,255,.06);color:var(--mut2);animation:none;box-shadow:none;cursor:not-allowed}
+.qcalc{display:none;text-align:center;padding:16px 0}
+.qcalc.on{display:block;animation:fadeUp .3s ease both}
+.qspin{width:66px;height:66px;border-radius:50%;border:3px solid rgba(255,255,255,.14);border-top-color:var(--red);animation:qspin .9s linear infinite;margin:0 auto 24px}
+@keyframes qspin{to{transform:rotate(360deg)}}
+.qcalc .ct{font-size:.72rem;font-weight:800;letter-spacing:.16em;color:#a7f3cf;margin-bottom:22px}
+.qcs{display:grid;gap:10px;text-align:left}
+.qc{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.03);font-size:.9rem;font-weight:700;color:var(--mut2);opacity:.5;transition:opacity .35s,border-color .35s,background .35s,transform .35s}
+.qc.act{opacity:1;color:var(--text);border-color:rgba(109,230,169,.34);background:linear-gradient(180deg,rgba(63,191,131,.14),rgba(255,255,255,.03));transform:translateX(2px)}
+.qc.done{opacity:1;color:var(--text);border-color:rgba(74,222,128,.28);background:rgba(74,222,128,.06)}
+.qc .m{width:22px;height:22px;flex:0 0 22px;border-radius:50%;border:2px solid rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center}
+.qc.act .m{border-color:rgba(109,230,169,.6)}
+.qc.act .m::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--red-lite)}
+.qc.done .m{border-color:transparent;background:var(--ok)}
+.qc.done .m::after{content:'';width:6px;height:10px;border:solid #06130b;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.qres{display:none;text-align:center}
+.qres.on{display:block;animation:fadeUp .32s ease both}
+.qpill{display:inline-flex;align-items:center;gap:6px;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3);color:var(--ok);font-size:.68rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:14px}
+.qres h3{font-size:1.42rem;font-weight:900;line-height:1.22;margin-bottom:16px;letter-spacing:-.02em;color:var(--text)}
+.qbox{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:18px 16px;margin-bottom:14px}
+.qbox .l{font-size:.62rem;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--mut2);margin-bottom:8px}
+.qbox .amt{font-size:2.4rem;font-weight:900;line-height:1;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.qbox .pd{font-size:.9rem;color:var(--mut);margin-top:6px}
+.qclaim{width:100%;margin-bottom:12px}
+.qsoc{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.74rem;color:var(--mut);line-height:1.4}
+.qsoc b{color:var(--text)}
+.qlive{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px rgba(109,230,169,.2);flex-shrink:0;animation:qlp 2s ease-in-out infinite}
+@keyframes qlp{0%,100%{opacity:1}50%{opacity:.5}}
+@media(max-width:480px){.qq{font-size:1.16rem}}
 </style>
 </head>
 <body>
@@ -436,6 +514,52 @@ h2 em{font-style:normal;color:var(--mint)}
   <p class="note">Free &middot; iPhone &amp; Android &middot; 18+</p>
 </div>
 
+<div class="qov" id="qov" aria-hidden="true">
+  <div class="qcard" role="dialog" aria-modal="true">
+    <div class="qglow"></div>
+    <div class="qhead">
+      <div class="qbrand"><img src="data:image/webp;base64,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" alt="Gravy Pass"><span>Gravy Pass</span></div>
+      <div class="qrow">
+        <span class="qstep" id="qStep">STEP 1 OF 3</span>
+        <button class="qx" type="button" id="qClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.42 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"></path></svg></button>
+      </div>
+      <div class="qprog"><div class="qtrack"><div class="qfill" id="qFill" style="width:33%"></div></div><div class="qearn" id="qEarn">+$0.00</div></div>
+    </div>
+    <div class="qbody">
+      <div id="qQuestion">
+        <div class="qq" id="qText"></div>
+        <div class="qsub" id="qSub"></div>
+        <div class="qopts" id="qOpts"></div>
+        <div class="qenc" id="qEnc">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L22 10l-6 4.5L18 22l-6-4-6 4 2-7.5L2 10l7.6-.8z"></path></svg>
+          <p id="qEncText"></p>
+        </div>
+        <button class="cta qnext" type="button" id="qNext" disabled>Next</button>
+      </div>
+      <div class="qcalc" id="qCalc">
+        <div class="qspin"></div>
+        <p class="ct">CALCULATING YOUR ESTIMATE&hellip;</p>
+        <div class="qcs">
+          <div class="qc" id="qc1"><span class="m"></span><span>Matching available offers</span></div>
+          <div class="qc" id="qc2"><span class="m"></span><span>Calculating base earnings</span></div>
+          <div class="qc" id="qc3"><span class="m"></span><span>Applying boosted rate</span></div>
+        </div>
+      </div>
+      <div class="qres" id="qRes">
+        <div class="qpill">&#10003; Estimate ready</div>
+        <h3>Here&rsquo;s what you can earn</h3>
+        <div class="qbox">
+          <div class="l">Estimated weekly earnings</div>
+          <div class="amt" id="qAmt">$0</div>
+          <div class="pd">weekly &middot; results vary by activity</div>
+        </div>
+        <button class="cta qclaim" type="button" id="qClaim">Claim My Spot &rarr;</button>
+        <p class="qsoc"><span class="qlive"></span><span><b id="qCount">705</b> people claimed their bonus in the last hour</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <script>
@@ -520,14 +644,88 @@ h2 em{font-style:normal;color:var(--mint)}
     el.textContent = wallet;
   });
 
-  /* ── every CTA goes to the offer ──────────────────────────── */
+  /* ── every CTA opens the multi-step quiz ──────────────────── */
   Array.prototype.forEach.call(document.querySelectorAll('[data-go]'), function (b) {
-    b.addEventListener('click', function (e) {
-      e.preventDefault();
-      px('claim');
-      window.location.href = OFFER + encodeURIComponent(subid());
-    });
+    b.addEventListener('click', function (e) { e.preventDefault(); openQuiz(); });
   });
+
+  /* ════════════ MULTI-STEP QUIZ ════════════ */
+  function ic(p){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
+  var I_DOLLAR=ic('<line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>');
+  var I_TREND=ic('<path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/>');
+  var I_STAR=ic('<path d="M12 2l2.4 6.9L22 9.3l-5.6 4.3L18.2 22 12 17.8 5.8 22l1.8-8.4L2 9.3l7.6-.4z"/>');
+  var I_COFFEE=ic('<path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/>');
+  var I_CLOCK=ic('<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>');
+  var I_ZAP=ic('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>');
+
+  var QUESTIONS=[
+    { text:'How much do you want to earn each week?', sub:'Be honest. It affects your estimate.',
+      opts:[{t:'$50 &ndash; $100',s:'Coffee money, subscriptions',ic:I_DOLLAR,pts:50},
+            {t:'$100 &ndash; $250',s:'Solid side income',ic:I_TREND,pts:120},
+            {t:'$250+',s:'Replace a part-time job',ic:I_STAR,pts:190}], reward:0.40 },
+    { text:'How much time can you give it a day?', sub:'This affects your match.',
+      opts:[{t:'About 15 minutes',s:'A quick daily session',ic:I_COFFEE,pts:40},
+            {t:'Around 30 minutes',s:'Consistent side income',ic:I_CLOCK,pts:90},
+            {t:'An hour or more',s:'Treating this like a hustle',ic:I_ZAP,pts:150}], reward:0.35 },
+    { text:'What sounds most fun to you?', sub:'We&rsquo;ll prioritize the best-paying offers.',
+      opts:[{t:'Puzzle &amp; casual games',s:'Relaxed, easy play',ic:I_STAR,pts:55},
+            {t:'Action &amp; strategy games',s:'More engaging offers',ic:I_ZAP,pts:75},
+            {t:'Quick tasks &amp; surveys',s:'Fast, simple earns',ic:I_TREND,pts:60}], reward:0.55 }
+  ];
+  var ENC=['Nice start! Every answer gets you closer to your match.','You&rsquo;re on a roll &mdash; keep going.','Perfect. Let&rsquo;s reveal your match!'];
+  var TOTAL=QUESTIONS.length, cur=0, tally=0, picked=null;
+
+  var qov=document.getElementById('qov'), qClose=document.getElementById('qClose'),
+      qStep=document.getElementById('qStep'), qFill=document.getElementById('qFill'), qEarn=document.getElementById('qEarn'),
+      qText=document.getElementById('qText'), qSub=document.getElementById('qSub'), qOpts=document.getElementById('qOpts'),
+      qEnc=document.getElementById('qEnc'), qEncText=document.getElementById('qEncText'), qNext=document.getElementById('qNext'),
+      qQuestion=document.getElementById('qQuestion'), qCalc=document.getElementById('qCalc'), qRes=document.getElementById('qRes'),
+      qAmt=document.getElementById('qAmt'), qClaim=document.getElementById('qClaim'), qCount=document.getElementById('qCount');
+  var calcSteps=[document.getElementById('qc1'),document.getElementById('qc2'),document.getElementById('qc3')];
+  var timers=[], countTimer=null;
+
+  function setProg(step){ var pct=Math.round((step/TOTAL)*100); if(pct>100)pct=100; qFill.style.width=pct+'%'; qStep.textContent=step<=TOTAL?'STEP '+step+' OF '+TOTAL:''; }
+  function render(){
+    var q=QUESTIONS[cur];
+    qText.innerHTML=q.text; qSub.innerHTML=q.sub||''; qOpts.innerHTML=''; qOpts.className='qopts';
+    picked=null; qEnc.classList.remove('show'); qNext.disabled=true; qNext.textContent=(cur===TOTAL-1)?'Finish':'Next';
+    setProg(cur+1);
+    q.opts.forEach(function(o){
+      var el=document.createElement('button'); el.type='button'; el.className='qopt';
+      el.innerHTML='<span class="qic">'+o.ic+'</span><span class="qtx"><span class="qt">'+o.t+'</span><span class="qs">'+o.s+'</span></span><span class="qradio"></span>';
+      el.addEventListener('click',function(){
+        if(picked!==null)return; picked=o; el.classList.add('sel');
+        Array.prototype.forEach.call(qOpts.children,function(c){ if(c!==el)c.classList.add('dim'); });
+        tally+=o.pts;
+        qEarn.textContent='+$'+q.reward.toFixed(2); qEarn.classList.remove('pop'); void qEarn.offsetWidth; qEarn.classList.add('pop');
+        qEncText.innerHTML=ENC[cur]+' <b>+$'+q.reward.toFixed(2)+'</b>';
+        setTimeout(function(){ qEnc.classList.add('show'); },180);
+        qNext.disabled=false;
+      });
+      qOpts.appendChild(el);
+    });
+  }
+  function resetCalc(){ timers.forEach(function(t){clearTimeout(t);}); timers=[]; qCalc.classList.remove('on'); calcSteps.forEach(function(s){s.classList.remove('act','done');}); }
+  function startCalc(){
+    qQuestion.style.display='none'; resetCalc(); qCalc.classList.add('on'); setProg(TOTAL+1); qStep.textContent='CALCULATING';
+    var d=[500,1300,2100], dd=[1100,1900,2700];
+    calcSteps.forEach(function(s,i){ timers.push(setTimeout(function(){s.classList.add('act');},d[i])); timers.push(setTimeout(function(){s.classList.remove('act');s.classList.add('done');},dd[i])); });
+    timers.push(setTimeout(showResult,3300));
+  }
+  function showResult(){
+    qCalc.classList.remove('on'); qQuestion.style.display='none'; qRes.classList.add('on'); setProg(TOTAL+1); px('result');
+    var lo=Math.round(tally*0.9/5)*5, hi=Math.round(tally*2.1/5)*5, cur0=0, step=Math.max(1,Math.round(lo/26));
+    (function tick(){ cur0+=step; if(cur0>=lo){ qAmt.innerHTML='$'+lo+' &ndash; $'+hi; return; } qAmt.textContent='$'+cur0; requestAnimationFrame(tick); })();
+    if(countTimer)clearInterval(countTimer);
+    var n=680+Math.floor(Math.random()*40); qCount.textContent=n;
+    countTimer=setInterval(function(){ n+=Math.random()>0.7?2:1; qCount.textContent=n; },4000);
+  }
+  function openQuiz(){ px('start'); cur=0; tally=0; picked=null; resetCalc(); qRes.classList.remove('on'); qQuestion.style.display='block'; render(); qov.classList.add('open'); qov.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+  function closeQuiz(){ qov.classList.remove('open'); qov.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+  qNext.addEventListener('click',function(){ if(qNext.disabled)return; if(cur<TOTAL-1){ cur++; render(); } else { startCalc(); } });
+  qClose.addEventListener('click',closeQuiz);
+  qov.addEventListener('click',function(e){ if(e.target===qov)closeQuiz(); });
+  qClaim.addEventListener('click',function(){ px('claim'); setTimeout(function(){ window.location.href=OFFER+encodeURIComponent(subid()); },150); });
 
   /* ── entrance ─────────────────────────────────────────────── */
   var items = document.querySelectorAll('.rv');
