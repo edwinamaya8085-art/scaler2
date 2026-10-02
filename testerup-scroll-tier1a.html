@@ -93,6 +93,33 @@ body{
 .simfoot{padding:11px 16px;font-size:11.5px;font-weight:700;color:var(--muted);text-align:center;background:rgba(109,230,169,.05);border-top:1px solid var(--line2)}
 .simfoot b{color:var(--mint)}
 
+/* ── scroll feed phone ──────────────────────────────────────── */
+.feed .track{position:absolute;inset:0;transition:transform .55s cubic-bezier(.6,0,.2,1)}
+.feed .track.nojump{transition:none}
+.clip{position:absolute;left:0;right:0;height:100%;overflow:hidden}
+.clip .bgv{position:absolute;inset:0}
+.clip .bgv::before,.clip .bgv::after{content:'';position:absolute;border-radius:50%;filter:blur(16px)}
+.clip .bgv::before{width:130%;height:55%;left:-20%;top:8%;opacity:.85}
+.clip .bgv::after{width:110%;height:48%;right:-25%;bottom:4%;opacity:.6}
+.c0 .bgv{background:linear-gradient(165deg,#123a2c,#071a12)}.c0 .bgv::before{background:#2fd08a}.c0 .bgv::after{background:#0f6b48}
+.c1 .bgv{background:linear-gradient(165deg,#1a2f43,#08131c)}.c1 .bgv::before{background:#3aa8d8}.c1 .bgv::after{background:#14526e}
+.c2 .bgv{background:linear-gradient(165deg,#3a2340,#150a19)}.c2 .bgv::before{background:#a05fd0}.c2 .bgv::after{background:#5b2a78}
+.clip .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,transparent 28%,transparent 46%,rgba(0,0,0,.72) 100%)}
+.ftag{position:absolute;top:8px;left:8px;font-size:8px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);border-radius:5px;padding:4px 6px}
+.frail{position:absolute;right:6px;bottom:44px;display:flex;flex-direction:column;align-items:center;gap:9px}
+.frail div{display:flex;flex-direction:column;align-items:center;gap:1px;color:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.75))}
+.frail svg{width:17px;height:17px}
+.frail b{font-size:9px;font-weight:800;font-variant-numeric:tabular-nums}
+.fwho{position:absolute;left:8px;right:34px;bottom:12px}
+.fwho .u{display:flex;align-items:center;gap:6px}
+.fwho .av{width:18px;height:18px;border-radius:50%;flex:none;border:1.5px solid rgba(255,255,255,.85);background:linear-gradient(145deg,var(--mint3),#2b9c8f)}
+.fwho .h{font-size:11px;font-weight:800;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.8))}
+.fwho .cap{height:3px;border-radius:2px;background:rgba(255,255,255,.4);margin-top:6px;width:78%}
+.fwho .cap+.cap{width:50%;margin-top:3px}
+.fprog{position:absolute;left:0;right:0;bottom:0;height:2.5px;background:rgba(255,255,255,.16)}
+.fprog i{display:block;height:100%;background:var(--mint);width:0;animation:fill 2.6s linear infinite}
+@keyframes fill{from{width:0}to{width:100%}}
+
 .cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:58px;border:none;border-radius:16px;cursor:pointer;
   font-family:inherit;font-size:17px;font-weight:900;letter-spacing:-.015em;color:#04231a;text-decoration:none;position:relative;overflow:hidden;
   background:linear-gradient(150deg,var(--mint3),var(--mint2));transition:transform .12s ease;animation:pulse 2.4s ease-in-out infinite}
@@ -252,6 +279,22 @@ h2 em{font-style:normal;color:var(--mint)}
       Download Tester Up</a>
     <p class="note">Free download &middot; iPhone &amp; Android</p>
   </div>
+
+  <div class="divl rv"><span>Get paid to scroll</span></div>
+
+  <section class="card rv">
+    <div class="simrow" style="padding-top:16px">
+      <div class="phone feed">
+        <div class="track" id="ftrack"></div>
+        <div class="coin fly" id="fcoin">+$0.25</div>
+      </div>
+      <div class="simtx">
+        <h3>Scroll &amp; <em>earn too.</em></h3>
+        <p>Swipe sponsored clips like you already do on your feed. Each one credits <b>$0.25</b> straight to your balance.</p>
+      </div>
+    </div>
+    <div class="simfoot">Keep scrolling &mdash; <b>every</b> swipe pays</div>
+  </section>
 
   <div class="divl rv"><span>How it works</span></div>
   <h2 class="rv">3 steps to <em>cash.</em></h2>
@@ -420,6 +463,34 @@ h2 em{font-style:normal;color:var(--mint)}
     var y=window.pageYOffset; moved+=Math.abs(y-lastY); lastY=y;
     while(moved>=240 && !capped){ moved-=240; credit(); }
   }, {passive:true});
+
+  /* scroll feed phone — vertical clip reel that auto-advances */
+  var CLIPS=[{c:'c0',tag:'Sponsored clip',at:'@testerfeed',l:'12.9K',cm:'486',sh:'1.2K'},
+             {c:'c1',tag:'Partner ad',at:'@scrollpays',l:'77.4K',cm:'2,880',sh:'6.4K'},
+             {c:'c2',tag:'Brand reel',at:'@cashcuts',l:'48.2K',cm:'1,204',sh:'3.1K'},
+             {c:'c0',tag:'Sponsored clip',at:'@dailygrind',l:'23.6K',cm:'907',sh:'1.8K'},
+             {c:'c1',tag:'Partner ad',at:'@appgains',l:'61.1K',cm:'2,145',sh:'4.9K'}];
+  function ico(d,sw){return '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="'+(sw||2)+'" stroke-linecap="round" stroke-linejoin="round">'+d+'</svg>';}
+  var HEART=ico('<path d="M20.8 5.6a5.4 5.4 0 00-7.7 0L12 6.7l-1.1-1.1a5.4 5.4 0 00-7.7 7.7L12 21l8.8-7.7a5.4 5.4 0 000-7.7z"/>');
+  var CHAT=ico('<path d="M21 11.5a8.4 8.4 0 01-9 8.4 9 9 0 01-3.9-.9L3 20.5l1.6-4.8A8.3 8.3 0 013.5 11 8.4 8.4 0 0112 3a8.4 8.4 0 019 8.5z"/>');
+  var SHARE=ico('<path d="M22 3L11 14"/><path d="M22 3l-7 19-4-8-8-4 19-7z"/>');
+  var ftrack=document.getElementById('ftrack'), fcoin=document.getElementById('fcoin');
+  if(ftrack){
+    var frames=CLIPS.concat([CLIPS[0]]);
+    ftrack.innerHTML=frames.map(function(c,i){
+      return '<div class="clip '+c.c+'" style="top:'+(i*100)+'%"><div class="bgv"></div><div class="scrim"></div>'+
+        '<span class="ftag">'+c.tag+'</span><div class="frail">'+
+        '<div>'+HEART+'<b>'+c.l+'</b></div><div>'+CHAT+'<b>'+c.cm+'</b></div><div>'+SHARE+'<b>'+c.sh+'</b></div></div>'+
+        '<div class="fwho"><div class="u"><span class="av"></span><span class="h">'+c.at+'</span></div><span class="cap"></span><span class="cap"></span></div>'+
+        '<span class="fprog"><i></i></span></div>';
+    }).join('');
+    var fidx=0, freduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!freduce){ setInterval(function(){
+      fidx++; ftrack.classList.remove('nojump'); ftrack.style.transform='translateY(-'+(fidx*100)+'%)';
+      if(fidx>=CLIPS.length){ setTimeout(function(){ ftrack.classList.add('nojump'); fidx=0; ftrack.style.transform='translateY(0)'; },570); }
+      fcoin.classList.remove('fly'); void fcoin.offsetWidth; fcoin.classList.add('fly');
+    },2600); }
+  }
 
   /* locked games strip */
   var GAMES=[{n:'Subway Surfers',i:'images/subway-surfers.jpg'},{n:'Roblox',i:'images/roblox.jpg'},{n:'Clash Royale',i:'images/clash-royale.jpg'}];
