@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="robots" content="noindex, nofollow">
+<title>Rewards Offer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{
+  --app:#7c5cff;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"DM Sans","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:var(--body);background:#000;color:#15151b;overflow:hidden}
+
+/* dim backdrop behind the sheet */
+.dim{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:opacity .4s;z-index:1}
+body.open .dim{opacity:1}
+
+/* the slide-up sheet (full screen on mobile, centered column on wide) */
+.sheet{position:fixed;left:50%;bottom:0;transform:translate(-50%,100%);
+  width:100%;max-width:440px;height:100dvh;max-height:860px;
+  background:#fbfbfd;border-radius:22px 22px 0 0;z-index:2;
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 -20px 60px -10px rgba(0,0,0,.5);
+  transition:transform .55s cubic-bezier(.2,1,.3,1)}
+body.open .sheet{transform:translate(-50%,0)}
+.grip{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:40px;height:5px;border-radius:3px;background:#d7d7e0;z-index:5}
+
+.step{position:absolute;inset:0;padding:40px 22px 26px;display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;transition:opacity .25s;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.step.on{opacity:1;pointer-events:auto}
+.pill{align-self:flex-start;font:700 10px var(--body);letter-spacing:.08em;text-transform:uppercase;color:#5a5a66;background:#ececf2;padding:5px 9px;border-radius:7px}
+.badge{width:72px;height:72px;border-radius:20px;background:var(--app);color:#fff;display:grid;place-items:center;font:800 34px var(--display);margin:28px auto 16px;box-shadow:0 12px 28px -8px var(--app)}
+.step h2{font:800 24px/1.15 var(--display);text-align:center;margin:0 0 10px;text-wrap:balance}
+.step h2.left{text-align:left;margin-top:20px}
+.step p{font-size:13.5px;line-height:1.55;color:#5a5a66;margin:0;text-align:center}
+.step p.left{text-align:left}
+.grow{flex:1;min-height:14px}
+.btn{display:block;width:100%;border:0;border-radius:13px;padding:15px;font:700 15px var(--body);cursor:pointer;margin-top:9px}
+.btn.go{background:var(--app);color:#fff}
+.btn.go:disabled{background:#dcdce4;color:#9a9aa6;cursor:default}
+.btn.no{background:#ececf2;color:#2a2a33}
+.btn:focus-visible{outline:3px solid #15151b;outline-offset:2px}
+.perks{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:9px}
+.perks li{display:flex;gap:11px;align-items:center;background:#fff;border:1px solid #ececf2;border-radius:13px;padding:12px 13px;font-size:13.5px}
+.perks .ck{width:24px;height:24px;border-radius:50%;background:var(--app);color:#fff;display:grid;place-items:center;font:700 13px var(--body);flex-shrink:0}
+.dob{display:grid;grid-template-columns:1.4fr .8fr 1fr;gap:7px;margin-top:20px}
+.dob select{font:500 14px var(--body);padding:13px 7px;border-radius:11px;border:1px solid #dcdce4;background:#fff;color:#15151b;width:100%;min-width:0}
+.note{font-size:11.5px !important;color:#8a8a96 !important;margin-top:12px !important}
+.offer{margin-top:16px;background:#fff;border:1px solid #ececf2;border-radius:17px;padding:15px}
+.offer .hd{display:flex;gap:13px;align-items:center}
+.picon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#ffb347,#ff5e62);display:grid;place-items:center;font-size:26px;flex-shrink:0}
+.offer .nm{font:700 15px var(--body)}
+.offer .sub{font-size:12px;color:#7a7a86}
+.reward{margin-top:13px;display:flex;justify-content:space-between;align-items:baseline;border-top:1px dashed #e2e2ea;padding-top:11px;font-size:12.5px;color:#5a5a66}
+.reward b{font:800 22px var(--display);color:var(--app);font-variant-numeric:tabular-nums}
+.tasks{margin:13px 0 0;padding:0;list-style:none;display:grid;gap:7px;font-size:12.5px}
+.tasks li{display:flex;gap:9px;align-items:center}
+.tasks .n{width:19px;height:19px;border-radius:50%;border:1.5px solid var(--app);color:var(--app);display:grid;place-items:center;font:700 10px var(--body);flex-shrink:0}
+.disclose{margin-top:12px;font-size:11px;line-height:1.45;color:#8a8a96}
+.big-ic{font-size:60px;text-align:center;margin:44px 0 14px}
+@media(prefers-reduced-motion:reduce){.sheet,.step,.dim{transition-duration:.01s}}
+</style>
+</head>
+<body>
+
+<div class="dim" data-close></div>
+
+<div class="sheet" role="dialog" aria-label="Rewards offer">
+  <span class="grip"></span>
+
+  <!-- 1. intro -->
+  <div class="step" data-step="intro">
+    <span class="pill">Sponsored</span>
+    <div class="badge" data-appinitial>Y</div>
+    <h2>Earn rewards on <span data-appname>YourApp</span></h2>
+    <p>Try a partner app and get paid in <span data-appname>YourApp</span> rewards. It takes about 10 minutes.</p>
+    <ul class="perks">
+      <li><span class="ck">✓</span>Free to join, no card needed</li>
+      <li><span class="ck">✓</span>Rewards land in your wallet</li>
+      <li><span class="ck">✓</span>Skip anytime and keep going</li>
+    </ul>
+    <div class="grow"></div>
+    <button class="btn go" data-go="age">See the offer</button>
+    <button class="btn no" data-close>Not now</button>
+  </div>
+
+  <!-- 2. age check -->
+  <div class="step" data-step="age">
+    <span class="pill">Step 1 of 2</span>
+    <h2 class="left">Confirm you're 18 or older</h2>
+    <p class="left">Cash reward offers are for adults only. Enter your birthday to continue.</p>
+    <div class="dob">
+      <select id="dobM" aria-label="Birth month"><option value="">Month</option></select>
+      <select id="dobD" aria-label="Birth day"><option value="">Day</option></select>
+      <select id="dobY" aria-label="Birth year"><option value="">Year</option></select>
+    </div>
+    <p class="left note">We only use this to check your age for this offer.</p>
+    <div class="grow"></div>
+    <button class="btn go" id="ageBtn" disabled>Continue</button>
+    <button class="btn no" data-close>Not now</button>
+  </div>
+
+  <!-- 2b. under 18 -->
+  <div class="step" data-step="blocked">
+    <div class="big-ic">🔒</div>
+    <h2>This offer is 18+ only</h2>
+    <p>You can keep using <span data-appname>YourApp</span> as usual. We'll only show you offers you're eligible for.</p>
+    <div class="grow"></div>
+    <button class="btn go" data-close>Back</button>
+  </div>
+
+  <!-- 3. offer -->
+  <div class="step" data-step="offer">
+    <span class="pill">Step 2 of 2 · Sponsored offer</span>
+    <div class="offer">
+      <div class="hd">
+        <div class="picon">🎮</div>
+        <div><div class="nm" data-partner>Partner Games</div><div class="sub">Partner app · Free on iOS &amp; Android</div></div>
+      </div>
+      <ul class="tasks">
+        <li><span class="n">1</span>Install the app</li>
+        <li><span class="n">2</span>Create an account</li>
+        <li><span class="n">3</span>Reach Level 1 within 7 days</li>
+      </ul>
+      <div class="reward"><span>You earn</span><b data-reward>$5.00</b></div>
+    </div>
+    <p class="left disclose"><span data-appname>YourApp</span> is paid by <span data-partner>Partner Games</span> when you finish this offer. Your reward is paid after the partner confirms you reached Level 1, usually within 48 hours.</p>
+    <div class="grow"></div>
+    <button class="btn go" id="getBtn">Get the app</button>
+    <button class="btn no" data-close>Not now</button>
+  </div>
+
+  <!-- 4. done -->
+  <div class="step" data-step="done">
+    <div class="big-ic">🚀</div>
+    <h2>Opening the app&hellip;</h2>
+    <p>Finish the 3 steps in <span data-partner>Partner Games</span> and <b data-reward>$5.00</b> will show up in your <span data-appname>YourApp</span> wallet.</p>
+    <div class="grow"></div>
+    <button class="btn go" data-close>Done</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ── EDIT THESE to rebrand / wire your offer ───────────────── */
+  var APP_NAME    = 'YourApp';
+  var BRAND_COLOR = '#7c5cff';
+  var PARTNER     = 'Partner Games';
+  var REWARD      = '$5.00';
+  var OFFER_URL   = '';          // e.g. 'https://www.pcbdfv7trk.com/XXX/YYY/?sub1=' ; blank = demo (no redirect)
+  /* ──────────────────────────────────────────────────────────── */
+
+  function subid(){ var p=new URLSearchParams(location.search);
+    return p.get('sub1')||p.get('campid')||p.get('s1')||p.get('s2')||p.get('cid')||p.get('c')||''; }
+
+  document.documentElement.style.setProperty('--app', BRAND_COLOR);
+  document.querySelectorAll('[data-appname]').forEach(function(e){ e.textContent=APP_NAME; });
+  document.querySelectorAll('[data-appinitial]').forEach(function(e){ e.textContent=(APP_NAME[0]||'Y').toUpperCase(); });
+  document.querySelectorAll('[data-partner]').forEach(function(e){ e.textContent=PARTNER; });
+  document.querySelectorAll('[data-reward]').forEach(function(e){ e.textContent=REWARD; });
+
+  var steps=[].slice.call(document.querySelectorAll('.step'));
+  function show(name){ steps.forEach(function(s){ s.classList.toggle('on', s.dataset.step===name); }); }
+
+  /* slide the sheet up on load */
+  show('intro');
+  requestAnimationFrame(function(){ setTimeout(function(){ document.body.classList.add('open'); }, 120); });
+
+  function closeSheet(){ document.body.classList.remove('open'); }
+  function openSheet(){ show('intro'); resetDob(); document.body.classList.add('open'); }
+
+  document.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click', function(){ show(b.dataset.go); }); });
+  document.querySelectorAll('[data-close]').forEach(function(b){ b.addEventListener('click', closeSheet); });
+
+  /* age check */
+  var M=document.getElementById('dobM'), D=document.getElementById('dobD'), Y=document.getElementById('dobY'), ageBtn=document.getElementById('ageBtn');
+  ['January','February','March','April','May','June','July','August','September','October','November','December']
+    .forEach(function(m,i){ M.add(new Option(m,i)); });
+  for(var d=1;d<=31;d++) D.add(new Option(d,d));
+  var ty=new Date().getFullYear();
+  for(var y=ty;y>=ty-90;y--) Y.add(new Option(y,y));
+  function resetDob(){ M.value=D.value=Y.value=''; ageBtn.disabled=true; }
+  [M,D,Y].forEach(function(s){ s.addEventListener('change', function(){ ageBtn.disabled=!(M.value&&D.value&&Y.value); }); });
+  function ageFrom(y,m,d){ var n=new Date(), a=n.getFullYear()-y; if(n.getMonth()<m||(n.getMonth()===m&&n.getDate()<d))a--; return a; }
+  ageBtn.addEventListener('click', function(){ show(ageFrom(+Y.value,+M.value,+D.value)>=18?'offer':'blocked'); });
+
+  /* get the app -> offer */
+  document.getElementById('getBtn').addEventListener('click', function(){
+    show('done');
+    if(OFFER_URL){ setTimeout(function(){ location.href = OFFER_URL + encodeURIComponent(subid()); }, 700); }
+  });
+})();
+</script>
+
+</body></html>
