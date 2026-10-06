@@ -28,6 +28,7 @@ body{font-family:var(--font);background:#fff;color:var(--ink);overflow:hidden}
 
 .illus{display:flex;align-items:center;justify-content:center;margin:6px auto 14px}
 .illus svg{max-height:120px;width:auto}
+.illus-img{max-height:160px;width:auto;max-width:86%;display:block}
 h1.q{font-size:27px;font-weight:800;line-height:1.14;letter-spacing:-.02em;margin-bottom:10px}
 h1.q.left{text-align:left;margin-top:6px}
 h2.t{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
@@ -127,32 +128,7 @@ h2.t{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
 
     <!-- ② CONFIRM AGE -->
     <section class="step center" data-step="age">
-      <div class="illus">
-        <svg width="190" height="150" viewBox="0 0 190 150" fill="none" stroke="#121216" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <!-- coin -->
-          <ellipse cx="34" cy="40" rx="15" ry="9" fill="#F5A9B8" stroke="none"/>
-          <!-- lock -->
-          <rect x="24" y="70" width="26" height="22" rx="4" fill="#53D0C4"/>
-          <path d="M29 70v-4a8 8 0 0 1 16 0v4"/>
-          <circle cx="37" cy="80" r="2.4" fill="#121216" stroke="none"/><path d="M37 82v4"/>
-          <!-- head + hair -->
-          <path d="M70 86c-8-6-12-16-9-26 2-9 10-16 20-16 7 0 10-6 17-5 8 1 9 9 15 10 8 1 14 7 13 16-1 8-7 11-6 18"/>
-          <circle cx="82" cy="60" r="2.6" fill="#121216" stroke="none"/><circle cx="100" cy="60" r="2.6" fill="#121216" stroke="none"/>
-          <path d="M84 70c4 4 10 4 14 0"/>
-          <path d="M70 86c2 10 10 18 21 18"/>
-          <!-- arm holding card -->
-          <path d="M112 92c10 2 18 0 24-6"/>
-          <!-- ID card -->
-          <g transform="rotate(-8 150 76)">
-            <rect x="122" y="56" width="58" height="40" rx="7" fill="#53D0C4" stroke="#121216"/>
-            <circle cx="138" cy="72" r="7" fill="#fff" stroke="#121216" stroke-width="2"/>
-            <path d="M131 86c1.5-5 12-5 14 0" stroke="#121216" stroke-width="2" fill="none"/>
-            <path d="M153 68h20M153 76h16" stroke="#fff" stroke-width="3"/>
-            <text x="158" y="52" font-family="Arial" font-weight="800" font-size="15" fill="#121216" stroke="none">18+</text>
-          </g>
-          <path d="M184 44l5-6M182 54l7-2M180 36l3-7" stroke="#121216" stroke-width="2"/>
-        </svg>
-      </div>
+      <div class="illus"><img src="images/confirm-age.png" alt="" class="illus-img"></div>
       <h2 class="t">Confirm your age</h2>
       <p class="lead">To be a Screentime To Cash Creator you must be at least 13 years or older and install our partner app. You have 3 tries to confirm your age.</p>
       <a href="#" class="learn" id="learnMore">Learn More <span>&rsaquo;</span></a>
