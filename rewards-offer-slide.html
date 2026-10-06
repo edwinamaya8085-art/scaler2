@@ -2,195 +2,294 @@
 <html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#fbfbfd">
+<meta name="theme-color" content="#ffffff">
 <meta name="robots" content="noindex, nofollow">
-<title>Rewards Offer</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap">
+<title>Screentime To Cash</title>
 <style>
 :root{
-  --app:#7c5cff;
-  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
-  --body:"DM Sans","Segoe UI",system-ui,sans-serif;
+  --red:#F5233F; --red-d:#E01E39;
+  --ink:#121216; --muted:#6c6c75;
+  --card:#f2f2f5; --card2:#ededf0;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{font-family:var(--body);background:#fbfbfd;color:#15151b;overflow:hidden}
+body{font-family:var(--font);background:#fff;color:var(--ink);overflow:hidden}
+.app{position:relative;max-width:480px;margin:0 auto;min-height:100dvh;height:100dvh;background:#fff;display:flex;flex-direction:column;overflow:hidden}
 
-.dim{display:none}
+/* ── status bar ── */
+.statusbar{flex:none;display:flex;align-items:center;justify-content:space-between;
+  padding:calc(10px + env(safe-area-inset-top)) 22px 4px;font-weight:600;font-size:15px}
+.timer{display:inline-flex;align-items:center;background:var(--red);color:#fff;font-weight:700;font-size:15px;
+  padding:4px 13px;border-radius:999px;font-variant-numeric:tabular-nums;letter-spacing:.2px}
+.sbr{display:flex;align-items:center;gap:6px}
+.sbr .sos{font-weight:800;font-size:13px;letter-spacing:.5px}
+.sbr svg{display:block}
 
-/* the slide-up sheet — full screen, edge to edge */
-.sheet{position:fixed;inset:0;transform:translateY(100%);
-  width:100%;height:100dvh;background:#fbfbfd;z-index:2;
-  display:flex;flex-direction:column;overflow:hidden;
-  transition:transform .5s cubic-bezier(.2,1,.3,1)}
-body.open .sheet{transform:translateY(0)}
-.grip{display:none}
+/* ── stage / steps ── */
+.stage{position:relative;flex:1;min-height:0}
+.step{position:absolute;inset:0;display:flex;flex-direction:column;padding:8px 22px calc(26px + env(safe-area-inset-bottom));
+  opacity:0;transform:translateX(16px);pointer-events:none;transition:opacity .32s ease,transform .32s ease;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.step.on{opacity:1;transform:none;pointer-events:auto}
+.center{text-align:center}
+.grow{flex:1;min-height:16px}
 
-.step{position:absolute;inset:0;padding:calc(46px + env(safe-area-inset-top)) 22px calc(28px + env(safe-area-inset-bottom));display:flex;flex-direction:column;
-  opacity:0;pointer-events:none;transition:opacity .25s;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.step.on{opacity:1;pointer-events:auto}
-.pill{align-self:flex-start;font:700 10px var(--body);letter-spacing:.08em;text-transform:uppercase;color:#5a5a66;background:#ececf2;padding:5px 9px;border-radius:7px}
-.badge{width:72px;height:72px;border-radius:20px;background:var(--app);color:#fff;display:grid;place-items:center;font:800 34px var(--display);margin:28px auto 16px;box-shadow:0 12px 28px -8px var(--app)}
-.step h2{font:800 24px/1.15 var(--display);text-align:center;margin:0 0 10px;text-wrap:balance}
-.step h2.left{text-align:left;margin-top:20px}
-.step p{font-size:13.5px;line-height:1.55;color:#5a5a66;margin:0;text-align:center}
-.step p.left{text-align:left}
-.grow{flex:1;min-height:14px}
-.btn{display:block;width:100%;border:0;border-radius:13px;padding:15px;font:700 15px var(--body);cursor:pointer;margin-top:9px}
-.btn.go{background:var(--app);color:#fff}
-.btn.go:disabled{background:#dcdce4;color:#9a9aa6;cursor:default}
-.btn.no{background:#ececf2;color:#2a2a33}
-.btn:focus-visible{outline:3px solid #15151b;outline-offset:2px}
-.perks{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:9px}
-.perks li{display:flex;gap:11px;align-items:center;background:#fff;border:1px solid #ececf2;border-radius:13px;padding:12px 13px;font-size:13.5px}
-.perks .ck{width:24px;height:24px;border-radius:50%;background:var(--app);color:#fff;display:grid;place-items:center;font:700 13px var(--body);flex-shrink:0}
-.dob{display:grid;grid-template-columns:1.4fr .8fr 1fr;gap:7px;margin-top:20px}
-.dob select{font:500 14px var(--body);padding:13px 7px;border-radius:11px;border:1px solid #dcdce4;background:#fff;color:#15151b;width:100%;min-width:0}
-.note{font-size:11.5px !important;color:#8a8a96 !important;margin-top:12px !important}
-.offer{margin-top:16px;background:#fff;border:1px solid #ececf2;border-radius:17px;padding:15px}
-.offer .hd{display:flex;gap:13px;align-items:center}
-.picon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#ffb347,#ff5e62);display:grid;place-items:center;font-size:26px;flex-shrink:0}
-.offer .nm{font:700 15px var(--body)}
-.offer .sub{font-size:12px;color:#7a7a86}
-.reward{margin-top:13px;display:flex;justify-content:space-between;align-items:baseline;border-top:1px dashed #e2e2ea;padding-top:11px;font-size:12.5px;color:#5a5a66}
-.reward b{font:800 22px var(--display);color:var(--app);font-variant-numeric:tabular-nums}
-.tasks{margin:13px 0 0;padding:0;list-style:none;display:grid;gap:7px;font-size:12.5px}
-.tasks li{display:flex;gap:9px;align-items:center}
-.tasks .n{width:19px;height:19px;border-radius:50%;border:1.5px solid var(--app);color:var(--app);display:grid;place-items:center;font:700 10px var(--body);flex-shrink:0}
-.disclose{margin-top:12px;font-size:11px;line-height:1.45;color:#8a8a96}
-.big-ic{font-size:60px;text-align:center;margin:44px 0 14px}
-@media(prefers-reduced-motion:reduce){.sheet,.step,.dim{transition-duration:.01s}}
+.illus{display:flex;align-items:center;justify-content:center;margin:26px auto 20px}
+h1.q{font-size:28px;font-weight:800;line-height:1.14;letter-spacing:-.02em;margin-bottom:10px}
+h1.q.left{text-align:left;margin-top:14px}
+h2.t{font-size:25px;font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
+.lead{font-size:15px;line-height:1.5;color:var(--muted)}
+.lead.left{text-align:left}
+.red{color:var(--red)}
+.learn{display:inline-flex;align-items:center;gap:4px;margin-top:16px;color:var(--red);font-weight:700;font-size:15px;text-decoration:none}
+
+/* buttons */
+.btns{margin-top:auto;display:grid;gap:11px;padding-top:18px}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;border:0;border-radius:15px;padding:17px;
+  font-family:var(--font);font-size:17px;font-weight:700;cursor:pointer;transition:transform .1s,background .2s,opacity .2s}
+.btn:active{transform:scale(.985)}
+.btn.primary{background:var(--red);color:#fff}
+.btn.primary:disabled{background:#e2e2e7;color:#a9a9b2;cursor:default}
+.btn.ghost{background:var(--card2);color:#26262e}
+
+/* ── congrats list card ── */
+.setup{background:var(--card);border-radius:18px;padding:18px 18px;margin-top:26px;text-align:left}
+.setup h3{font-size:16px;font-weight:800;margin-bottom:12px}
+.setup ol{list-style:none;display:grid;gap:11px}
+.setup li{display:flex;gap:10px;font-size:14.5px;color:#3a3a42}
+.setup li b{color:var(--red);font-weight:800}
+
+/* ── final steps cards ── */
+.fcard{display:flex;align-items:center;gap:14px;background:var(--card);border-radius:16px;padding:15px 16px;margin-bottom:12px;text-align:left}
+.fnum{flex:none;width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:800;font-size:16px}
+.fcard b{display:block;font-size:16px;font-weight:800;margin-bottom:2px}
+.fcard span{display:block;font-size:13.5px;color:var(--muted)}
+
+/* ── birthday field + wheel ── */
+.field{background:var(--card);border-radius:15px;padding:17px 18px;margin-top:26px;font-size:17px;font-weight:600;color:#1c1c22}
+.field.placeholder{color:#9a9aa2;font-weight:500}
+.wheel{position:relative;height:224px;margin-top:30px;display:grid;grid-template-columns:1.5fr .8fr 1fr;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 26%,#000 74%,transparent);
+  mask-image:linear-gradient(180deg,transparent,#000 26%,#000 74%,transparent)}
+.wband{position:absolute;left:0;right:0;top:50%;height:46px;transform:translateY(-50%);background:#f0f0f3;border-radius:12px;z-index:0}
+.wcol{overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;position:relative;z-index:1;height:224px}
+.wcol::-webkit-scrollbar{display:none}
+.wit{height:46px;line-height:46px;scroll-snap-align:center;font-size:20px;font-weight:600;color:#17171c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wpad{height:89px}
+.wcol.m .wit{text-align:left;padding-left:8px}
+.wcol.d .wit{text-align:center}
+.wcol.y .wit{text-align:right;padding-right:8px}
 </style>
 </head>
 <body>
 
-<div class="dim" data-close></div>
+<div class="app">
 
-<div class="sheet" role="dialog" aria-label="Rewards offer">
-  <span class="grip"></span>
-
-  <!-- 1. intro -->
-  <div class="step" data-step="intro">
-    <span class="pill">Sponsored</span>
-    <div class="badge" data-appinitial>Y</div>
-    <h2>Earn rewards on <span data-appname>YourApp</span></h2>
-    <p>Try a partner app and get paid in <span data-appname>YourApp</span> rewards. It takes about 10 minutes.</p>
-    <ul class="perks">
-      <li><span class="ck">✓</span>Free to join, no card needed</li>
-      <li><span class="ck">✓</span>Rewards land in your wallet</li>
-      <li><span class="ck">✓</span>Skip anytime and keep going</li>
-    </ul>
-    <div class="grow"></div>
-    <button class="btn go" data-go="age">See the offer</button>
-    <button class="btn no" data-close>Not now</button>
+  <div class="statusbar">
+    <span class="timer" id="timer">5:00</span>
+    <span class="sbr">
+      <span class="sos">SOS</span>
+      <svg width="18" height="13" viewBox="0 0 18 13" fill="none"><path d="M9 2.2c2.3 0 4.4.9 6 2.4M9 5.6c1.4 0 2.6.5 3.6 1.4M9 9.1c.5 0 1 .2 1.3.5" stroke="#121216" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="11.6" r="1.1" fill="#121216"/></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x="1" y="1.2" width="22" height="10.6" rx="3" stroke="#121216" stroke-width="1.3"/><rect x="2.6" y="2.8" width="11" height="7.4" rx="1.6" fill="#F0B400"/><rect x="24.3" y="4.4" width="1.7" height="4.2" rx=".8" fill="#121216"/></svg>
+    </span>
   </div>
 
-  <!-- 2. age check -->
-  <div class="step" data-step="age">
-    <span class="pill">Step 1 of 2</span>
-    <h2 class="left">Confirm you're 18 or older</h2>
-    <p class="left">Cash reward offers are for adults only. Enter your birthday to continue.</p>
-    <div class="dob">
-      <select id="dobM" aria-label="Birth month"><option value="">Month</option></select>
-      <select id="dobD" aria-label="Birth day"><option value="">Day</option></select>
-      <select id="dobY" aria-label="Birth year"><option value="">Year</option></select>
-    </div>
-    <p class="left note">We only use this to check your age for this offer.</p>
-    <div class="grow"></div>
-    <button class="btn go" id="ageBtn" disabled>Continue</button>
-    <button class="btn no" data-close>Not now</button>
-  </div>
+  <div class="stage">
 
-  <!-- 2b. under 18 -->
-  <div class="step" data-step="blocked">
-    <div class="big-ic">🔒</div>
-    <h2>This offer is 18+ only</h2>
-    <p>You can keep using <span data-appname>YourApp</span> as usual. We'll only show you offers you're eligible for.</p>
-    <div class="grow"></div>
-    <button class="btn go" data-close>Back</button>
-  </div>
-
-  <!-- 3. offer -->
-  <div class="step" data-step="offer">
-    <span class="pill">Step 2 of 2 · Sponsored offer</span>
-    <div class="offer">
-      <div class="hd">
-        <div class="picon">🎮</div>
-        <div><div class="nm" data-partner>Partner Games</div><div class="sub">Partner app · Free on iOS &amp; Android</div></div>
+    <!-- ① CONGRATS -->
+    <section class="step on center" data-step="congrats">
+      <div class="illus">
+        <svg width="150" height="130" viewBox="0 0 150 130" fill="none">
+          <!-- confetti -->
+          <path d="M18 54c8-9 7-20 1-27" stroke="#53D0C4" stroke-width="3" stroke-linecap="round"/>
+          <path d="M132 50c-8-7-8-19-2-27" stroke="#F5455E" stroke-width="3" stroke-linecap="round"/>
+          <path d="M44 20c4 4 4 10 1 14" stroke="#F5455E" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="24" cy="24" r="3.5" fill="#F5455E"/><circle cx="118" cy="20" r="3.5" fill="#53D0C4"/>
+          <circle cx="75" cy="12" r="3.5" fill="#3B6FE0"/><circle cx="104" cy="38" r="3" fill="#F0B400"/>
+          <circle cx="40" cy="44" r="3" fill="#C9C9D2"/><circle cx="96" cy="60" r="3" fill="#C9C9D2"/>
+          <!-- left hand (red) -->
+          <g transform="rotate(-16 66 95)">
+            <rect x="42" y="66" width="34" height="52" rx="16" fill="#F5455E"/>
+            <rect x="46" y="54" width="6.5" height="26" rx="3.2" fill="#F5455E"/>
+            <rect x="54" y="50" width="6.5" height="30" rx="3.2" fill="#F5455E"/>
+            <rect x="62" y="52" width="6.5" height="28" rx="3.2" fill="#F5455E"/>
+            <rect x="70" y="58" width="6.5" height="24" rx="3.2" fill="#F5455E"/>
+          </g>
+          <!-- right hand (teal) -->
+          <g transform="rotate(16 90 95)">
+            <rect x="80" y="66" width="34" height="52" rx="16" fill="#53D0C4"/>
+            <rect x="103" y="54" width="6.5" height="26" rx="3.2" fill="#53D0C4"/>
+            <rect x="95" y="50" width="6.5" height="30" rx="3.2" fill="#53D0C4"/>
+            <rect x="87" y="52" width="6.5" height="28" rx="3.2" fill="#53D0C4"/>
+            <rect x="79" y="58" width="6.5" height="24" rx="3.2" fill="#53D0C4"/>
+          </g>
+        </svg>
       </div>
-      <ul class="tasks">
-        <li><span class="n">1</span>Install the app</li>
-        <li><span class="n">2</span>Create an account</li>
-        <li><span class="n">3</span>Reach Level 1 within 7 days</li>
-      </ul>
-      <div class="reward"><span>You earn</span><b data-reward>$5.00</b></div>
-    </div>
-    <p class="left disclose"><span data-appname>YourApp</span> is paid by <span data-partner>Partner Games</span> when you finish this offer. Your reward is paid after the partner confirms you reached Level 1, usually within 48 hours.</p>
-    <div class="grow"></div>
-    <button class="btn go" id="getBtn">Get the app</button>
-    <button class="btn no" data-close>Not now</button>
-  </div>
+      <h2 class="t">Congratulations! You have been selected for our <span class="red">Screentime To Cash</span> program.</h2>
+      <div class="setup">
+        <h3>Complete setup to start earning</h3>
+        <ol>
+          <li><b>1.</b> Confirm your eligibility</li>
+          <li><b>2.</b> Download our partner app</li>
+          <li><b>3.</b> Claim your cash reward</li>
+        </ol>
+      </div>
+      <div class="grow"></div>
+      <div class="btns">
+        <button class="btn primary" data-go="age">Start Now</button>
+        <button class="btn ghost" data-go="age">Ask Me Later</button>
+      </div>
+    </section>
 
-  <!-- 4. done -->
-  <div class="step" data-step="done">
-    <div class="big-ic">🚀</div>
-    <h2>Opening the app&hellip;</h2>
-    <p>Finish the 3 steps in <span data-partner>Partner Games</span> and <b data-reward>$5.00</b> will show up in your <span data-appname>YourApp</span> wallet.</p>
-    <div class="grow"></div>
-    <button class="btn go" data-close>Done</button>
+    <!-- ② CONFIRM AGE -->
+    <section class="step center" data-step="age">
+      <div class="illus">
+        <svg width="190" height="150" viewBox="0 0 190 150" fill="none" stroke="#121216" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <!-- coin -->
+          <ellipse cx="34" cy="40" rx="15" ry="9" fill="#F5A9B8" stroke="none"/>
+          <!-- lock -->
+          <rect x="24" y="70" width="26" height="22" rx="4" fill="#53D0C4"/>
+          <path d="M29 70v-4a8 8 0 0 1 16 0v4"/>
+          <circle cx="37" cy="80" r="2.4" fill="#121216" stroke="none"/><path d="M37 82v4"/>
+          <!-- head + hair -->
+          <path d="M70 86c-8-6-12-16-9-26 2-9 10-16 20-16 7 0 10-6 17-5 8 1 9 9 15 10 8 1 14 7 13 16-1 8-7 11-6 18"/>
+          <circle cx="82" cy="60" r="2.6" fill="#121216" stroke="none"/><circle cx="100" cy="60" r="2.6" fill="#121216" stroke="none"/>
+          <path d="M84 70c4 4 10 4 14 0"/>
+          <path d="M70 86c2 10 10 18 21 18"/>
+          <!-- arm holding card -->
+          <path d="M112 92c10 2 18 0 24-6"/>
+          <!-- ID card -->
+          <g transform="rotate(-8 150 76)">
+            <rect x="122" y="56" width="58" height="40" rx="7" fill="#53D0C4" stroke="#121216"/>
+            <circle cx="138" cy="72" r="7" fill="#fff" stroke="#121216" stroke-width="2"/>
+            <path d="M131 86c1.5-5 12-5 14 0" stroke="#121216" stroke-width="2" fill="none"/>
+            <path d="M153 68h20M153 76h16" stroke="#fff" stroke-width="3"/>
+            <text x="158" y="52" font-family="Arial" font-weight="800" font-size="15" fill="#121216" stroke="none">18+</text>
+          </g>
+          <path d="M184 44l5-6M182 54l7-2M180 36l3-7" stroke="#121216" stroke-width="2"/>
+        </svg>
+      </div>
+      <h2 class="t">Confirm your age</h2>
+      <p class="lead">To be a Screentime To Cash Creator you must be at least 13 years or older and install our partner app. You have 3 tries to confirm your age.</p>
+      <a href="#" class="learn" id="learnMore">Learn More <span>&rsaquo;</span></a>
+      <div class="grow"></div>
+      <div class="btns">
+        <button class="btn primary" data-go="bday">Confirm</button>
+        <button class="btn ghost" data-go="bday">Ask Me Later</button>
+      </div>
+    </section>
+
+    <!-- ③ BIRTHDAY -->
+    <section class="step" data-step="bday">
+      <h1 class="q left">When's your birthday?</h1>
+      <p class="lead left">We may automatically verify the age you input against your account. Please make sure it is accurate</p>
+      <div class="field placeholder" id="bdayField">Birthday</div>
+      <div class="wheel">
+        <div class="wband"></div>
+        <div class="wcol m" id="wMonth"></div>
+        <div class="wcol d" id="wDay"></div>
+        <div class="wcol y" id="wYear"></div>
+      </div>
+      <div class="grow"></div>
+      <div class="btns">
+        <button class="btn primary" id="bdayBtn" disabled>Confirm</button>
+      </div>
+    </section>
+
+    <!-- ④ FINAL STEPS -->
+    <section class="step center" data-step="final">
+      <div class="illus">
+        <svg width="150" height="120" viewBox="0 0 150 120" fill="none">
+          <path d="M26 26c3 3 3 8 0 11M126 22c-3 3-9 2-12-1M60 14c1 3 0 6-2 8" stroke="#53D0C4" stroke-width="2.6" stroke-linecap="round"/>
+          <circle cx="36" cy="16" r="3" fill="#F5455E"/><circle cx="116" cy="40" r="3" fill="#3B6FE0"/><circle cx="92" cy="12" r="3" fill="#F0B400"/>
+          <path d="M118 70l3 6 6 1-4 4 1 7-6-3-6 3 1-7-4-4 6-1z" fill="#F0B400"/>
+          <!-- coins -->
+          <circle cx="30" cy="78" r="13" fill="#F6C544" stroke="#E0A92E" stroke-width="2"/><text x="30" y="83" font-family="Arial" font-weight="800" font-size="13" fill="#B9801C" text-anchor="middle">$</text>
+          <circle cx="126" cy="92" r="11" fill="#F6C544" stroke="#E0A92E" stroke-width="2"/><text x="126" y="96" font-family="Arial" font-weight="800" font-size="11" fill="#B9801C" text-anchor="middle">$</text>
+          <!-- notepad -->
+          <rect x="52" y="36" width="52" height="62" rx="7" fill="#fff" stroke="#2C3E66" stroke-width="2.6"/>
+          <path d="M62 30v10M78 30v10M94 30v10" stroke="#2C3E66" stroke-width="3" stroke-linecap="round"/>
+          <path d="M70 54l4 4 7-8M70 70l4 4 7-8M70 86l4 4 7-8" stroke="#2BB673" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M86 53h8M86 69h8M86 85h8" stroke="#9FB0D0" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2 class="t">Final Steps</h2>
+      <p class="lead">Complete these steps to finish your enrollment</p>
+      <div style="margin-top:24px">
+        <div class="fcard"><span class="fnum">1</span><div><b>Install Partner App</b><span>Download and install the application</span></div></div>
+        <div class="fcard"><span class="fnum">2</span><div><b>Sign Up</b><span>Create your new account</span></div></div>
+        <div class="fcard"><span class="fnum">3</span><div><b>Complete Setup</b><span>Achieve in app Level 1</span></div></div>
+      </div>
+      <div class="grow"></div>
+      <div class="btns">
+        <button class="btn primary" id="readyBtn">I'm Ready</button>
+      </div>
+    </section>
+
   </div>
 </div>
 
 <script>
 (function(){
   'use strict';
-
-  /* ── EDIT THESE to rebrand / wire your offer ───────────────── */
-  var APP_NAME    = 'YourApp';
-  var BRAND_COLOR = '#7c5cff';
-  var PARTNER     = 'Partner Games';
-  var REWARD      = '$5.00';
-  var OFFER_URL   = '';          // e.g. 'https://www.pcbdfv7trk.com/XXX/YYY/?sub1=' ; blank = demo (no redirect)
-  /* ──────────────────────────────────────────────────────────── */
-
+  /* ── EDIT to wire your offer ── */
+  var OFFER_URL = '';   // e.g. 'https://www.pcbdfv7trk.com/XXX/YYY/?sub1=' ; blank = no redirect
   function subid(){ var p=new URLSearchParams(location.search);
     return p.get('sub1')||p.get('campid')||p.get('s1')||p.get('s2')||p.get('cid')||p.get('c')||''; }
 
-  document.documentElement.style.setProperty('--app', BRAND_COLOR);
-  document.querySelectorAll('[data-appname]').forEach(function(e){ e.textContent=APP_NAME; });
-  document.querySelectorAll('[data-appinitial]').forEach(function(e){ e.textContent=(APP_NAME[0]||'Y').toUpperCase(); });
-  document.querySelectorAll('[data-partner]').forEach(function(e){ e.textContent=PARTNER; });
-  document.querySelectorAll('[data-reward]').forEach(function(e){ e.textContent=REWARD; });
-
   var steps=[].slice.call(document.querySelectorAll('.step'));
-  function show(name){ steps.forEach(function(s){ s.classList.toggle('on', s.dataset.step===name); }); }
-
-  /* slide the sheet up on load */
-  show('intro');
-  requestAnimationFrame(function(){ setTimeout(function(){ document.body.classList.add('open'); }, 120); });
-
-  function closeSheet(){ document.body.classList.remove('open'); }
-  function openSheet(){ show('intro'); resetDob(); document.body.classList.add('open'); }
-
+  function show(name){ steps.forEach(function(s){ s.classList.toggle('on', s.dataset.step===name); if(s.dataset.step===name) s.scrollTop=0; }); }
   document.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click', function(){ show(b.dataset.go); }); });
-  document.querySelectorAll('[data-close]').forEach(function(b){ b.addEventListener('click', closeSheet); });
+  document.getElementById('learnMore').addEventListener('click', function(e){ e.preventDefault(); });
 
-  /* age check */
-  var M=document.getElementById('dobM'), D=document.getElementById('dobD'), Y=document.getElementById('dobY'), ageBtn=document.getElementById('ageBtn');
-  ['January','February','March','April','May','June','July','August','September','October','November','December']
-    .forEach(function(m,i){ M.add(new Option(m,i)); });
-  for(var d=1;d<=31;d++) D.add(new Option(d,d));
-  var ty=new Date().getFullYear();
-  for(var y=ty;y>=ty-90;y--) Y.add(new Option(y,y));
-  function resetDob(){ M.value=D.value=Y.value=''; ageBtn.disabled=true; }
-  [M,D,Y].forEach(function(s){ s.addEventListener('change', function(){ ageBtn.disabled=!(M.value&&D.value&&Y.value); }); });
-  function ageFrom(y,m,d){ var n=new Date(), a=n.getFullYear()-y; if(n.getMonth()<m||(n.getMonth()===m&&n.getDate()<d))a--; return a; }
-  ageBtn.addEventListener('click', function(){ show(ageFrom(+Y.value,+M.value,+D.value)>=18?'offer':'blocked'); });
+  /* ── countdown timer ── */
+  var tEl=document.getElementById('timer'), left=300;
+  setInterval(function(){ if(left>0)left--; var m=Math.floor(left/60), s=left%60; tEl.textContent=m+':'+(s<10?'0':'')+s; },1000);
 
-  /* get the app -> offer */
-  document.getElementById('getBtn').addEventListener('click', function(){
-    show('done');
-    if(OFFER_URL){ setTimeout(function(){ location.href = OFFER_URL + encodeURIComponent(subid()); }, 700); }
+  /* ── wheel date picker ── */
+  var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var ITEM=46;
+  var now=new Date(), thisYear=now.getFullYear();
+  var years=[]; for(var y=thisYear;y>=thisYear-90;y--) years.push(y);
+  var days=[]; for(var d=1;d<=31;d++) days.push(d);
+
+  function fill(col, arr){
+    var h='<div class="wpad"></div>';
+    arr.forEach(function(v){ h+='<div class="wit">'+v+'</div>'; });
+    h+='<div class="wpad"></div>';
+    col.innerHTML=h;
+  }
+  var cM=document.getElementById('wMonth'), cD=document.getElementById('wDay'), cY=document.getElementById('wYear');
+  fill(cM,MONTHS); fill(cD,days); fill(cY,years);
+
+  var field=document.getElementById('bdayField'), btn=document.getElementById('bdayBtn');
+  var touched=false;
+  function idxOf(col){ return Math.round(col.scrollTop/ITEM); }
+  function setIdx(col,i){ col.scrollTop=i*ITEM; }
+
+  function update(){
+    var mi=Math.min(MONTHS.length-1,Math.max(0,idxOf(cM)));
+    var di=Math.min(days.length-1,Math.max(0,idxOf(cD)));
+    var yi=Math.min(years.length-1,Math.max(0,idxOf(cY)));
+    if(touched){
+      field.classList.remove('placeholder');
+      field.textContent=MONTHS[mi]+' '+days[di]+', '+years[yi];
+      btn.disabled=false;
+    }
+  }
+  function bindScroll(col){
+    var t=null;
+    col.addEventListener('scroll', function(){ touched=true; if(t)clearTimeout(t); t=setTimeout(function(){ setIdx(col,idxOf(col)); update(); },90); }, {passive:true});
+  }
+  [cM,cD,cY].forEach(bindScroll);
+  /* default positions (no "touched" yet so field stays placeholder until they spin) */
+  setIdx(cM,6); setIdx(cD,12); setIdx(cY,25);
+
+  btn.addEventListener('click', function(){ show('final'); });
+
+  /* ── final CTA ── */
+  document.getElementById('readyBtn').addEventListener('click', function(){
+    if(OFFER_URL){ location.href = OFFER_URL + encodeURIComponent(subid()); }
   });
 })();
 </script>
