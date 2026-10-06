@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#fbfbfd">
 <meta name="robots" content="noindex, nofollow">
 <title>Rewards Offer</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap">
@@ -14,23 +14,19 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{font-family:var(--body);background:#000;color:#15151b;overflow:hidden}
+body{font-family:var(--body);background:#fbfbfd;color:#15151b;overflow:hidden}
 
-/* dim backdrop behind the sheet */
-.dim{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:opacity .4s;z-index:1}
-body.open .dim{opacity:1}
+.dim{display:none}
 
-/* the slide-up sheet (full screen on mobile, centered column on wide) */
-.sheet{position:fixed;left:50%;bottom:0;transform:translate(-50%,100%);
-  width:100%;max-width:440px;height:100dvh;max-height:860px;
-  background:#fbfbfd;border-radius:22px 22px 0 0;z-index:2;
+/* the slide-up sheet — full screen, edge to edge */
+.sheet{position:fixed;inset:0;transform:translateY(100%);
+  width:100%;height:100dvh;background:#fbfbfd;z-index:2;
   display:flex;flex-direction:column;overflow:hidden;
-  box-shadow:0 -20px 60px -10px rgba(0,0,0,.5);
-  transition:transform .55s cubic-bezier(.2,1,.3,1)}
-body.open .sheet{transform:translate(-50%,0)}
-.grip{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:40px;height:5px;border-radius:3px;background:#d7d7e0;z-index:5}
+  transition:transform .5s cubic-bezier(.2,1,.3,1)}
+body.open .sheet{transform:translateY(0)}
+.grip{display:none}
 
-.step{position:absolute;inset:0;padding:40px 22px 26px;display:flex;flex-direction:column;
+.step{position:absolute;inset:0;padding:calc(46px + env(safe-area-inset-top)) 22px calc(28px + env(safe-area-inset-bottom));display:flex;flex-direction:column;
   opacity:0;pointer-events:none;transition:opacity .25s;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .step.on{opacity:1;pointer-events:auto}
 .pill{align-self:flex-start;font:700 10px var(--body);letter-spacing:.08em;text-transform:uppercase;color:#5a5a66;background:#ececf2;padding:5px 9px;border-radius:7px}
