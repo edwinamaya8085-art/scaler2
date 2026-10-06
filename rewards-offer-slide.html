@@ -25,6 +25,7 @@ body{font-family:var(--font);background:#fff;color:var(--ink);overflow:hidden}
 .step.on{opacity:1;transform:none;pointer-events:auto}
 .center{text-align:center}
 .grow{flex:1;min-height:8px}
+.mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%}
 
 .illus{display:flex;align-items:center;justify-content:center;margin:6px auto 14px}
 .illus svg{max-height:120px;width:auto}
@@ -83,11 +84,12 @@ h2.t{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
 
     <!-- ① CONFIRM AGE -->
     <section class="step on center" data-step="age">
-      <div class="illus"><img src="images/confirm-age.png" alt="" class="illus-img"></div>
-      <h2 class="t">Confirm your age</h2>
-      <p class="lead">To be a Screentime To Cash Creator you must be at least 13 years or older and install our partner app. You have 3 tries to confirm your age.</p>
-      <a href="#" class="learn" id="learnMore">Learn More <span>&rsaquo;</span></a>
-      <div class="grow"></div>
+      <div class="mid">
+        <div class="illus"><img src="images/confirm-age.png" alt="" class="illus-img"></div>
+        <h2 class="t">Confirm your age</h2>
+        <p class="lead">To be a Screentime To Cash Creator you must be at least 13 years or older and install our partner app. You have 3 tries to confirm your age.</p>
+        <a href="#" class="learn" id="learnMore">Learn More <span>&rsaquo;</span></a>
+      </div>
       <div class="btns">
         <button class="btn primary" data-go="bday">Confirm</button>
         <button class="btn ghost" data-go="bday">Ask Me Later</button>
