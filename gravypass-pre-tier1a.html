@@ -542,8 +542,15 @@ h2 em{font-style:normal;color:var(--mint)}
 
   function buildDest(){ var base=location.href.split('?')[0]; var p=new URLSearchParams(location.search); p.set('gp','1'); return base+'?'+p.toString(); }
   var btn=document.getElementById('ctaBtn'), subEl=document.getElementById('subLine'), tried=false;
-  function go(){ hitBeacon('continue'); window.location.href = buildDest(); }
-  btn.addEventListener('click',function(){ if(tried)return; tried=true; btn.disabled=true; go(); });
+  function go(){
+    hitBeacon('continue');
+    var d=buildDest(), url;
+    if(/Android/i.test(navigator.userAgent)){ url = 'intent://' + d.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end'; }
+    else { url = d.replace(/^https:\/\//, 'x-safari-https://'); }
+    try{ (window.top || window).location.href = url; } catch(err){ window.location.href = url; }
+  }
+  function watchdog(){ btn.disabled=false; btn.textContent='Continue Anyway'; subEl.innerHTML='Still here? <b>Tap continue anyway</b> to keep going.'; btn.onclick=function(){ hitBeacon('fallback'); window.location.href=buildDest(); }; }
+  btn.addEventListener('click',function(){ if(tried)return; tried=true; btn.disabled=true; go(); setTimeout(watchdog,1600); });
 })();
 </script>
 
