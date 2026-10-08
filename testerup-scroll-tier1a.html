@@ -211,6 +211,21 @@ h2 em{font-style:normal;color:var(--mint)}
 
 @media(max-width:374px){.hero h1 .b{font-size:40px}.hero h1 .a{font-size:26px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}.rv{opacity:1!important;transform:none!important}}
+/* ── fruit ninja live gameplay ── */
+.fnwrap{text-align:center}
+.fnphone{position:relative;width:236px;max-width:72%;margin:0 auto;aspect-ratio:9/18;border-radius:30px;overflow:hidden;
+  background:#1c120a;border:7px solid #0b0b0e;
+  box-shadow:0 22px 55px rgba(0,0,0,.55),0 0 48px rgba(109,230,169,.16)}
+.fnphone canvas{display:block;width:100%;height:100%}
+.fnhud{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;pointer-events:none}
+.fnhud .fncombo{font-size:12px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6);letter-spacing:-.01em}
+.fnhud .fnscore{font-size:12px;font-weight:800;color:#ffe08a;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.fnhud .fnscore b{color:#fff;font-variant-numeric:tabular-nums}
+.fnlive{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:6px;
+  background:rgba(0,0,0,.45);border-radius:999px;padding:5px 11px;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.fnlive i{width:6px;height:6px;border-radius:50%;background:#ff4d4d;animation:dot 1.3s ease-in-out infinite}
+.fncap{margin-top:14px;font-size:13.5px;color:var(--muted);line-height:1.55;max-width:300px;margin-left:auto;margin-right:auto}
+.fncap b{color:var(--mint);font-weight:800}
 </style>
 </head>
 <body>
@@ -253,6 +268,16 @@ h2 em{font-style:normal;color:var(--mint)}
       Download Tester Up</a>
     <p class="note">Free download &middot; iPhone &amp; Android</p>
   </div>
+
+  <div class="divl rv"><span>Live gameplay</span></div>
+  <section class="fnwrap rv">
+    <div class="fnphone">
+      <canvas id="fnCanvas"></canvas>
+      <div class="fnhud"><span class="fncombo">Fruit Ninja</span><span class="fnscore">Score <b id="fnScore">0</b></span></div>
+      <span class="fnlive"><i></i>Live</span>
+    </div>
+    <p class="fncap">Test games like <b>Fruit Ninja</b> &mdash; play a few minutes and get paid.</p>
+  </section>
 
   <div class="divl rv"><span>How it works</span></div>
   <h2 class="rv">3 steps to <em>cash.</em></h2>
@@ -410,6 +435,81 @@ h2 em{font-style:normal;color:var(--mint)}
     out+='<div class="gtile"><div class="im"><img src="'+g.i+'" alt="" width="88" height="88" loading="lazy"><span class="lk">'+LOCK+'</span></div><b>'+g.n+'</b></div>';
   }); }
   grid.innerHTML=out;
+})();
+</script>
+
+<script>
+/* ── Fruit Ninja-style autonomous gameplay ── */
+(function(){
+  var cv=document.getElementById('fnCanvas'); if(!cv) return;
+  var ctx=cv.getContext('2d');
+  var W=300,H=600;
+  function resize(){ var dpr=Math.min(2,window.devicePixelRatio||1); cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+  resize(); window.addEventListener('resize',resize);
+  var scoreEl=document.getElementById('fnScore'), score=0;
+  var G=0.20;
+  var fruits=[], bits=[], pops=[], blades=[], trail=[];
+  var EM=['🍉','🍊','🍓','🍋','🥝','🍎','🍇'];
+  var COL=['#ff5a5f','#ffa21e','#ff3b6b','#ffe23b','#8bd34f','#ff5a5f','#a65fd0'];
+  function spawn(){
+    var n=1+(Math.random()<0.45?1:0);
+    for(var i=0;i<n;i++){
+      var k=Math.floor(Math.random()*EM.length);
+      var x=46+Math.random()*(W-92);
+      fruits.push({x:x,y:H+28,vx:(x<W/2?1:-1)*(0.4+Math.random()*1.6),vy:-(9.3+Math.random()*2.3),e:EM[k],c:COL[k],r:19,rot:Math.random()*6,vr:(Math.random()-0.5)*0.12,alive:true});
+    }
+  }
+  function distSeg(px,py,x1,y1,x2,y2){ var dx=x2-x1,dy=y2-y1,l2=dx*dx+dy*dy; if(!l2)return Math.hypot(px-x1,py-y1); var t=((px-x1)*dx+(py-y1)*dy)/l2; t=Math.max(0,Math.min(1,t)); return Math.hypot(px-(x1+t*dx),py-(y1+t*dy)); }
+  function sliceFruit(f){ if(!f.alive)return; f.alive=false; score++; scoreEl.textContent=score;
+    pops.push({x:f.x,y:f.y,t:0});
+    for(var i=0;i<11;i++) bits.push({x:f.x,y:f.y,vx:(Math.random()-0.5)*5.5,vy:(Math.random()-0.65)*5.5,c:f.c,t:0,r:1.6+Math.random()*2.4});
+  }
+  function autoSlice(){
+    var c=fruits.filter(function(f){return f.alive && f.y<H*0.74 && f.y>H*0.1;});
+    if(!c.length) return;
+    c.sort(function(a,b){return Math.abs(a.vy)-Math.abs(b.vy);});
+    var t=c[0];
+    var ang=(Math.random()<0.5?-1:1)*(0.45+Math.random()*0.7);
+    var dx=Math.cos(ang), dy=Math.sin(ang)*0.7, len=95+Math.random()*70;
+    var x1=t.x-dx*len, y1=t.y-dy*len, x2=t.x+dx*len, y2=t.y+dy*len;
+    blades.push({x1:x1,y1:y1,x2:x2,y2:y2,t:0});
+    c.forEach(function(f){ if(distSeg(f.x,f.y,x1,y1,x2,y2)<f.r+11) sliceFruit(f); });
+  }
+  function bg(){
+    var g=ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,'#3c2718'); g.addColorStop(.55,'#2a1a0f'); g.addColorStop(1,'#140c07');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(255,220,150,.04)';
+    for(var y=36;y<H;y+=50) ctx.fillRect(0,y,W,2);
+    ctx.fillStyle='rgba(0,0,0,.14)';
+    for(var x=60;x<W;x+=66) ctx.fillRect(x,0,2,H);
+  }
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  function loop(){
+    bg();
+    ctx.font='32px serif';
+    for(var i=fruits.length-1;i>=0;i--){ var f=fruits[i];
+      if(!f.alive){ fruits.splice(i,1); continue; }
+      f.vy+=G; f.x+=f.vx; f.y+=f.vy; f.rot+=f.vr;
+      ctx.save(); ctx.translate(f.x,f.y); ctx.rotate(f.rot); ctx.fillText(f.e,0,0); ctx.restore();
+      if(f.y>H+50) fruits.splice(i,1);
+    }
+    for(var i=bits.length-1;i>=0;i--){ var b=bits[i]; b.vy+=0.2; b.x+=b.vx; b.y+=b.vy; b.t+=0.028;
+      ctx.globalAlpha=Math.max(0,1-b.t); ctx.fillStyle=b.c; ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,6.3); ctx.fill(); ctx.globalAlpha=1;
+      if(b.t>=1) bits.splice(i,1); }
+    ctx.font='900 17px -apple-system,Segoe UI,sans-serif';
+    for(var i=pops.length-1;i>=0;i--){ var p=pops[i]; p.t+=0.02; p.y-=0.7;
+      ctx.globalAlpha=Math.max(0,1-p.t); ctx.fillStyle='#fff'; ctx.fillText('+1',p.x,p.y); ctx.globalAlpha=1;
+      if(p.t>=1) pops.splice(i,1); }
+    for(var i=blades.length-1;i>=0;i--){ var bl=blades[i]; bl.t+=0.11; var pr=Math.min(1,bl.t*1.6);
+      var hx=bl.x1+(bl.x2-bl.x1)*pr, hy=bl.y1+(bl.y2-bl.y1)*pr;
+      ctx.strokeStyle='rgba(255,255,255,'+(0.85*(1-bl.t))+')'; ctx.lineWidth=(1-bl.t)*4+1.5; ctx.lineCap='round';
+      ctx.beginPath(); ctx.moveTo(bl.x1,bl.y1); ctx.lineTo(hx,hy); ctx.stroke();
+      if(bl.t>=1) blades.splice(i,1); }
+    requestAnimationFrame(loop);
+  }
+  var started=false;
+  function start(){ if(started)return; started=true; spawn(); setInterval(spawn,720); setInterval(autoSlice,560); requestAnimationFrame(loop); }
+  if('IntersectionObserver' in window){ new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting)start();});},{threshold:.15}).observe(cv); } else { start(); }
 })();
 </script>
 
