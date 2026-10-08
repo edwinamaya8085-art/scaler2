@@ -447,12 +447,12 @@ h2 em{font-style:normal;color:var(--mint)}
     </div>
   </div>
 
-  <section class="card games rv open" id="gamesCard" style="margin-top:16px">
-    <button type="button" class="gdrop" id="gdrop" aria-expanded="true" aria-controls="glist">
-      <div><h3>Earn On The Games <em>You Already Play</em></h3><div class="gsub">Live rewards &mdash; updated daily</div></div>
-      <svg class="gchev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-    </button>
-    <div class="glist" id="glist"><div class="glist-in" id="glistIn"></div></div>
+  <section class="card games rv" style="margin-top:16px">
+    <h3>Earn On The Games <em>You Already Play</em></h3>
+    <div class="grid" id="grid"></div>
+    <button type="button" class="unlock" data-go="">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"></rect><path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      UNLOCK</button>
   </section>
 
   <div class="divl rv"><span>Real members</span></div>
@@ -718,42 +718,25 @@ h2 em{font-style:normal;color:var(--mint)}
     while (moved >= 260 && !capped) { moved -= 260; credit(); }
   }, { passive: true });
 
-  /* ── games dropdown ───────────────────────────────────────── */
+  /* ── locked game strip ────────────────────────────────────── */
   var GAMES = [
-    { n:'Subway Surfers', r:'Earn up to $8.50',  i:'images/subway-surfers.jpg' },
-    { n:'Roblox',         r:'Earn up to $12.00', i:'images/roblox.jpg' },
-    { n:'Monopoly GO',    r:'Earn up to $18.50', i:'images/monopoly-go.png' },
-    { n:'Coin Master',    r:'Earn up to $14.00', i:'images/coin-master.png' },
-    { n:'Clash Royale',   r:'Earn up to $6.25',  i:'images/clash-royale.jpg' },
-    { n:'Pokémon GO',     r:'Earn up to $15.00', i:'images/pokemon-go.png' },
-    { n:'Gardenscapes',   r:'Earn up to $11.20', i:'images/gardenscapes.png' }
+    { n:'Subway Surfers', i:'images/subway-surfers.jpg' },
+    { n:'Roblox',         i:'images/roblox.jpg' },
+    { n:'Coin Master',    i:'images/coin-master.png' },
+    { n:'Clash Royale',   i:'images/clash-royale.jpg' },
+    { n:'Gardenscapes',   i:'images/gardenscapes.png' }
   ];
-  var LOCK = '<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"/>' +
-             '<path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
-  var glistIn = document.getElementById('glistIn'), out = '';
-  GAMES.forEach(function (g) {
-    out += '<button type="button" class="grow2" data-go="">' +
-           '<span class="gic"><img src="' + g.i + '" alt="" width="44" height="44" loading="lazy"></span>' +
-           '<span class="gtx"><b>' + g.n + '</b><span>' + g.r + '</span></span>' +
-           '<span class="glk">' + LOCK + '</span></button>';
-  });
-  out += '<p class="gmore">+ 40 more games inside the app</p>';
-  out += '<button type="button" class="gunlock" data-go="">' +
-         '<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"></rect><path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>' +
-         'Unlock All Games</button>';
-  if (glistIn) {
-    glistIn.innerHTML = out;
-    Array.prototype.forEach.call(glistIn.querySelectorAll('[data-go]'), function (b) {
-      b.addEventListener('click', function (e) { e.preventDefault(); px('claim'); window.location.href = OFFER + encodeURIComponent(subid()); });
+  var LOCK = '<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="#fff"/>' +
+             '<path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>';
+  var grid = document.getElementById('grid'), out = '';
+  for (var r = 0; r < 2; r++) {
+    GAMES.forEach(function (g) {
+      out += '<div class="gtile"><div class="im">' +
+             '<img src="' + g.i + '" alt="" width="88" height="88" loading="lazy">' +
+             '<span class="lk">' + LOCK + '</span></div><b>' + g.n + '</b></div>';
     });
   }
-  var gd = document.getElementById('gdrop'), gc = document.getElementById('gamesCard');
-  if (gd && gc) {
-    gd.addEventListener('click', function () {
-      var open = gc.classList.toggle('open');
-      gd.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  }
+  if (grid) grid.innerHTML = out;
 })();
 </script>
 
