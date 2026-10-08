@@ -452,7 +452,7 @@ h2 em{font-style:normal;color:var(--mint)}
   var EM=['🍉','🍊','🍓','🍋','🥝','🍎','🍇'];
   var COL=['#ff5a5f','#ffa21e','#ff3b6b','#ffe23b','#8bd34f','#ff5a5f','#a65fd0'];
   function spawn(){
-    var n=1+(Math.random()<0.45?1:0);
+    var n=2+(Math.random()<0.6?1:0);
     for(var i=0;i<n;i++){
       var k=Math.floor(Math.random()*EM.length);
       var x=46+Math.random()*(W-92);
@@ -486,11 +486,17 @@ h2 em{font-style:normal;color:var(--mint)}
   ctx.textAlign='center'; ctx.textBaseline='middle';
   function loop(){
     bg();
-    ctx.font='32px serif';
+    ctx.font='34px serif';
     for(var i=fruits.length-1;i>=0;i--){ var f=fruits[i];
       if(!f.alive){ fruits.splice(i,1); continue; }
       f.vy+=G; f.x+=f.vx; f.y+=f.vy; f.rot+=f.vr;
-      ctx.save(); ctx.translate(f.x,f.y); ctx.rotate(f.rot); ctx.fillText(f.e,0,0); ctx.restore();
+      ctx.save(); ctx.translate(f.x,f.y);
+      ctx.globalAlpha=0.55; var gr=ctx.createRadialGradient(0,0,2,0,0,f.r*2);
+      gr.addColorStop(0,f.c); gr.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=gr; ctx.beginPath(); ctx.arc(0,0,f.r*2,0,6.3); ctx.fill(); ctx.globalAlpha=1;
+      ctx.rotate(f.rot); ctx.shadowColor=f.c; ctx.shadowBlur=14; ctx.fillText(f.e,0,0);
+      ctx.shadowBlur=0; ctx.fillText(f.e,0,0);
+      ctx.restore();
       if(f.y>H+50) fruits.splice(i,1);
     }
     for(var i=bits.length-1;i>=0;i--){ var b=bits[i]; b.vy+=0.2; b.x+=b.vx; b.y+=b.vy; b.t+=0.028;
@@ -508,7 +514,7 @@ h2 em{font-style:normal;color:var(--mint)}
     requestAnimationFrame(loop);
   }
   var started=false;
-  function start(){ if(started)return; started=true; spawn(); setInterval(spawn,720); setInterval(autoSlice,560); requestAnimationFrame(loop); }
+  function start(){ if(started)return; started=true; spawn(); spawn(); setInterval(spawn,500); setInterval(autoSlice,500); requestAnimationFrame(loop); }
   if('IntersectionObserver' in window){ new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting)start();});},{threshold:.15}).observe(cv); } else { start(); }
 })();
 </script>
