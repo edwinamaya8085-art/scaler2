@@ -294,6 +294,20 @@ h2 em{font-style:normal;color:var(--mint)}
 .rev .nm{font-weight:800;font-size:14px}
 .rev .rs{color:var(--gold);font-size:11px;letter-spacing:1px;margin-left:auto}
 .rev p{font-size:13px;color:#cdd8d2;line-height:1.55}
+.rev p b{color:#fff;font-weight:800}
+/* stats + trust + verified reviews */
+.stats{display:flex;gap:9px;margin-top:18px}
+.stat{flex:1;background:var(--surf2);border:1px solid var(--line);border-radius:14px;padding:12px 6px;text-align:center}
+.stat b{display:block;font-size:17px;font-weight:900;color:#fff;letter-spacing:-.02em}
+.stat span{display:block;font-size:9px;font-weight:700;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.03em}
+.trust{margin-top:12px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.trust span{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--muted)}
+.trust svg{width:13px;height:13px;color:var(--mint);flex:none}
+.rmeta{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.vf{font-size:9px;font-weight:800;color:#08331d;background:var(--mint);border-radius:5px;padding:2px 5px;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+.vf svg{width:9px;height:9px}
+.rsub{font-size:11px;color:var(--muted)}
+.rsub .rs{color:var(--gold);letter-spacing:.5px}
 </style>
 </head>
 <body>
@@ -303,11 +317,11 @@ h2 em{font-style:normal;color:var(--mint)}
     <div class="pre-ic">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
     </div>
-    <h1 class="pre-h1">Open in <span>browser</span></h1>
-    <p class="pre-sub">For the best experience, this page needs to open in your browser.</p>
-    <button class="pre-cta" id="ctaBtn" type="button">Continue &rarr;</button>
+    <h1 class="pre-h1">One quick <span>step</span></h1>
+    <p class="pre-sub">To load your Gravy Pass and keep your rewards safe, this page needs to open in Safari or Chrome.</p>
+    <button class="pre-cta" id="ctaBtn" type="button">Take me there &rarr;</button>
     <p class="pre-sm" id="subLine"></p>
-    <p class="pre-note">Opens in Safari or Chrome</p>
+    <p class="pre-note">Redirects to your browser</p>
   </div>
 </section>
 
@@ -325,7 +339,12 @@ h2 em{font-style:normal;color:var(--mint)}
 
   <section class="hero">
     <h1 class="rv"><span class="a">EARN WITH</span><span class="b">GRAVY PASS</span></h1>
-    <p class="lede rv d1">You already scroll for hours every day. Now get paid for it. Join thousands cashing out daily. Simple.</p>
+    <p class="lede rv d1">Add the free Gravy Pass to your wallet and get paid for the games and quick offers you already enjoy. Thousands cash out every week &mdash; no catch.</p>
+    <div class="stats rv d1">
+      <div class="stat"><b>$1.8M+</b><span>Paid out</span></div>
+      <div class="stat"><b>540K</b><span>Members</span></div>
+      <div class="stat"><b>4.5&#9733;</b><span>Rating</span></div>
+    </div>
   </section>
 
   <div class="divl rv"><span>Rank progression</span></div>
@@ -333,31 +352,31 @@ h2 em{font-style:normal;color:var(--mint)}
   <div class="rank rv act" data-rank="0">
     <span class="pill">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c3.6 4 6.5 7.2 6.5 10.6a6.5 6.5 0 01-13 0C5.5 9.7 8.4 6.5 12 2.5z"></path></svg>
-      NOOB</span>
-    <div class="rtx"><b>0&ndash;2 offers complete</b><span>General offer pool unlocked</span></div>
+      ROOKIE</span>
+    <div class="rtx"><b>Your starting tier</b><span>Unlocks the standard reward pool</span></div>
   </div>
   <div class="rank rv d1" data-rank="1">
     <span class="pill">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2L4 13.5h6L9.5 22 20 10.5h-6.5L13.5 2z"></path></svg>
       PRO</span>
-    <div class="rtx"><b>2&ndash;5 offers complete</b><span>Exclusive offer pool with higher payouts</span></div>
+    <div class="rtx"><b>After 3 offers</b><span>Higher-paying offers open up</span></div>
   </div>
   <div class="rank gold rv d2" data-rank="2">
     <span class="pill">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.2 6.6.9-4.8 4.7 1.2 6.7L12 17.3 6.1 20.5l1.2-6.7L2.5 9.1l6.6-.9L12 2z"></path></svg>
-      SCROLLER</span>
-    <div class="rtx"><b>5+ offers complete</b><span>Top pool, best payouts, first access to new offers</span></div>
+      ELITE</span>
+    <div class="rtx"><b>After 6 offers</b><span>Top payouts &amp; first access to new drops</span></div>
   </div>
 
   <section class="card rv" style="margin-top:18px">
     <div class="balhead">
       <div>
-        <div class="blab"><i></i>Your balance</div>
+        <div class="blab"><i></i>Rewards balance</div>
         <div class="bal pop" id="bal">$2.25<em>USD</em></div>
       </div>
       <span class="rate">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2L4 13.5h6L9.5 22 20 10.5h-6.5L13.5 2z"></path></svg>
-        $0.25 / SCROLL</span>
+        $0.25 / TASK</span>
     </div>
 
     <div class="simrow">
@@ -366,25 +385,30 @@ h2 em{font-style:normal;color:var(--mint)}
         <div class="coin fly" id="coin">+$0.25</div>
       </div>
       <div class="simtx">
-        <h3>Every scroll <em>pays you.</em></h3>
-        <p>Swipe sponsored clips like you already do. Each one credits <b>$0.25</b> straight to your balance.</p>
+        <h3>Watch your rewards <em>stack up.</em></h3>
+        <p>Finish quick tasks and games like you already do. Each one drops <b>cash</b> straight into your balance.</p>
       </div>
     </div>
 
-    <div class="simfoot">Keep scrolling &mdash; <b>your</b> balance is building</div>
+    <div class="simfoot">Keep going &mdash; <b>your</b> balance keeps climbing</div>
   </section>
 
   <div style="margin-top:16px" class="rv">
-    <a href="#" class="cta" data-go="">Add My Free Pass</a>
-    <p class="note">Works on iPhone &amp; Android &middot; No app store</p>
+    <a href="#" class="cta" data-go="">Get My Free Pass</a>
+    <p class="note">Free &middot; iPhone &amp; Android &middot; No download</p>
+    <div class="trust">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>No card needed</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cash &amp; gift cards</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>18+</span>
+    </div>
   </div>
 
   <div class="divl rv"><span>How it works</span></div>
-  <h2 class="rv">3 steps to <em>cash.</em></h2>
+  <h2 class="rv">Get paid in <em>3 steps.</em></h2>
 
   <div class="step rv">
     <span class="sn">1</span>
-    <div class="sb"><b>Add your free pass</b><span>Goes straight into <span class="wn">Wallet</span> &mdash; works on iPhone and Android. No app store, no download.</span></div>
+    <div class="sb"><b>Save your free pass</b><span>Drops straight into your <span class="wn">Wallet</span> on iPhone or Android &mdash; no app store, no download.</span></div>
   </div>
   <div class="pass rv d1">
     <span class="tile" role="img" aria-label="Gravy Pass"></span>
@@ -393,17 +417,17 @@ h2 em{font-style:normal;color:var(--mint)}
   </div>
   <div class="step rv d1">
     <span class="sn">2</span>
-    <div class="sb"><b>Play to earn</b><span>Play mobile games, mini-games and offers. Each one pays out.</span></div>
+    <div class="sb"><b>Play &amp; complete offers</b><span>Try mobile games, mini-games and quick offers. Every one you finish adds to your balance.</span></div>
   </div>
   <div class="step rv d2">
     <span class="sn">3</span>
-    <div class="sb"><b>Cash out your way</b><span>Turn points into gift cards or cash. $1 welcome bonus, $10 minimum.</span>
+    <div class="sb"><b>Withdraw your cash</b><span>Once you reach $10, cash out to PayPal, Cash App, Venmo or a gift card. $1 bonus just for starting.</span>
       <div class="payrow"><span>PayPal</span><span>Cash App</span><span>Venmo</span><span>Gift cards</span></div>
     </div>
   </div>
 
   <section class="card games rv" style="margin-top:16px">
-    <h3>Get paid to play the games <em>you already love</em></h3>
+    <h3>Earn on the games <em>you already play</em></h3>
     <div class="grid" id="grid"></div>
     <button type="button" class="unlock" data-go="">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"></rect><path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
@@ -413,21 +437,39 @@ h2 em{font-style:normal;color:var(--mint)}
   <div class="divl rv"><span>Real members</span></div>
 
   <div class="rev rv">
-    <div class="rh"><span class="av">PB</span><span class="nm">Payton B.</span><span class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-    <p>&ldquo;Added the pass, played a couple games on my commute, and cashed out $45 to PayPal my first week. Didn&rsquo;t expect it to actually pay.&rdquo;</p>
+    <div class="rh">
+      <span class="av">PB</span>
+      <div class="rmeta">
+        <span class="nm">Payton B. <i class="vf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Verified</i></span>
+        <span class="rsub"><span class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 1 week ago</span>
+      </div>
+    </div>
+    <p>&ldquo;Saved the pass, knocked out a few games on my commute, and cashed out <b>$38</b> to PayPal the first week. Honestly didn&rsquo;t think it would pay.&rdquo;</p>
   </div>
   <div class="rev rv d1">
-    <div class="rh"><span class="av">MH</span><span class="nm">Marcus H.</span><span class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-    <p>&ldquo;Thought it was too good to be true. Hit the minimum, requested a cash out, and the money landed in Cash App two days later.&rdquo;</p>
+    <div class="rh">
+      <span class="av">MH</span>
+      <div class="rmeta">
+        <span class="nm">Marcus H. <i class="vf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Verified</i></span>
+        <span class="rsub"><span class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 4 days ago</span>
+      </div>
+    </div>
+    <p>&ldquo;Figured it was too good to be true. Hit the $10 minimum, requested a payout, and it landed in Cash App two days later.&rdquo;</p>
   </div>
   <div class="rev rv d2">
-    <div class="rh"><span class="av">EV</span><span class="nm">Elena V.</span><span class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-    <p>&ldquo;I&rsquo;m already on my phone all day &mdash; might as well get paid for the games I&rsquo;d play anyway. Easiest money I&rsquo;ve made.&rdquo;</p>
+    <div class="rh">
+      <span class="av">EV</span>
+      <div class="rmeta">
+        <span class="nm">Elena V. <i class="vf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Verified</i></span>
+        <span class="rsub"><span class="rs">&#9733;&#9733;&#9733;&#9733;&#9734;</span> &middot; 2 weeks ago</span>
+      </div>
+    </div>
+    <p>&ldquo;Payouts take a day or two, but they&rsquo;re legit. I&rsquo;m on my phone anyway &mdash; may as well get paid for the games.&rdquo;</p>
   </div>
 
   <section class="closer">
-    <h2 class="rv">Still playing <em>for free?</em></h2>
-    <p class="rv d1">Stop giving your time away. Add the pass to your wallet and claim your bonus right away.</p>
+    <h2 class="rv">Playing <em>for nothing?</em></h2>
+    <p class="rv d1">You&rsquo;re already on your phone. Save the free pass and start turning your game time into real cash today.</p>
     <div class="rv d2">
       <a href="#" class="cta" data-go="">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.8" stroke="currentColor" stroke-width="2.2"></rect><path d="M2.5 10.5h19" stroke="currentColor" stroke-width="2.2"></path></svg>
@@ -437,10 +479,10 @@ h2 em{font-style:normal;color:var(--mint)}
   </section>
 
   <p class="legal">
-    18+ only. Rewards and payouts subject to terms. Not affiliated with Apple, Google, TikTok or any
-    brand shown. Games pictured are for illustrative purposes only and may not be available in the
-    current offer pool.
-    <span class="cr">&copy; 2026 &middot; All rights reserved.</span>
+    18+ only. Earnings vary and are not guaranteed; payouts depend on completing offer requirements.
+    Not affiliated with Apple, Google, TikTok or any brand shown. Games pictured are for illustration
+    only and may not be available in the current offer pool.
+    <span class="cr">&copy; 2026 Gravy Pass &middot; All rights reserved.</span>
   </p>
 </div>
 
