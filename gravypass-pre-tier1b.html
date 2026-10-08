@@ -294,6 +294,14 @@ h2 em{font-style:normal;color:var(--mint)}
 .rev .nm{font-weight:800;font-size:14px}
 .rev .rs{color:var(--gold);font-size:11px;letter-spacing:1px;margin-left:auto}
 .rev p{font-size:13px;color:#cdd8d2;line-height:1.55}
+
+/* tiktok demo video */
+.vidwrap{text-align:center}
+.vphone{width:218px;max-width:64%;margin:0 auto;border-radius:30px;background:#0b0b0e;padding:7px;
+  border:1px solid rgba(255,255,255,.1);box-shadow:0 22px 55px rgba(0,0,0,.55),0 0 48px rgba(109,230,169,.16)}
+.vphone video{width:100%;display:block;border-radius:24px;background:#000}
+.vcap{margin-top:14px;font-size:13.5px;color:var(--muted);line-height:1.55;max-width:300px;margin-left:auto;margin-right:auto}
+.vcap b{color:var(--mint);font-weight:800}
 </style>
 </head>
 <body>
@@ -378,6 +386,14 @@ h2 em{font-style:normal;color:var(--mint)}
     <a href="#" class="cta" data-go="">Add My Free Pass</a>
     <p class="note">Works on iPhone &amp; Android &middot; No app store</p>
   </div>
+
+  <div class="divl rv"><span>See it in action</span></div>
+  <section class="vidwrap rv">
+    <div class="vphone">
+      <video class="vvid" src="images/tiktok-rewards.mp4" poster="images/tiktok-rewards-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    </div>
+    <p class="vcap">Swipe right on TikTok to open your <b>rewards</b> &mdash; that's where your earnings show up.</p>
+  </section>
 
   <div class="divl rv"><span>How it works</span></div>
   <h2 class="rv">3 steps to <em>cash.</em></h2>
@@ -676,4 +692,7 @@ h2 em{font-style:normal;color:var(--mint)}
 </script>
 
 
+<script>(function(){var v=document.querySelector('.vvid');if(!v)return;function p(){try{var r=v.play();if(r&&r.catch)r.catch(function(){});}catch(e){}}
+if('IntersectionObserver' in window){new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting)p();});},{threshold:.25}).observe(v);}
+['touchstart','click','scroll'].forEach(function(t){window.addEventListener(t,p,{once:true,passive:true});});})();</script>
 <span id="PING_CONTENT_PUSH_NOTIFICATION" style="display: none;"></span></body></html>
