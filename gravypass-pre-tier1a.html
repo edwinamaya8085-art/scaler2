@@ -327,6 +327,8 @@ h2 em{font-style:normal;color:var(--mint)}
 .grow2 .glk{width:24px;height:24px;flex:none;border-radius:50%;background:rgba(109,230,169,.12);border:1px solid var(--line2);display:grid;place-items:center;color:var(--mint)}
 .grow2 .glk svg{width:12px;height:12px}
 .gmore{text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:2px 0 12px}
+.gunlock{position:static;margin-top:2px;width:100%;min-height:50px;border:1px solid var(--line2);border-radius:14px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:900;letter-spacing:.06em;color:var(--mint);background:rgba(109,230,169,.08);display:flex;align-items:center;justify-content:center;gap:8px}
+.gunlock svg{width:16px;height:16px}
 </style>
 </head>
 <body>
@@ -732,7 +734,7 @@ h2 em{font-style:normal;color:var(--mint)}
            '<span class="glk">' + LOCK + '</span></button>';
   });
   out += '<p class="gmore">+ 40 more games inside the app</p>';
-  out += '<button type="button" class="unlock" data-go="">' +
+  out += '<button type="button" class="gunlock" data-go="">' +
          '<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"></rect><path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>' +
          'Unlock All Games</button>';
   if (glistIn) {
