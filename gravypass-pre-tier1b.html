@@ -303,9 +303,16 @@ h2 em{font-style:normal;color:var(--mint)}
 .vcap{margin-top:14px;font-size:13.5px;color:var(--muted);line-height:1.55;max-width:300px;margin-left:auto;margin-right:auto}
 .vcap b{color:var(--mint);font-weight:800}
 /* branded rewards panel inside the phone */
-.rwdscreen{width:100%;aspect-ratio:9/18.5;border-radius:24px;overflow:hidden;background:#eef0f4;
+.vscreen{position:relative;width:100%;aspect-ratio:9/18.5;border-radius:24px;overflow:hidden;background:#000}
+.vfeed{position:absolute;inset:0;background:#0a0a0a url('images/tiktok-rewards-poster.jpg') center/cover}
+.rwdscreen{width:100%;overflow:hidden;background:#eef0f4;
   display:flex;flex-direction:column;color:#15151b;text-align:left;
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif}
+.vpanel{position:absolute;top:0;left:0;height:100%;width:88%;border-radius:0 16px 16px 0;
+  box-shadow:8px 0 30px rgba(0,0,0,.5);transform:translateX(-101%);
+  animation:panelSwipe 6.5s cubic-bezier(.3,1,.4,1) infinite}
+@keyframes panelSwipe{0%,22%{transform:translateX(-101%)}34%,90%{transform:translateX(0)}100%{transform:translateX(-101%)}}
+@media(prefers-reduced-motion:reduce){.vpanel{animation:none;transform:translateX(0)}}
 .rwd-status{display:flex;justify-content:space-between;align-items:center;padding:9px 15px 5px;font-size:11px;font-weight:700;color:#111}
 .rwd-body{flex:1;padding:4px 10px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
 .rwd-card{background:#fff;border-radius:15px;padding:13px 13px}
@@ -385,27 +392,27 @@ h2 em{font-style:normal;color:var(--mint)}
   <div class="divl rv"><span>See it in action</span></div>
   <section class="vidwrap rv">
     <div class="vphone">
-      <video class="vvid" src="images/tiktok-rewards.mp4" poster="images/tiktok-rewards-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    </div>
-    <div class="vphone" style="margin-top:18px">
-      <div class="rwdscreen">
-        <div class="rwd-status"><span>9:41</span><span>&#9679;&#9679;&#9679; 100%</span></div>
-        <div class="rwd-body">
-          <div class="rwd-card">
-            <div class="rwd-h">Your rewards <i>&rsaquo;</i></div>
-            <div class="rwd-amt">$145.71</div>
-            <div class="rwd-row">
-              <img class="rwd-logo" src="images/gravy-logo.webp" alt="Gravy Pass">
-              <div class="rwd-meta"><b>Gravy Pass</b><span>Partnered App</span></div>
-              <span class="rwd-go">Go</span>
+      <div class="vscreen">
+        <div class="vfeed"></div>
+        <div class="rwdscreen vpanel">
+          <div class="rwd-status"><span>9:41</span><span>&#9679;&#9679;&#9679; 100%</span></div>
+          <div class="rwd-body">
+            <div class="rwd-card">
+              <div class="rwd-h">Your rewards <i>&rsaquo;</i></div>
+              <div class="rwd-amt">$145.71</div>
+              <div class="rwd-row">
+                <img class="rwd-logo" src="images/gravy-logo.webp" alt="Gravy Pass">
+                <div class="rwd-meta"><b>Gravy Pass</b><span>Partnered App</span></div>
+                <span class="rwd-go">Go</span>
+              </div>
             </div>
-          </div>
-          <div class="rwd-card">
-            <div class="rwd-h">Earn with games <i>&rsaquo;</i></div>
-            <div class="rwd-games">
-              <div class="rwd-g"><img src="images/subway-surfers.jpg" alt=""><span>Subway Surfers</span></div>
-              <div class="rwd-g"><img src="images/roblox.jpg" alt=""><span>Roblox</span></div>
-              <div class="rwd-g"><img src="images/clash-royale.jpg" alt=""><span>Clash Royale</span></div>
+            <div class="rwd-card">
+              <div class="rwd-h">Earn with games <i>&rsaquo;</i></div>
+              <div class="rwd-games">
+                <div class="rwd-g"><img src="images/subway-surfers.jpg" alt=""><span>Subway Surfers</span></div>
+                <div class="rwd-g"><img src="images/roblox.jpg" alt=""><span>Roblox</span></div>
+                <div class="rwd-g"><img src="images/clash-royale.jpg" alt=""><span>Clash Royale</span></div>
+              </div>
             </div>
           </div>
         </div>
