@@ -316,18 +316,18 @@ h2 em{font-style:normal;color:var(--mint)}
 .games.open .gchev{transform:rotate(180deg)}
 .glist{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
 .games.open .glist{max-height:1600px}
-.glist-in{padding-top:14px}
-.grow2{display:flex;align-items:center;gap:12px;width:100%;padding:10px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);margin-bottom:8px;cursor:pointer;font-family:inherit;text-align:left}
-.grow2:active{transform:scale(.99)}
-.grow2 .gic{width:44px;height:44px;border-radius:12px;overflow:hidden;flex:none;border:1px solid var(--line);background:#101a14}
-.grow2 .gic img{width:100%;height:100%;object-fit:cover;filter:grayscale(.5) brightness(.95)}
-.grow2 .gtx{flex:1;min-width:0}
-.grow2 .gtx b{display:block;font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
-.grow2 .gtx span{display:block;font-size:11.5px;font-weight:800;color:var(--mint);margin-top:2px}
-.grow2 .glk{width:24px;height:24px;flex:none;border-radius:50%;background:rgba(109,230,169,.12);border:1px solid var(--line2);display:grid;place-items:center;color:var(--mint)}
-.grow2 .glk svg{width:12px;height:12px}
-.gmore{text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:2px 0 12px}
-.gunlock{position:static;margin-top:2px;width:100%;min-height:50px;border:1px solid var(--line2);border-radius:14px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:900;letter-spacing:.06em;color:var(--mint);background:rgba(109,230,169,.08);display:flex;align-items:center;justify-content:center;gap:8px}
+.glist-in{padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.grow2{position:relative;display:flex;flex-direction:column;gap:8px;width:100%;padding:11px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);cursor:pointer;font-family:inherit;text-align:left}
+.grow2:active{transform:scale(.98)}
+.grow2 .gic{width:46px;height:46px;border-radius:13px;overflow:hidden;flex:none;border:1px solid var(--line);background:#101a14}
+.grow2 .gic img{width:100%;height:100%;object-fit:cover;filter:grayscale(.45) brightness(.95)}
+.grow2 .gtx{min-width:0}
+.grow2 .gtx b{display:block;font-size:13px;font-weight:800;color:var(--ink);letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grow2 .gtx span{display:block;font-size:11px;font-weight:800;color:var(--mint);margin-top:2px}
+.grow2 .glk{position:absolute;top:10px;right:10px;width:22px;height:22px;flex:none;border-radius:50%;background:rgba(109,230,169,.12);border:1px solid var(--line2);display:grid;place-items:center;color:var(--mint)}
+.grow2 .glk svg{width:11px;height:11px}
+.gmore{grid-column:1/-1;text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:2px 0 10px}
+.gunlock{grid-column:1/-1;position:static;margin-top:0;width:100%;min-height:50px;border:1px solid var(--line2);border-radius:14px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:900;letter-spacing:.06em;color:var(--mint);background:rgba(109,230,169,.08);display:flex;align-items:center;justify-content:center;gap:8px}
 .gunlock svg{width:16px;height:16px}
 </style>
 </head>
@@ -724,7 +724,6 @@ h2 em{font-style:normal;color:var(--mint)}
     { n:'Roblox',         r:'Earn up to $12.00', i:'images/roblox.jpg' },
     { n:'Monopoly GO',    r:'Earn up to $18.50', i:'images/monopoly-go.png' },
     { n:'Coin Master',    r:'Earn up to $14.00', i:'images/coin-master.png' },
-    { n:'Candy Crush',    r:'Earn up to $9.75',  i:'images/candy-crush.png' },
     { n:'Clash Royale',   r:'Earn up to $6.25',  i:'images/clash-royale.jpg' },
     { n:'Pokémon GO',     r:'Earn up to $15.00', i:'images/pokemon-go.png' },
     { n:'Gardenscapes',   r:'Earn up to $11.20', i:'images/gardenscapes.png' }
