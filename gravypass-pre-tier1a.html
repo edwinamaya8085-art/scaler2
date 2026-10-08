@@ -308,6 +308,25 @@ h2 em{font-style:normal;color:var(--mint)}
 .vf svg{width:9px;height:9px}
 .rsub{font-size:11px;color:var(--muted)}
 .rsub .rs{color:var(--gold);letter-spacing:.5px}
+/* games dropdown */
+.gdrop{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;background:none;border:0;cursor:pointer;padding:0;text-align:left;color:inherit;font-family:inherit}
+.gdrop h3{margin-bottom:0}
+.gsub{font-size:11.5px;color:var(--muted);margin-top:4px}
+.gchev{width:20px;height:20px;color:var(--muted);transition:transform .3s ease;flex:none}
+.games.open .gchev{transform:rotate(180deg)}
+.glist{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+.games.open .glist{max-height:640px}
+.glist-in{padding-top:14px}
+.grow2{display:flex;align-items:center;gap:12px;width:100%;padding:10px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);margin-bottom:8px;cursor:pointer;font-family:inherit;text-align:left}
+.grow2:active{transform:scale(.99)}
+.grow2 .gic{width:44px;height:44px;border-radius:12px;overflow:hidden;flex:none;border:1px solid var(--line);background:#101a14}
+.grow2 .gic img{width:100%;height:100%;object-fit:cover;filter:grayscale(.5) brightness(.95)}
+.grow2 .gtx{flex:1;min-width:0}
+.grow2 .gtx b{display:block;font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.grow2 .gtx span{display:block;font-size:11.5px;font-weight:800;color:var(--mint);margin-top:2px}
+.grow2 .glk{width:24px;height:24px;flex:none;border-radius:50%;background:rgba(109,230,169,.12);border:1px solid var(--line2);display:grid;place-items:center;color:var(--mint)}
+.grow2 .glk svg{width:12px;height:12px}
+.gmore{text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:2px 0 12px}
 </style>
 </head>
 <body>
@@ -426,12 +445,12 @@ h2 em{font-style:normal;color:var(--mint)}
     </div>
   </div>
 
-  <section class="card games rv" style="margin-top:16px">
-    <h3>Earn On The Games <em>You Already Play</em></h3>
-    <div class="grid" id="grid"></div>
-    <button type="button" class="unlock" data-go="">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"></rect><path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
-      UNLOCK</button>
+  <section class="card games rv" id="gamesCard" style="margin-top:16px">
+    <button type="button" class="gdrop" id="gdrop" aria-expanded="false" aria-controls="glist">
+      <div><h3>Earn On The Games <em>You Already Play</em></h3><div class="gsub">Tap to see what&rsquo;s paying right now</div></div>
+      <svg class="gchev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <div class="glist" id="glist"><div class="glist-in" id="glistIn"></div></div>
   </section>
 
   <div class="divl rv"><span>Real members</span></div>
@@ -697,23 +716,38 @@ h2 em{font-style:normal;color:var(--mint)}
     while (moved >= 260 && !capped) { moved -= 260; credit(); }
   }, { passive: true });
 
-  /* ── locked game strip ────────────────────────────────────── */
+  /* ── games dropdown ───────────────────────────────────────── */
   var GAMES = [
-    { n:'Subway Surfers', i:'/images/subway-surfers.jpg' },
-    { n:'Roblox',         i:'/images/roblox.jpg' },
-    { n:'Clash Royale',   i:'/images/clash-royale.jpg' }
+    { n:'Subway Surfers', r:'Earn up to $8.50',  i:'images/subway-surfers.jpg' },
+    { n:'Roblox',         r:'Earn up to $12.00', i:'images/roblox.jpg' },
+    { n:'Clash Royale',   r:'Earn up to $6.25',  i:'images/clash-royale.jpg' }
   ];
-  var LOCK = '<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="#fff"/>' +
-             '<path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>';
-  var grid = document.getElementById('grid'), out = '';
-  for (var r = 0; r < 2; r++) {
-    GAMES.forEach(function (g) {
-      out += '<div class="gtile"><div class="im">' +
-             '<img src="' + g.i + '" alt="" width="88" height="88" loading="lazy">' +
-             '<span class="lk">' + LOCK + '</span></div><b>' + g.n + '</b></div>';
+  var LOCK = '<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"/>' +
+             '<path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
+  var glistIn = document.getElementById('glistIn'), out = '';
+  GAMES.forEach(function (g) {
+    out += '<button type="button" class="grow2" data-go="">' +
+           '<span class="gic"><img src="' + g.i + '" alt="" width="44" height="44" loading="lazy"></span>' +
+           '<span class="gtx"><b>' + g.n + '</b><span>' + g.r + '</span></span>' +
+           '<span class="glk">' + LOCK + '</span></button>';
+  });
+  out += '<p class="gmore">+ 40 more games inside the app</p>';
+  out += '<button type="button" class="unlock" data-go="">' +
+         '<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"></rect><path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>' +
+         'Unlock All Games</button>';
+  if (glistIn) {
+    glistIn.innerHTML = out;
+    Array.prototype.forEach.call(glistIn.querySelectorAll('[data-go]'), function (b) {
+      b.addEventListener('click', function (e) { e.preventDefault(); px('claim'); window.location.href = OFFER + encodeURIComponent(subid()); });
     });
   }
-  grid.innerHTML = out;
+  var gd = document.getElementById('gdrop'), gc = document.getElementById('gamesCard');
+  if (gd && gc) {
+    gd.addEventListener('click', function () {
+      var open = gc.classList.toggle('open');
+      gd.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
 })();
 </script>
 
