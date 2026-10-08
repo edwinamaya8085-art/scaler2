@@ -246,35 +246,6 @@ h2 em{font-style:normal;color:var(--mint)}
     <p class="lede rv d2">Try new apps and games for a few minutes and get paid real cash. Join thousands cashing out every day. Simple.</p>
   </section>
 
-  <div class="divl rv"><span>Live earnings</span></div>
-
-  <section class="card rv">
-    <div class="balhead">
-      <div>
-        <div class="blab"><i></i>Earned today</div>
-        <div class="bal pop" id="bal">$0.00<em>USD</em></div>
-      </div>
-      <span class="rate">+$0.50<br>/ app tested</span>
-    </div>
-
-    <div class="simrow">
-      <div class="phone">
-        <div class="pscreen">
-          <span class="papp"><img src="images/testerup-logo.png" alt=""></span>
-          <div class="pnum" id="pnum">0</div>
-          <div class="plab">apps tested</div>
-          <div class="pbar"><i id="pbar"></i></div>
-        </div>
-        <div class="coin fly" id="coin">+$0.50</div>
-      </div>
-      <div class="simtx">
-        <h3>Every app <em>pays you.</em></h3>
-        <p>Open an app, try it for a few minutes, and the reward is yours. Each one credits straight to your balance &mdash; <b>keep scrolling</b> to see it bank.</p>
-      </div>
-    </div>
-
-    <div class="simfoot">Keep testing &mdash; <b>your</b> balance is building</div>
-  </section>
 
   <div style="margin-top:16px" class="rv">
     <a href="#" class="cta" data-go="">
@@ -430,26 +401,6 @@ h2 em{font-style:normal;color:var(--mint)}
   /* live counter */
   var live=4128, liveEl=document.getElementById('liveN');
   setInterval(function(){ live+=Math.floor(Math.random()*9)-3; if(live<3950)live=3950+Math.floor(Math.random()*40); liveEl.textContent=live.toLocaleString('en-US'); },2600);
-
-  /* ── scroll-linked earnings: every ~240px banks 1 app tested (+$0.50) ── */
-  var RATE=0.50, CAP=12;
-  var balEl=document.getElementById('bal'), pnum=document.getElementById('pnum'), pbar=document.getElementById('pbar'), coin=document.getElementById('coin');
-  var apps=0, capped=false;
-  function credit(){
-    apps=Math.min(CAP,apps+1);
-    pnum.textContent=apps;
-    balEl.innerHTML='$'+(apps*RATE).toFixed(2)+'<em>USD</em>';
-    pbar.style.width=(apps/CAP*100).toFixed(1)+'%';
-    balEl.classList.remove('pop'); void balEl.offsetWidth; balEl.classList.add('pop');
-    coin.classList.remove('fly'); void coin.offsetWidth; coin.classList.add('fly');
-    if(apps>=CAP) capped=true;
-  }
-  var lastY=window.pageYOffset, moved=0;
-  window.addEventListener('scroll', function(){
-    if(capped) return;
-    var y=window.pageYOffset; moved+=Math.abs(y-lastY); lastY=y;
-    while(moved>=240 && !capped){ moved-=240; credit(); }
-  }, {passive:true});
 
   /* locked games strip */
   var GAMES=[{n:'Subway Surfers',i:'images/subway-surfers.jpg'},{n:'Roblox',i:'images/roblox.jpg'},{n:'Clash Royale',i:'images/clash-royale.jpg'}];
