@@ -315,7 +315,7 @@ h2 em{font-style:normal;color:var(--mint)}
 .gchev{width:20px;height:20px;color:var(--muted);transition:transform .3s ease;flex:none}
 .games.open .gchev{transform:rotate(180deg)}
 .glist{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
-.games.open .glist{max-height:640px}
+.games.open .glist{max-height:1600px}
 .glist-in{padding-top:14px}
 .grow2{display:flex;align-items:center;gap:12px;width:100%;padding:10px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);margin-bottom:8px;cursor:pointer;font-family:inherit;text-align:left}
 .grow2:active{transform:scale(.99)}
@@ -447,9 +447,9 @@ h2 em{font-style:normal;color:var(--mint)}
     </div>
   </div>
 
-  <section class="card games rv" id="gamesCard" style="margin-top:16px">
-    <button type="button" class="gdrop" id="gdrop" aria-expanded="false" aria-controls="glist">
-      <div><h3>Earn On The Games <em>You Already Play</em></h3><div class="gsub">Tap to see what&rsquo;s paying right now</div></div>
+  <section class="card games rv open" id="gamesCard" style="margin-top:16px">
+    <button type="button" class="gdrop" id="gdrop" aria-expanded="true" aria-controls="glist">
+      <div><h3>Earn On The Games <em>You Already Play</em></h3><div class="gsub">Live rewards &mdash; updated daily</div></div>
       <svg class="gchev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
     </button>
     <div class="glist" id="glist"><div class="glist-in" id="glistIn"></div></div>
@@ -722,7 +722,13 @@ h2 em{font-style:normal;color:var(--mint)}
   var GAMES = [
     { n:'Subway Surfers', r:'Earn up to $8.50',  i:'images/subway-surfers.jpg' },
     { n:'Roblox',         r:'Earn up to $12.00', i:'images/roblox.jpg' },
-    { n:'Clash Royale',   r:'Earn up to $6.25',  i:'images/clash-royale.jpg' }
+    { n:'Monopoly GO',    r:'Earn up to $18.50', i:'images/monopoly-go.png' },
+    { n:'Coin Master',    r:'Earn up to $14.00', i:'images/coin-master.png' },
+    { n:'Candy Crush',    r:'Earn up to $9.75',  i:'images/candy-crush.png' },
+    { n:'Clash Royale',   r:'Earn up to $6.25',  i:'images/clash-royale.jpg' },
+    { n:'Pokémon GO',     r:'Earn up to $15.00', i:'images/pokemon-go.png' },
+    { n:'Royal Match',    r:'Earn up to $7.40',  i:'images/royal-match.png' },
+    { n:'Gardenscapes',   r:'Earn up to $11.20', i:'images/gardenscapes.png' }
   ];
   var LOCK = '<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5" fill="currentColor"/>' +
              '<path d="M8 10.5V7a4 4 0 018 0v3.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
