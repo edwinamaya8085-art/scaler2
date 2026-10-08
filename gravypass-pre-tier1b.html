@@ -357,30 +357,6 @@ h2 em{font-style:normal;color:var(--mint)}
     <div class="rtx"><b>5+ offers complete</b><span>Top pool, best payouts, first access to new offers</span></div>
   </div>
 
-  <section class="card rv" style="margin-top:18px">
-    <div class="balhead">
-      <div>
-        <div class="blab"><i></i>Your balance</div>
-        <div class="bal pop" id="bal">$2.25<em>USD</em></div>
-      </div>
-      <span class="rate">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2L4 13.5h6L9.5 22 20 10.5h-6.5L13.5 2z"></path></svg>
-        $0.25 / SCROLL</span>
-    </div>
-
-    <div class="simrow">
-      <div class="phone">
-        <div class="track" id="track" style="transform: translateY(-100%);"></div>
-        <div class="coin fly" id="coin">+$0.25</div>
-      </div>
-      <div class="simtx">
-        <h3>Every scroll <em>pays you.</em></h3>
-        <p>Swipe sponsored clips like you already do. Each one credits <b>$0.25</b> straight to your balance.</p>
-      </div>
-    </div>
-
-    <div class="simfoot">Keep scrolling &mdash; <b>your</b> balance is building</div>
-  </section>
 
   <div style="margin-top:16px" class="rv">
     <a href="#" class="cta" data-go="">Add My Free Pass</a>
@@ -594,53 +570,6 @@ h2 em{font-style:normal;color:var(--mint)}
      a store icon stretched into 9:16 reads as a listing, not a
      video. Nothing here can 404.
      ──────────────────────────────────────────────────────────── */
-  var CLIPS = [
-    { c:'c0', tag:'Sponsored clip', at:'@testerfeed',  l:'12.9K', cm:'486',   sh:'1.2K' },
-    { c:'c1', tag:'Partner ad',     at:'@scrollpays',  l:'77.4K', cm:'2,880', sh:'6.4K' },
-    { c:'c2', tag:'Brand reel',     at:'@cashcuts',    l:'48.2K', cm:'1,204', sh:'3.1K' },
-    { c:'c0', tag:'Sponsored clip', at:'@dailygrind',  l:'23.6K', cm:'907',   sh:'1.8K' },
-    { c:'c1', tag:'Partner ad',     at:'@gravygains',  l:'61.1K', cm:'2,145', sh:'4.9K' }
-  ];
-  function ico(d, sw) {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="' + (sw || 2) +
-           '" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
-  }
-  var HEART = ico('<path d="M20.8 5.6a5.4 5.4 0 00-7.7 0L12 6.7l-1.1-1.1a5.4 5.4 0 00-7.7 7.7L12 21l8.8-7.7a5.4 5.4 0 000-7.7z"/>');
-  var CHAT  = ico('<path d="M21 11.5a8.4 8.4 0 01-9 8.4 9 9 0 01-3.9-.9L3 20.5l1.6-4.8A8.3 8.3 0 013.5 11 8.4 8.4 0 0112 3a8.4 8.4 0 019 8.5z"/>');
-  var SHARE = ico('<path d="M22 3L11 14"/><path d="M22 3l-7 19-4-8-8-4 19-7z"/>');
-
-  var track = document.getElementById('track'), coin = document.getElementById('coin');
-  var frames = CLIPS.concat([CLIPS[0]]);   // duplicate first frame for a seamless wrap
-  track.innerHTML = frames.map(function (c, i) {
-    return '<div class="clip ' + c.c + '" style="top:' + (i * 100) + '%">' +
-      '<div class="bgv"></div><div class="scrim"></div>' +
-      '<span class="tag">' + c.tag + '</span>' +
-      '<div class="rail">' +
-        '<div>' + HEART + '<b>' + c.l  + '</b></div>' +
-        '<div>' + CHAT  + '<b>' + c.cm + '</b></div>' +
-        '<div>' + SHARE + '<b>' + c.sh + '</b></div>' +
-      '</div>' +
-      '<div class="who"><div class="u"><span class="av"></span><span class="h">' + c.at + '</span></div>' +
-        '<span class="cap"></span><span class="cap"></span></div>' +
-      '<span class="prog"><i></i></span>' +
-    '</div>';
-  }).join('');
-
-  var idx = 0, reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduce) {
-    setInterval(function () {
-      idx++;
-      track.classList.remove('nojump');
-      track.style.transform = 'translateY(-' + (idx * 100) + '%)';
-      if (idx >= CLIPS.length) {
-        setTimeout(function () {          // snap back with no transition
-          track.classList.add('nojump');
-          idx = 0;
-          track.style.transform = 'translateY(0)';
-        }, 570);
-      }
-    }, 2600);
-  }
 
   /* ────────────────────────────────────────────────────────────
      THE DIFFERENTIATOR — the balance is scroll-linked. Their page
@@ -648,28 +577,6 @@ h2 em{font-style:normal;color:var(--mint)}
      scrolls credits $0.25 for real, and the rank ladder promotes
      as it climbs. Settles at $12.75, the same figure they land on.
      ──────────────────────────────────────────────────────────── */
-  var balEl = document.getElementById('bal'), cents = 0, capped = false;
-  var ranks = document.querySelectorAll('.rank');
-  function paintRank() {
-    var lvl = cents >= 850 ? 2 : cents >= 400 ? 1 : 0;
-    Array.prototype.forEach.call(ranks, function (r, i) { r.classList.toggle('act', i === lvl); });
-  }
-  paintRank();
-  function credit() {
-    cents += 25;
-    balEl.innerHTML = '$' + (cents / 100).toFixed(2) + '<em>USD</em>';
-    balEl.classList.remove('pop'); void balEl.offsetWidth; balEl.classList.add('pop');
-    coin.classList.remove('fly');  void coin.offsetWidth;  coin.classList.add('fly');
-    paintRank();
-    if (cents >= 1275) capped = true;
-  }
-  var lastY = window.pageYOffset, moved = 0;
-  window.addEventListener('scroll', function () {
-    if (capped) return;
-    var y = window.pageYOffset;
-    moved += Math.abs(y - lastY); lastY = y;
-    while (moved >= 260 && !capped) { moved -= 260; credit(); }
-  }, { passive: true });
 
   /* ── locked game strip ────────────────────────────────────── */
   var GAMES = [
